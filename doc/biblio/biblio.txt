@@ -1,0 +1,11 @@
+Esta es la lista de bibliografia en esta carpeta
+-----------------------------------------------
+
+###################
+url = http://free-electrons.com/articles/linux-usb
+titulo = Understanding and developing Linux USB drivers
+lic = "This presentation is released under the terms of the Creative Commons Attribution-ShareAlike 2.5 license."
+file = doc/biblio/linux-usb.pdf , doc/biblio/linux-usb-labs.pdf
+####################
+
+
