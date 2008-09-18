@@ -2,10 +2,14 @@ Esta es la lista de bibliografia en esta carpeta
 -----------------------------------------------
 
 ###################
-url = http://free-electrons.com/articles/linux-usb
 titulo = Understanding and developing Linux USB drivers
+url = http://free-electrons.com/articles/linux-usb
 lic = "This presentation is released under the terms of the Creative Commons Attribution-ShareAlike 2.5 license."
 file = doc/biblio/linux-usb.pdf , doc/biblio/linux-usb-labs.pdf
 ####################
-
+titulo = User Manual for Doxygen 1.5.6, written by Dimitri van Heesch c 1997-2006
+url = ftp://ftp.stack.nl/pub/users/dimitri/doxygen_manual-1.5.6.pdf.zip
+lic = GPLv2
+file = doc/biblio/doxygen_manual-1.5.6.pdf
+####################
 
