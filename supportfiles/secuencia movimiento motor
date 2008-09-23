@@ -1,0 +1,61 @@
+
+Movimiento de los motores
+
+
+1. Inicilizar y configurar entradas y salidas del PIC
+2. Mover carro hasta posicion incial
+3. Verificar hasta que no accione sensor de carro
+4.
+5.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Funcion llenar byte.
+
+Pasos a seguir:
+
+	1. Asignar bytePkt = 0.
+
+	2. Cargar en la variable auxiliar con el valor enmascarado y desplzar dos lugares.
+
+	3. Cargar la variable en 
+
+	byteAux = (*bytePtr & mascara) << 2;
+
+	bytePkt |= byteAux;
+
+	bytePtr++;
+
+	byteAux = *bytePtr & mascara;
+
+	bytePkt |= byteAux;
+
+	bytePtr++;
+
+	byteAux = (*bytePtr & mascara) >> 2;
+
+	bytePkt |= byteAux;
+
+	bytePtr++;
+
+	byteAux = (*bytePtr & mascara) >> 4;
+
+	bytePkt |= byteAux;
+
+	return bytePkt;
+
+
+

@@ -1,0 +1,113 @@
+EESchema (2007-05-25)  >> Creation date: 21/3/2008-14:56:54
+
+#Componentes ( orden = Referencia )
+| D1         1n4148      
+| D2         1n4148      
+| D3         1n4148      
+| D4         1n4148      
+| D5         1n4148      
+| D6         1n4148      
+| D7         1n4148      
+| D8         1n4148      
+| K1         CONN_3      
+| Motor1     Conect 5    
+| Motor2     Conect 5    
+| Q1         BC337       
+| Q10        TIP122      
+| Q11        TIP122      
+| Q12        TIP122      
+| Q13        TIP122      
+| Q14        TIP122      
+| Q15        TIP122      
+| Q16        TIP122      
+| Q2         BC337       
+| Q3         BC337       
+| Q4         BC337       
+| Q5         BC337       
+| Q6         BC337       
+| Q7         BC337       
+| Q8         BC337       
+| Q9         TIP122      
+| R1         1           
+| R10        47k         
+| R11        47k         
+| R12        47k         
+| R13        47k         
+| R14        47k         
+| R15        47k         
+| R16        47k         
+| R2         1           
+| R3         1           
+| R4         1           
+| R5         1k          
+| R6         1k          
+| R7         1k          
+| R8         1k          
+| R9         47k         
+| RV1        10k         
+| RV2        10k         
+| RV3        10k         
+| RV4        10k         
+| RV5        10k         
+| RV6        10k         
+| RV7        10k         
+| RV8        10k         
+| Salidas PIC  Conector 9  
+#Fin Componentes
+
+#Componentes ( orden = Valor )
+| 1            R1        
+| 1            R2        
+| 1            R3        
+| 1            R4        
+| 10k          RV1       
+| 10k          RV2       
+| 10k          RV3       
+| 10k          RV4       
+| 10k          RV5       
+| 10k          RV6       
+| 10k          RV7       
+| 10k          RV8       
+| 1k           R5        
+| 1k           R6        
+| 1k           R7        
+| 1k           R8        
+| 1n4148       D1        
+| 1n4148       D2        
+| 1n4148       D3        
+| 1n4148       D4        
+| 1n4148       D5        
+| 1n4148       D6        
+| 1n4148       D7        
+| 1n4148       D8        
+| 47k          R10       
+| 47k          R11       
+| 47k          R12       
+| 47k          R13       
+| 47k          R14       
+| 47k          R15       
+| 47k          R16       
+| 47k          R9        
+| BC337        Q1        
+| BC337        Q2        
+| BC337        Q3        
+| BC337        Q4        
+| BC337        Q5        
+| BC337        Q6        
+| BC337        Q7        
+| BC337        Q8        
+| Conect 5     Motor1    
+| Conect 5     Motor2    
+| Conector 9   Salidas PIC 
+| CONN_3       K1        
+| TIP122       Q10       
+| TIP122       Q11       
+| TIP122       Q12       
+| TIP122       Q13       
+| TIP122       Q14       
+| TIP122       Q15       
+| TIP122       Q16       
+| TIP122       Q9        
+#Fin Componentes
+
+#Fin de Lista

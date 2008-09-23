@@ -1,0 +1,2254 @@
+## Module report - date 21/3/2008-17:06:39
+## Created by PcbNew version PCBNEW (2007-05-25)
+## Unit = inches, Angle = deg.
+##
+
+$BeginDESCRIPTION
+
+$BOARD
+unit INCH
+upper_left_corner  0.844000  2.692500
+lower_right_corner  8.057600  6.757600
+$EndBOARD
+
+$MODULE "RV2_1"
+reference "RV2_1"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  3.450000  5.150000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RV2_3"
+reference "RV2_3"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  6.800000  4.250000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "D2_4"
+reference "D2_4"
+value "1n4148"
+footprint "D4"
+attribut none
+position  5.500000  4.600000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/diode.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  D
+
+$MODULE "D2_3"
+reference "D2_3"
+value "1n4148"
+footprint "D4"
+attribut none
+position  5.600000  5.550000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/diode.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  D
+
+$MODULE "D2_2"
+reference "D2_2"
+value "1n4148"
+footprint "D4"
+attribut none
+position  5.600000  5.150000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/diode.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  D
+
+$MODULE "D2_1"
+reference "D2_1"
+value "1n4148"
+footprint "D4"
+attribut none
+position  4.550000  4.800000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/diode.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  D
+
+$MODULE "D1_4"
+reference "D1_4"
+value "1n4148"
+footprint "D4"
+attribut none
+position  7.000000  6.050000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/diode.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  D
+
+$MODULE "D1_3"
+reference "D1_3"
+value "1n4148"
+footprint "D4"
+attribut none
+position  6.450000  4.550000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/diode.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  D
+
+$MODULE "D1_2"
+reference "D1_2"
+value "1n4148"
+footprint "D4"
+attribut none
+position  6.650000  5.500000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/diode.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  D
+
+$MODULE "D1_1"
+reference "D1_1"
+value "1n4148"
+footprint "D4"
+attribut none
+position  5.050000  5.450000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/diode.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  D
+
+$MODULE "Motor2"
+reference "Motor2"
+value "Conect_5"
+footprint "PA_5x1"
+attribut none
+position  6.050000  3.300000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.200000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.300000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.400000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.500000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.100000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.300000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "4"
+position  0.400000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "5"
+position  0.500000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  M
+
+$MODULE "Motor1"
+reference "Motor1"
+value "Conect_5"
+footprint "PA_5x1"
+attribut none
+position  3.000000  3.300000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.200000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.300000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.400000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.500000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.100000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.300000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "4"
+position  0.400000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "5"
+position  0.500000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  M
+
+$MODULE "Salidas_"
+reference "Salidas_"
+value "Conector_9"
+footprint "PA_9x1"
+attribut none
+position  0.900000  4.550000
+orientation  90.00
+layer component
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.200000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.300000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.400000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.500000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.600000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.700000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.800000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "pin_array/pin_array_1x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.900000 -0.100000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.100000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.300000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "4"
+position  0.400000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "5"
+position  0.500000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "6"
+position  0.600000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "7"
+position  0.700000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "8"
+position  0.800000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "9"
+position  0.900000  0.100000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  S
+
+$MODULE "CON3"
+reference "CON3"
+value "ALIM"
+footprint "PIN_ARRAY_3X1"
+attribut none
+position  6.900000  5.150000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "pin_array/pins_array_3x1.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.100000  0.000000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.100000  0.000000
+size  0.060000  0.060000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  C
+
+$MODULE "RP2_34"
+reference "RP2_34"
+value "1k"
+footprint "R4"
+attribut none
+position  6.250000  5.700000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RP2_12"
+reference "RP2_12"
+value "1k"
+footprint "R4"
+attribut none
+position  3.750000  6.200000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RP1_34"
+reference "RP1_34"
+value "1k"
+footprint "R4"
+attribut none
+position  5.500000  5.800000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RP1_12"
+reference "RP1_12"
+value "1k"
+footprint "R4"
+attribut none
+position  6.150000  4.900000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RB2_4"
+reference "RB2_4"
+value "47k"
+footprint "R4"
+attribut none
+position  6.200000  6.100000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RB2_3"
+reference "RB2_3"
+value "47k"
+footprint "R4"
+attribut none
+position  6.150000  5.200000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RB2_2"
+reference "RB2_2"
+value "47k"
+footprint "R4"
+attribut none
+position  4.950000  4.950000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RB1_4"
+reference "RB1_4"
+value "47k"
+footprint "R4"
+attribut none
+position  4.250000  6.150000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RB1_3"
+reference "RB1_3"
+value "47k"
+footprint "R4"
+attribut none
+position  4.450000  5.700000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RB1_2"
+reference "RB1_2"
+value "47k"
+footprint "R4"
+attribut none
+position  4.900000  6.000000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RB1_1"
+reference "RB1_1"
+value "47k"
+footprint "R4"
+attribut none
+position  7.500000  5.500000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "R2_1"
+reference "R2_1"
+value "47k"
+footprint "R4"
+attribut none
+position  3.900000  4.900000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.400000 0.400000 0.400000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.200000  0.000000
+size  0.060000  0.060000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "R2_34"
+reference "R2_34"
+value "1"
+footprint "R6"
+attribut none
+position  5.200000  5.200000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.600000 0.600000 0.600000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.300000  0.000000
+size  0.070000  0.070000
+drill  0.045000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.300000  0.000000
+size  0.070000  0.070000
+drill  0.045000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "R2_12"
+reference "R2_12"
+value "1"
+footprint "R6"
+attribut none
+position  4.250000  5.250000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.600000 0.600000 0.600000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.300000  0.000000
+size  0.070000  0.070000
+drill  0.045000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.300000  0.000000
+size  0.070000  0.070000
+drill  0.045000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "R1_34"
+reference "R1_34"
+value "1"
+footprint "R6"
+attribut none
+position  3.550000  5.700000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.600000 0.600000 0.600000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.300000  0.000000
+size  0.070000  0.070000
+drill  0.045000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.300000  0.000000
+size  0.070000  0.070000
+drill  0.045000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "R1_12"
+reference "R1_12"
+value "1"
+footprint "R6"
+attribut none
+position  5.700000  6.250000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/resistor.wrl"
+Sc 0.600000 0.600000 0.600000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position -0.300000  0.000000
+size  0.070000  0.070000
+drill  0.045000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.300000  0.000000
+size  0.070000  0.070000
+drill  0.045000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RV2_4"
+reference "RV2_4"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  7.400000  4.250000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RV2_3"
+reference "RV2_3"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  7.150000  4.650000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RV2_2"
+reference "RV2_2"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  5.850000  4.300000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RV2_1"
+reference "RV2_1"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  5.250000  4.300000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RV1_4"
+reference "RV1_4"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  4.500000  4.300000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RV1_3"
+reference "RV1_3"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  3.850000  4.300000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RV1_2"
+reference "RV1_2"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  2.650000  4.350000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "RV1_1"
+reference "RV1_1"
+value "10k"
+footprint "rcl-RTRIM3296W"
+attribut virtual
+position  2.150000  4.350000
+orientation  0.00
+layer component
+$PAD "1"
+position  0.000000  0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "2"
+position  0.000000  0.000000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000 -0.100000
+size  0.044000  0.044000
+drill  0.024000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  R
+
+$MODULE "QD2_4"
+reference "QD2_4"
+value "TIP122"
+footprint "TO220_VERT"
+attribut none
+position  7.400000  2.900000
+orientation  90.00
+layer component
+$SHAPE3D
+Na "discret/to220_vert.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "2"
+position  0.000000 -0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "1"
+position  0.000000  0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "QD2_3"
+reference "QD2_3"
+value "TIP122"
+footprint "TO220_VERT"
+attribut none
+position  6.650000  2.900000
+orientation  90.00
+layer component
+$SHAPE3D
+Na "discret/to220_vert.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "2"
+position  0.000000 -0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "1"
+position  0.000000  0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "QD2_2"
+reference "QD2_2"
+value "TIP122"
+footprint "TO220_VERT"
+attribut none
+position  5.950000  2.900000
+orientation  90.00
+layer component
+$SHAPE3D
+Na "discret/to220_vert.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "2"
+position  0.000000 -0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "1"
+position  0.000000  0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "QD2_1"
+reference "QD2_1"
+value "TIP122"
+footprint "TO220_VERT"
+attribut none
+position  5.250000  2.900000
+orientation  90.00
+layer component
+$SHAPE3D
+Na "discret/to220_vert.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "2"
+position  0.000000 -0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "1"
+position  0.000000  0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "QD1_4"
+reference "QD1_4"
+value "TIP122"
+footprint "TO220_VERT"
+attribut none
+position  4.500000  2.900000
+orientation  90.00
+layer component
+$SHAPE3D
+Na "discret/to220_vert.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "2"
+position  0.000000 -0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "1"
+position  0.000000  0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "QD1_3"
+reference "QD1_3"
+value "TIP122"
+footprint "TO220_VERT"
+attribut none
+position  3.750000  2.900000
+orientation  90.00
+layer component
+$SHAPE3D
+Na "discret/to220_vert.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "2"
+position  0.000000 -0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "1"
+position  0.000000  0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "QD1_2"
+reference "QD1_2"
+value "TIP122"
+footprint "TO220_VERT"
+attribut none
+position  3.000000  2.900000
+orientation  90.00
+layer component
+$SHAPE3D
+Na "discret/to220_vert.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "2"
+position  0.000000 -0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "1"
+position  0.000000  0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "QD1_1"
+reference "QD1_1"
+value "TIP122"
+footprint "TO220_VERT"
+attribut none
+position  2.250000  2.900000
+orientation  90.00
+layer component
+$SHAPE3D
+Na "discret/to220_vert.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "2"
+position  0.000000 -0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position  0.000000  0.000000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "1"
+position  0.000000  0.100000
+size  0.070000  0.070000
+drill  0.040000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "Q2_4"
+reference "Q2_4"
+value "BC337"
+footprint "TO92"
+attribut none
+position  7.450000  3.700000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/to98.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position -0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position -0.050000  0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "Q2_3"
+reference "Q2_3"
+value "BC337"
+footprint "TO92"
+attribut none
+position  6.800000  3.700000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/to98.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position -0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position -0.050000  0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "Q2_2"
+reference "Q2_2"
+value "BC337"
+footprint "TO92"
+attribut none
+position  5.850000  3.650000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/to98.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position -0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position -0.050000  0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "Q2_1"
+reference "Q2_1"
+value "BC337"
+footprint "TO92"
+attribut none
+position  5.300000  3.600000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/to98.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position -0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position -0.050000  0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "Q1_4"
+reference "Q1_4"
+value "BC337"
+footprint "TO92"
+attribut none
+position  4.550000  3.600000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/to98.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position -0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position -0.050000  0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "Q1_3"
+reference "Q1_3"
+value "BC337"
+footprint "TO92"
+attribut none
+position  3.900000  3.600000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/to98.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position -0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position -0.050000  0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "Q1_2"
+reference "Q1_2"
+value "BC337"
+footprint "TO92"
+attribut none
+position  2.800000  3.650000
+orientation  0.00
+layer component
+$SHAPE3D
+Na "discret/to98.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position -0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position -0.050000  0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$MODULE "Q1_1"
+reference "Q1_1"
+value "BC337"
+footprint "TO92"
+attribut none
+position  2.100000  3.600000
+orientation  180.00
+layer component
+$SHAPE3D
+Na "discret/to98.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$PAD "1"
+position  0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Rect
+Layer  all
+$EndPAD
+$PAD "2"
+position -0.050000 -0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$PAD "3"
+position -0.050000  0.050000
+size  0.055000  0.055000
+drill  0.032000
+shape_offset  0.000000  0.000000
+orientation  0.00
+Shape  Circ
+Layer  all
+$EndPAD
+$EndMODULE  Q
+
+$LINE 
+$EndLINE 
+$LINE 
+$EndLINE 
+$LINE 
+$EndLINE 
+$LINE 
+$EndLINE 
+$EndDESCRIPTION

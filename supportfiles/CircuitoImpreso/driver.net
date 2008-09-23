@@ -1,0 +1,365 @@
+# EESchema Netlist Version 1.1 created  21/3/2008-16:37:12
+(
+ ( 47E3AEAF PIN_ARRAY_3X1 CON3 ALIM
+  ( 1 GND )
+  ( 2 +24V )
+  ( 3 +5V )
+ )
+ ( 47E3AE95 D4 D1_1 1n4148
+  ( 1 N-000051 )
+  ( 2 N-000023 )
+ )
+ ( 47E3AE9B D4 D1_2 1n4148
+  ( 1 N-000002 )
+  ( 2 N-000019 )
+ )
+ ( 47E3AEED D4 D1_3 1n4148
+  ( 1 N-000050 )
+  ( 2 N-000032 )
+ )
+ ( 47E3AEF3 D4 D1_4 1n4148
+  ( 1 N-000003 )
+  ( 2 N-000028 )
+ )
+ ( 47E3AAC7 D4 D2_1 1n4148
+  ( 1 N-000049 )
+  ( 2 N-000015 )
+ )
+ ( 47E3AC42 D4 D2_2 1n4148
+  ( 1 N-000004 )
+  ( 2 N-000011 )
+ )
+ ( 47E3AF76 D4 D2_3 1n4148
+  ( 1 N-000048 )
+  ( 2 N-000041 )
+ )
+ ( 47E3AF7C D4 D2_4 1n4148
+  ( 1 N-000001 )
+  ( 2 N-000036 )
+ )
+ ( 47E2BEB4 PA_5x1 Motor1 Conect_5
+  ( 1 +24V )
+  ( 2 N-000008 )
+  ( 3 N-000044 )
+  ( 4 N-000007 )
+  ( 5 N-000045 )
+ )
+ ( 47E3AFBC PA_5x1 Motor2 Conect_5
+  ( 1 +24V )
+  ( 2 N-000005 )
+  ( 3 N-000047 )
+  ( 4 N-000046 )
+  ( 5 N-000006 )
+ )
+ ( 47E3AE96 TO92 Q1_1 BC337
+  ( 1 GND )
+  ( 2 N-000022 )
+  ( 3 N-000020 )
+ )
+ ( 47E3AE9C TO92 Q1_2 BC337
+  ( 1 GND )
+  ( 2 N-000024 )
+  ( 3 N-000018 )
+ )
+ ( 47E3AEEE TO92 Q1_3 BC337
+  ( 1 GND )
+  ( 2 N-000031 )
+  ( 3 N-000029 )
+ )
+ ( 47E3AEF4 TO92 Q1_4 BC337
+  ( 1 GND )
+  ( 2 N-000033 )
+  ( 3 N-000027 )
+ )
+ ( 47E3AAF9 TO92 Q2_1 BC337
+  ( 1 GND )
+  ( 2 N-000014 )
+  ( 3 N-000012 )
+ )
+ ( 47E3AC43 TO92 Q2_2 BC337
+  ( 1 GND )
+  ( 2 N-000016 )
+  ( 3 N-000010 )
+ )
+ ( 47E3AF77 TO92 Q2_3 BC337
+  ( 1 GND )
+  ( 2 N-000040 )
+  ( 3 N-000037 )
+ )
+ ( 47E3AF7D TO92 Q2_4 BC337
+  ( 1 GND )
+  ( 2 N-000042 )
+  ( 3 N-000035 )
+ )
+ ( 47E3AE97 TO220_VERT QD1_1 TIP122
+  ( 1 N-000017 )
+  ( 2 N-000020 )
+  ( 3 N-000008 )
+ )
+ ( 47E3AE8E TO220_VERT QD1_2 TIP122
+  ( 1 N-000017 )
+  ( 2 N-000018 )
+  ( 3 N-000044 )
+ )
+ ( 47E3AEEF TO220_VERT QD1_3 TIP122
+  ( 1 N-000026 )
+  ( 2 N-000029 )
+  ( 3 N-000007 )
+ )
+ ( 47E3AEE6 TO220_VERT QD1_4 TIP122
+  ( 1 N-000026 )
+  ( 2 N-000027 )
+  ( 3 N-000045 )
+ )
+ ( 47E3ABB8 TO220_VERT QD2_1 TIP122
+  ( 1 N-000009 )
+  ( 2 N-000012 )
+  ( 3 N-000005 )
+ )
+ ( 47E2BCA6 TO220_VERT QD2_2 TIP122
+  ( 1 N-000009 )
+  ( 2 N-000010 )
+  ( 3 N-000047 )
+ )
+ ( 47E3AF78 TO220_VERT QD2_3 TIP122
+  ( 1 N-000034 )
+  ( 2 N-000037 )
+  ( 3 N-000046 )
+ )
+ ( 47E3AF6F TO220_VERT QD2_4 TIP122
+  ( 1 N-000034 )
+  ( 2 N-000035 )
+  ( 3 N-000006 )
+ )
+ ( 47E3AE90 R6 R1_12 1
+  ( 1 N-000017 )
+  ( 2 GND )
+ )
+ ( 47E3AEE8 R6 R1_34 1
+  ( 1 N-000026 )
+  ( 2 GND )
+ )
+ ( 47E3AAC5 R4 R2_1 47k
+  ( 1 N-000015 )
+  ( 2 N-000014 )
+ )
+ ( 47E2BD8F R6 R2_12 1
+  ( 1 N-000009 )
+  ( 2 GND )
+ )
+ ( 47E3AF71 R6 R2_34 1
+  ( 1 N-000034 )
+  ( 2 GND )
+ )
+ ( 47E3AE93 R4 RB1_1 47k
+  ( 1 N-000023 )
+  ( 2 N-000022 )
+ )
+ ( 47E3AE99 R4 RB1_2 47k
+  ( 1 N-000019 )
+  ( 2 N-000024 )
+ )
+ ( 47E3AEEB R4 RB1_3 47k
+  ( 1 N-000032 )
+  ( 2 N-000031 )
+ )
+ ( 47E3AEF1 R4 RB1_4 47k
+  ( 1 N-000028 )
+  ( 2 N-000033 )
+ )
+ ( 47E3AC40 R4 RB2_2 47k
+  ( 1 N-000011 )
+  ( 2 N-000016 )
+ )
+ ( 47E3AF74 R4 RB2_3 47k
+  ( 1 N-000041 )
+  ( 2 N-000040 )
+ )
+ ( 47E3AF7A R4 RB2_4 47k
+  ( 1 N-000036 )
+  ( 2 N-000042 )
+ )
+ ( 47E3AE8D R4 RP1_12 1k
+  ( 1 +24V )
+  ( 2 N-000021 )
+ )
+ ( 47E3AEE5 R4 RP1_34 1k
+  ( 1 +24V )
+  ( 2 N-000030 )
+ )
+ ( 47E2BAED R4 RP2_12 1k
+  ( 1 +24V )
+  ( 2 N-000013 )
+ )
+ ( 47E3AF6E R4 RP2_34 1k
+  ( 1 +24V )
+  ( 2 N-000039 )
+ )
+ ( 47E3AE9D rcl-RTRIM3296W RV1_1 10k
+  ( 1 N-000021 )
+  ( 2 N-000020 )
+  ( 3 GND )
+ )
+ ( 47E3AE92 rcl-RTRIM3296W RV1_2 10k
+  ( 1 N-000021 )
+  ( 2 N-000018 )
+  ( 3 GND )
+ )
+ ( 47E3AEF5 rcl-RTRIM3296W RV1_3 10k
+  ( 1 N-000030 )
+  ( 2 N-000029 )
+  ( 3 GND )
+ )
+ ( 47E3AEEA rcl-RTRIM3296W RV1_4 10k
+  ( 1 N-000030 )
+  ( 2 N-000027 )
+  ( 3 GND )
+ )
+ ( 47E3ACD5 rcl-RTRIM3296W RV2_1 10k
+  ( 1 N-000013 )
+  ( 2 N-000012 )
+  ( 3 GND )
+ )
+ ( 47E2EA4F rcl-RTRIM3296W RV2_2 10k
+  ( 1 N-000013 )
+  ( 2 N-000010 )
+  ( 3 GND )
+ )
+ ( 47E3AF7E rcl-RTRIM3296W RV2_3 10k
+  ( 1 N-000039 )
+  ( 2 N-000037 )
+  ( 3 GND )
+ )
+ ( 47E3AF73 rcl-RTRIM3296W RV2_4 10k
+  ( 1 N-000039 )
+  ( 2 N-000035 )
+  ( 3 GND )
+ )
+ ( 47E3AE7D PA_9x1 Salidas_ Conector_9
+  ( 1 GND )
+  ( 2 N-000001 )
+  ( 3 N-000048 )
+  ( 4 N-000004 )
+  ( 5 N-000049 )
+  ( 6 N-000003 )
+  ( 7 N-000050 )
+  ( 8 N-000002 )
+  ( 9 N-000051 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component D1_1
+ D?
+ S*
+$endlist
+$component D1_2
+ D?
+ S*
+$endlist
+$component D1_3
+ D?
+ S*
+$endlist
+$component D1_4
+ D?
+ S*
+$endlist
+$component D2_1
+ D?
+ S*
+$endlist
+$component D2_2
+ D?
+ S*
+$endlist
+$component D2_3
+ D?
+ S*
+$endlist
+$component D2_4
+ D?
+ S*
+$endlist
+$component R1_12
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R1_34
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R2_1
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R2_12
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R2_34
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RB1_1
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RB1_2
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RB1_3
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RB1_4
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RB2_2
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RB2_3
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RB2_4
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RP1_12
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RP1_34
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RP2_12
+ R?
+ SM0603
+ SM0805
+$endlist
+$component RP2_34
+ R?
+ SM0603
+ SM0805
+$endlist
+$endfootprintlist
+}
