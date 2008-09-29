@@ -4,6 +4,7 @@
 #include <string.h>
 
 #define PALABRA 81 /** Cantidad de caracteres en una palabra **/
+#define COLUMNAS 29 /** Cantidad de caractres en una hoja braille **/
 
 /** Definicion de simbolos **/
 #define MAYUSCULA '|'
@@ -116,7 +117,7 @@ while( !feof(archivo_entrada) ){
  fscanf(archivo_entrada, "%s", palabra);
  convertir(palabra, palabra_salida);
  strcat(palabra_salida, " ");
- if ((strlen(buffer_linea) + strlen(palabra_salida)) < 29){
+ if ((strlen(buffer_linea) + strlen(palabra_salida)) < COLUMNAS){
    strcat(buffer_linea, palabra_salida);
    printf ("%d\n", (strlen(buffer_linea) + strlen(palabra_salida)));
  }
