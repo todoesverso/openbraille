@@ -151,6 +151,8 @@ volatile BDT at 0x0400 ep0Bo; //Endpoint #0 BD Out
 volatile BDT at 0x0404 ep0Bi; //Endpoint #0 BD In
 volatile BDT at 0x0408 ep1Bo; //Endpoint #1 BD Out
 volatile BDT at 0x040C ep1Bi; //Endpoint #1 BD In
+volatile BDT at 0x0410 ep2Bo; //Endpoint #2 BD Out
+volatile BDT at 0x0414 ep2Bi; //Endpoint #2 BD In
 
 // TBD: add definitions for additional endpoints (2-16).
 

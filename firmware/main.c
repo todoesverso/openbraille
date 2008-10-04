@@ -53,11 +53,8 @@
 //
 // Definición de los registros de configuración de fusibles (fuses)
 #if defined(pic18f2550) || defined(pic18f2455) || defined(pic18f4550) || defined(pic18f4455)
-
-code char at 0x300000 CONFIG1L = 0x20; // USB, sin dividir por 2 (48MHz), /5 pre (20 MHz)
-
-code char at 0x300001 CONFIG1H = 0x03; // Otra configuración diferente de: IESO=0, FCMEN=0, HS-PLL (40MHz)
-// sigue configurando fusibles...
+code char at 0x300000 CONFIG1L = 0x20; // CPU system clock 96MHz PLL div 2, Oscillator No div (4MHz input)
+code char at 0x300001 CONFIG1H = 0x0e; // HS oscillator, PLL enabled, HS used by USB
 code char at 0x300002 CONFIG2L = 0x20; // Brown out off, PWRT On 
 code char at 0x300003 CONFIG2H = 0x00; // WDT off
 code char at 0x300004 CONFIG3L = 0xff; // Unused configuration bits
@@ -78,12 +75,8 @@ volatile byte rxBuffer[OUTPUT_BYTES];
 
 volatile byte pagina[OUTPUT_BYTES];
 
-
 // Punto de entrada de inicialización de usuario
-
-void UserInit(void)
-{
-    
+void UserInit(void){
     ADCON0 = 0xFF;		// Establece RA4 como salida
     ADCON1 = 0x0F;		// Establecer todos los pines de I/O a digital
     
@@ -98,8 +91,7 @@ void UserInit(void)
 
 // Rutina que genera un delay aproximado hecho sin presicion (para ver los LEDs encendidos)
 
-void delay(int ms)
-{
+void delay(int ms){
 int i;
 	while(ms--)
 		for(i=0;i<50;i++); // Estos números son ciclos sucifientes para generar retardo
@@ -113,65 +105,53 @@ int i;
 // Función q se usa exlcusivamente para calibrar los motores
 
 
-void apagar_motores(void)
-{
+void apagar_motores(void){
 	PORTB = 0x00;
 }
 
-void mover(byte loops, byte direccion, byte motor)
-{
+void mover(byte loops, byte direccion, byte motor){
 byte pasosI[8] = {0x77, 0x33, 0xbb, 0x99, 0xdd, 0xcc, 0xee, 0x66};
 byte pasosD[8] = {0x66, 0xee, 0xcc, 0xdd, 0x99, 0xbb, 0x33, 0x77}; // <--- CAMBIAR!!!!
 byte valor,i;
 byte loops_aux ;
 
 if(direccion)
-	for(loops_aux=0; loops_aux < loops; loops_aux++)
-	{
-		for(i = 0; i < 8; i++)
-		{		
+	for(loops_aux=0; loops_aux < loops; loops_aux++){
+		for(i = 0; i < 8; i++){		
 		valor = pasosI[i];
-		if(motor)	
-		{
+		if(motor){
 			PORTB = (PORTB & 0xf0) | (valor & 0x0f);
 			delay(50);
-		}
-		else
-		{
+		        }
+		else	{
 			PORTB = (PORTB & 0x0f) | (valor & 0xf0);
 			delay(50);
-		}	
+		        }       	
 		}
 	}
 else
-
 	for(loops_aux=0; loops_aux < loops; loops_aux++){
-		for(i = 0; i < 8; i++)
-		{		
+		for(i = 0; i < 8; i++){		
 		valor = pasosD[i];
-		if(motor)		
-		{
+		if(motor){
 			PORTB = (PORTB & 0xf0) | (valor & 0x0f);
 			delay(50);
-		}
-		else
-		{
+		         }
+		else    {
 			PORTB = (PORTB & 0x0f) | (valor & 0xf0);
-		delay(50);
-		}
+		        delay(50);
+		        }
 		}
 	}
 }
 
-void reset_carro(void)
-{
+void reset_carro(void){
 	while(SENS_CARRO)
 		mover(1, IZQ, CARRO);
 	return;
 }
 
-void golpear(void)
-{
+void golpear(void){
 	PERCUTOR = 1;
 	delay(100);
 	PERCUTOR = 0;
@@ -180,8 +160,7 @@ void golpear(void)
 
 // Funciones para la realización de la impresión
 
-void check_bit(int ind, byte pos)  // posicion del bit del 0 al 7
-{
+void check_bit(int ind, byte pos){ // posicion del bit del 0 al 7
 byte mascara, aux;
 	mascara = 0x01; // Para la lectura del cada bit
 	mascara = mascara << pos;
@@ -201,11 +180,9 @@ byte mascara, aux;
 	}*/
 }
 
-void print_byte(int ind)
-{
+void print_byte(int ind){
 byte a, i;
-	for (i = 8; i > 0; i--)
-	{
+	for (i = 8; i > 0; i--){
 		check_bit(ind, i-1);
 		a =(byte)i;
 
@@ -218,8 +195,7 @@ byte a, i;
 	}
 }
 
-void print_line(byte linea)
-{
+void print_line(byte linea){
 byte i, j;					// CUIDADO, puede requerir tipo @int
 	apagar_motores();
 	mover(15, DER, CARRO);
@@ -228,14 +204,13 @@ byte i, j;					// CUIDADO, puede requerir tipo @int
 		print_byte(i);
 	reset_carro();  // en realidad, cambiar para que no llegue hasta el fondo
 	apagar_motores();
+
 }
 
-void print_page(void)
-{
+void print_page(void){
 byte i;
 	
-	for(i = 0; i < NUMLINES; i++)
-	{
+	for(i = 0; i < NUMLINES; i++){
 		print_line(i);
 	// Girar rodillo
 		mover(40, ARR, RODILLO); // Separacion mínima vertical del caracter braille
@@ -292,8 +267,7 @@ while (i < 3)
 	reset_carro();
 }
 } */
-static void USBEcho(void)
-{
+static void USBEcho(void){
 	byte rxCnt, i;
 
         // Find out if an Output report has been received from the host
@@ -317,8 +291,7 @@ pagina[0]=rxCnt;
 	// ACA EMPEZAMOS A MODIFICAR
 }
 
-void ProcessIO(void)
-{	
+void ProcessIO(void){	
 	// Tareas de aplicación de Usuario USB
     if ((deviceState < CONFIGURED) || (UCONbits.SUSPND==1))
 		return;
@@ -332,8 +305,7 @@ void ProcessIO(void)
 }
 
 // Punto de entrada del Firmware
-void main(void)
-{
+void main(void){
 	// LLamada a la función de inicialización de usuario
 	UserInit();
 	// Inicializar USB
@@ -347,8 +319,7 @@ void main(void)
 
 	reset_carro();
 	
-	while(1)
-	{
+	while(1){
 	// Asegurar que el modulo USB está disponible
 		EnableUSBModule();
 
