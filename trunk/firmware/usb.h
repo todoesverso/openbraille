@@ -143,7 +143,7 @@ void EnableUSBModule(void);
 void ProcessUSBTransactions(void);
 
 // Funciones par la lectura/escritura de los Bulk endpoints
-byte BulkOut(byte *buffer, byte len);
-byte BulkIn(byte *buffer, byte len);
+byte BulkOut(byte ep_num, byte *buffer, byte len);
+byte BulkIn(byte ep_num, byte *buffer, byte len);
 
 #endif //USB_H

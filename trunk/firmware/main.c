@@ -271,7 +271,7 @@ static void USBEcho(void){
 	byte rxCnt, i;
 
         // Find out if an Output report has been received from the host
-	rxCnt = BulkOut(rxBuffer, OUTPUT_BYTES);
+//	rxCnt = BulkOut(rxBuffer, OUTPUT_BYTES);
 
 	if (rxCnt == 0) return;
 	for(i=0;i<OUTPUT_BYTES;i++)
@@ -287,7 +287,7 @@ pagina[0]=rxCnt;
 	for(i=0;i<OUTPUT_BYTES;i++)
 		txBuffer[i]=pagina[i];
 	
-	BulkIn(txBuffer, OUTPUT_BYTES);
+//	BulkIn(txBuffer, OUTPUT_BYTES);
 	// ACA EMPEZAMOS A MODIFICAR
 }
 
