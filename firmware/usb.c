@@ -30,7 +30,7 @@
 // Tamaños en bytes de los desciptores
 #define DEVICE_DESCRIPTOR_SIZE 0x12
 #define CONFIG_HEADER_SIZE  0x09
-#define CONFIG_DESCRIPTOR_SIZE 0x17
+#define CONFIG_DESCRIPTOR_SIZE 0x25
 // EL tamaño total del descriptor de configuración es
 // 0x09	 +  0x09  +  0x07  +  0x07  =  0x20 
 #define CFSZ CONFIG_HEADER_SIZE+CONFIG_DESCRIPTOR_SIZE
@@ -102,7 +102,7 @@ code ConfigStruct configDescriptor =
     // Interfaz del descriptor
     0x09, 0x04, // bLength, bDescriptorType (Interface)
     0x00, 0x00, // bInterfaceNumber, bAlternateSetting
-    0x02, 0x07, // bNumEndpoints, bInterfaceClass (Printer)
+    0x03, 0x07, // bNumEndpoints, bInterfaceClass (Printer)
     0x01, 0x00, // bInterfaceSubclass, bInterfaceProtocol,
     0x00,       // iInterface
     // Impresora Endpoint 1 In
@@ -111,6 +111,17 @@ code ConfigStruct configDescriptor =
     ISZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
     0x01,       // bInterval (1 millisecond)
     // Impresora Endpoint 1 Out
+    0x07, 0x05, // bLength, bDescriptorType (Endpoint)
+    0x01, 0x02, // bEndpointAddress, bmAttributes (Bulk)
+    OSZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
+    0x01,       // bInterval (1 millisecond)
+    
+    // Impresora Endpoint 2 In
+    0x07, 0x05, // bLength, bDescriptorType (Endpoint)
+    0x81, 0x02, // bEndpointAddress, bmAttributes (Bulk)
+    ISZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
+    0x01,       // bInterval (1 millisecond)
+    // Impresora Endpoint 2 Out
     0x07, 0x05, // bLength, bDescriptorType (Endpoint)
     0x01, 0x02, // bEndpointAddress, bmAttributes (Bulk)
     OSZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
@@ -162,22 +173,25 @@ volatile setupPacketStruct SetupPacket;
 volatile byte controlTransferBuffer[E0SZ];
 
 // Colocar los buffers I/O de USB dentro del puerto RAM dual
-#pragma udata usbram5 RxBuffer TxBuffer
+#pragma udata usbram5 RxBuffer TxBuffer 
 
+#pragma udata usbram6 RxBuffer2 TxBuffer2
 // Buffers especificos
 volatile byte RxBuffer[OSZ];
 volatile byte TxBuffer[ISZ];
+volatile byte RxBuffer2[OSZ];
+volatile byte TxBuffer2[ISZ];
 
 //
 // Inicializador de los Endpoints
 void InitEndpoint(void)
 {
 	RxLen = 0;
-    // Enciende ambos endpoint para entrada y salida
-
+    // Enciende ambos endpoint para entrada y salida (EP1 y EP2)
 	UEP1 = 0x1E;  // Ver hoja de datos PIC pag 169 (USB Endpoint 1 Control)
-
-	ep1Bo.Cnt = sizeof(RxBuffer);
+        UEP2 = 0x1E; // Config de endpoint 2 (identica a la de EP1)
+// Cargar el BDT de EP1
+        ep1Bo.Cnt = sizeof(RxBuffer);
 
 	ep1Bo.ADDR = PTR16(&RxBuffer);
 
@@ -186,15 +200,29 @@ void InitEndpoint(void)
 	ep1Bi.ADDR = PTR16(&TxBuffer);
 
 	ep1Bi.Stat = DTS;
+
+// Cargar el BDT de EP2
+        ep2Bo.Cnt = sizeof(RxBuffer2);
+
+	ep2Bo.ADDR = PTR16(&RxBuffer2);
+
+	ep2Bo.Stat = UOWN | DTSEN;
+
+	ep2Bi.ADDR = PTR16(&TxBuffer2);
+
+	ep2Bi.Stat = DTS;
 }
 
 //
 // Funciones de tranferencia de datos IN y OUT (Bulk)
 
 // Funcion BulkIn. La función devuelve la cantidad de bytes que el SIE envia al host
-byte BulkIn(byte *buffer, byte len)
-{
+// Funcion BulkIn. La función devuelve la cantidad de bytes que el SIE envia al host
+byte BulkIn(byte ep_num, byte *buffer, byte len){
 	byte i;
+// Seleccion del EP segun la entrada ep_num
+if (ep_num == 1){        
+
 	// Si la CPU aún posee el SIE, entonces que no trate de escribir datos para evitar
 	// un comportamiento impredecible. Por lo tanto la funcion devuelve 0
 	// Ver hoja de datos del PIC sección 17.4.1.1 - Buffer Ownwership pag 171
@@ -220,10 +248,40 @@ byte BulkIn(byte *buffer, byte len)
 	return len;
 }
 
+else if (ep_num == 2){
+
+	// Si la CPU aún posee el SIE, entonces que no trate de escribir datos para evitar
+	// un comportamiento impredecible. Por lo tanto la funcion devuelve 0
+	// Ver hoja de datos del PIC sección 17.4.1.1 - Buffer Ownwership pag 171
+	if (ep2Bi.Stat & UOWN)
+		return 0;
+	
+   // Se truncan las solicitudes que son demasiado largas. TBD: send
+	if(len > ISZ)
+		len = ISZ;
+	
+   // Se copian los datos del buffer de usuario al buffer dual de RAM
+	for (i = 0; i < len; i++)
+		TxBuffer[i] = buffer[i];
+	
+   // Cambia el bit de dato y da control al SIE
+	ep2Bi.Cnt = len;
+	if(ep2Bi.Stat & DTS)
+		ep2Bi.Stat = UOWN | DTSEN;
+	else
+		ep2Bi.Stat = UOWN | DTS | DTSEN;
+
+  // Finalmente la función devuelve la cantidad de bytes que va a enviar el SIE a host
+	return len;
+}
+// Si ninguno de los endpoints tienen algo devuelvo 0
+return 0;
+}
 // Funcion BulkOut. La función devuelve la cantidad de bytes que se recibieron
-byte BulkOut(byte *buffer, byte len)
+byte BulkOut(byte ep_num, byte *buffer, byte len)
 {
-	RxLen = 0;
+if (ep_num == 1){
+ RxLen = 0;
     // Si el SIE no posee el buffer del descriptor de salida, entonces es seguro
     // extraer los datos 
 	if(!(ep1Bo.Stat & UOWN))
@@ -247,9 +305,35 @@ byte BulkOut(byte *buffer, byte len)
 
 // Finalmente la función devuelve la cantidad de bytes que fueron recibidos del host
 	return RxLen;
-
 }
+        else if (ep_num == 2){
+	RxLen = 0;
+    // Si el SIE no posee el buffer del descriptor de salida, entonces es seguro
+    // extraer los datos 
+	if(!(ep2Bo.Stat & UOWN))
+	{
+    // Se fija si el host envió menos bytes que los que fueron pedidos
+		if(len > ep2Bo.Cnt)
+			len = ep2Bo.Cnt;
 
+    // Copia los datos del buffer dual de RAM al buffer de usuario
+		for(RxLen = 0; RxLen < len; RxLen++)
+			buffer[RxLen] = RxBuffer[RxLen];
+
+    // Resetea (como al inicio) el buffer del descriptor de salida así el host
+    // puede enviar mas datos, campo de estado (Stat) de la tabla del descriptor
+		ep2Bo.Cnt = sizeof(RxBuff);
+		if(ep2Bo.Stat & DTS)
+			ep2Bo.Stat = UOWN | DTSEN;
+		else
+			ep2Bo.Stat = UOWN | DTS | DTSEN;
+	}
+
+// Finalmente la función devuelve la cantidad de bytes que fueron recibidos del host
+	return RxLen;
+        }
+return 0;
+}
 //
 // Comienzo del código para procesar las solicitudes estándar (Cap 9 USB)
 //
