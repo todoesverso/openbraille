@@ -12,4 +12,8 @@ url = ftp://ftp.stack.nl/pub/users/dimitri/doxygen_manual-1.5.6.pdf.zip
 lic = GPLv2
 file = doc/biblio/doxygen_manual-1.5.6.pdf
 ####################
-
+titulo = PIC18F2455/2550/4455/4550 Data sheet (1/30/2007) 
+url = http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf
+lic = © 2007 Microchip Technology Inc.
+file doc/biblio/39632D.pdf
+####################
