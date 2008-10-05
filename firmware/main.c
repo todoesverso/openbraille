@@ -116,46 +116,46 @@ byte valor,i;
 byte loops_aux ;
 
 if(direccion)
-	for(loops_aux=0; loops_aux < loops; loops_aux++){
-		for(i = 0; i < 8; i++){		
-		valor = pasosI[i];
-		if(motor){
-			PORTB = (PORTB & 0xf0) | (valor & 0x0f);
-			delay(50);
-		        }
-		else	{
-			PORTB = (PORTB & 0x0f) | (valor & 0xf0);
-			delay(50);
-		        }       	
-		}
-	}
+ for(loops_aux=0; loops_aux < loops; loops_aux++){
+  for(i = 0; i < 8; i++){		
+   valor = pasosI[i];
+   if(motor){
+    PORTB = (PORTB & 0xf0) | (valor & 0x0f);
+    delay(50);
+    }
+   else{
+    PORTB = (PORTB & 0x0f) | (valor & 0xf0);
+    delay(50);
+    }       	
+  }
+ }
 else
-	for(loops_aux=0; loops_aux < loops; loops_aux++){
-		for(i = 0; i < 8; i++){		
-		valor = pasosD[i];
-		if(motor){
-			PORTB = (PORTB & 0xf0) | (valor & 0x0f);
-			delay(50);
-		         }
-		else    {
-			PORTB = (PORTB & 0x0f) | (valor & 0xf0);
-		        delay(50);
-		        }
-		}
-	}
+ for(loops_aux=0; loops_aux < loops; loops_aux++){
+  for(i = 0; i < 8; i++){		
+   valor = pasosD[i];
+   if(motor){
+    PORTB = (PORTB & 0xf0) | (valor & 0x0f);
+    delay(50);
+    }
+   else{
+    PORTB = (PORTB & 0x0f) | (valor & 0xf0);
+    delay(50);
+    }
+  }
+ }
 }
 
 void reset_carro(void){
-	while(SENS_CARRO)
-		mover(1, IZQ, CARRO);
-	return;
+ while(SENS_CARRO)
+  mover(1, IZQ, CARRO);
 }
 
 void golpear(void){
-	PERCUTOR = 1;
-	delay(100);
-	PERCUTOR = 0;
-	delay(100);
+ delay(100);
+ PERCUTOR = 1;
+ delay(100);
+ PERCUTOR = 0;
+ delay(100);
 }
 
 // Funciones para la realización de la impresión
@@ -167,18 +167,35 @@ byte mascara, aux;
 	aux = pagina[ind] & mascara;
 	if (aux)
 		golpear();
-	// para indicar un cero
-	/*else
-	{	PERCUTOR = 0;
-	PERCUTOR = 1;
-	delay(800);
-	PERCUTOR = 0;
-	delay(800);
-	PERCUTOR = 1;
-	delay(800);
-	PERCUTOR = 0;
-	}*/
 }
+
+/* Funciones a implementar
+*
+* 
+*
+*
+*
+*
+byte check_bit(byte byte_in, byte pos){ // posicion del bit del 0 al 7
+// Recibe como parametro un byte y un indice para el byte.
+// Devuelve 1 si el bit del indice esta en 1 o cero si esta en cero.
+//  (byte, [0-7])
+byte mascara;
+   mascara = 0x01; // Para la lectura del cada bit
+   mascara = mascara << pos;
+    if (byte_in & mascara)
+      return 1;
+    return 0;
+}
+*
+*
+*
+*
+*
+*/
+
+
+
 
 void print_byte(int ind){
 byte a, i;
