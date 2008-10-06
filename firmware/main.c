@@ -23,8 +23,18 @@
 #include "usb.h"
 
 // Constantes definidas por el tamaño de la pagina Braille
-#define BYTESXLIN 3
+//#define BYTESXLIN 3
 #define NUMLINES 7
+// Codigos para instrucciones del driver
+#define PRINT 1
+#define MOV 2
+// Codigo para tipo de movimiento vertical
+#define SHORT_OUT 1
+#define LONG_OUT 2
+// Separaciones verticales de los braille dots
+#define SHORT_STEPS_OUT 40
+#define LONG_STEPS_OUT 70
+
 
 // Nombres de lo que esta conectado al puerto del PIC, mirar esquemático del circuito y el pinout
 // En el puerto D están conectados dos entradas y la salida del percutor
@@ -40,7 +50,7 @@
 // a como sale la hoja impresa
 #define ARR 1
 #define ABAJ 0
-// Extensión máxima de pasos que puede recorrer el carro
+// Extensión máxima de pasosn que puede recorrer el carro
 #define RECORR_CARRO 136
 
 // NOTA: Hay problemas relacionados al tiempo asociados con GET_FEAUTURE
@@ -69,18 +79,18 @@ code char at 0x30000C CONFIG7L = 0xff; // No table read protection
 code char at 0x30000D CONFIG7H = 0xff; // No boot table protection
 #endif
 
+// Buffers usados para el Endpoint1 (convencionalmente adoptado como Bus de datos)
 volatile byte txBuffer[INPUT_BYTES];
-
 volatile byte rxBuffer[OUTPUT_BYTES];
 
-volatile byte pagina[OUTPUT_BYTES];
+// Buffer usado para el Endpoint2 (convencionalmente adoptado como Bus de instrucciones de 1 byte)
+volatile byte instruction;
 
 // Punto de entrada de inicialización de usuario
 void UserInit(void){
     ADCON0 = 0xFF;		// Establece RA4 como salida
     ADCON1 = 0x0F;		// Establecer todos los pines de I/O a digital
-    
-    TRISB = 0x00;
+    TRISB = 0x00;		// o_O' Mhmh, read the f*in datasheet!
     TRISD = 0xc;
     INTCON = 0;
     INTCON2 = 0;
@@ -145,6 +155,11 @@ else
  }
 }
 
+byte mov_paper (byte steps) {
+	mover(steps, ARR, RODILLO);
+	return steps;
+	}
+
 void reset_carro(void){
  while(SENS_CARRO)
   mover(1, IZQ, CARRO);
@@ -160,11 +175,11 @@ void golpear(void){
 
 // Funciones para la realización de la impresión
 
-void check_bit(int ind, byte pos){ // posicion del bit del 0 al 7
+void check_bit(byte *p, byte pos){ // posicion del bit del 0 al 7
 byte mascara, aux;
 	mascara = 0x01; // Para la lectura del cada bit
 	mascara = mascara << pos;
-	aux = pagina[ind] & mascara;
+	aux = *p & mascara;
 	if (aux)
 		golpear();
 }
@@ -195,117 +210,70 @@ byte mascara;
 */
 
 
-
-
-void print_byte(int ind){
+void print_byte(byte *p){
 byte a, i;
 	for (i = 8; i > 0; i--){
-		check_bit(ind, i-1);
+		check_bit(p, i-1);
 		a =(byte)i;
-
-		if (!(a&1)) // Chequea la paridad
-	// Deplazar carro
+		if (!(a&1)) // Chequea la paridad (PAR = minima sep, IMPAR = Maxima sep)
 			mover(3, DER, CARRO); // Separacion horizontal mínima del caracter braille
 		else
-	// Deplazar carro
 			mover(6, DER, CARRO); // Separacion horizontal máxima del caracter braille
 	}
 }
 
-void print_line(byte linea){
-byte i, j;					// CUIDADO, puede requerir tipo @int
+void print_line(byte *p) {
+byte width_b;
 	apagar_motores();
-	mover(15, DER, CARRO);
-	j = linea*BYTESXLIN;
-	for (i = j; i < j + BYTESXLIN; i++)
-		print_byte(i);
-	reset_carro();  // en realidad, cambiar para que no llegue hasta el fondo
+	mover(12, DER, CARRO); // Esto es una sangria
+	width_b = NUMLINES;
+	while (width_b) {
+		print_byte(p);
+		p++;
+		width_b--;
+ 		}
 	apagar_motores();
-
 }
 
-void print_page(void){
-byte i;
-	
-	for(i = 0; i < NUMLINES; i++){
-		print_line(i);
-	// Girar rodillo
-		mover(40, ARR, RODILLO); // Separacion mínima vertical del caracter braille
-		i++;
-		print_line(i);
-	// Girar rodillo
-		mover(40, ARR, RODILLO); // Separacion mínima vertical del caracter braille
-		i++;
-		print_line(i);
-	// Girar rodillo
-		mover(70, ARR, RODILLO); // Separacion máxima vertical del caracter braille
-	}
-}
-/*
-static void imprimir(void)
-{
-int j, k, l;
-byte aux,i;
-byte mascara;
-i=0;
-
-while (i < 3)
-{	
-	for(l = 0; l < 3; l++)
-	{
-		for (j = 0; j < 7; j++)  // Para imprimir una linea
-			
-		{
-		mascara = 0x80; // Para la lectura del primer bit
-		aux = pagina[i] & mascara;
-
-		for (k = 0; k < 4; k++)
-		{
-		if (aux)
-			golpear();
-	// Deplazar carro
-		mover(1, DER, CARRO); // Separacion mínima horizontal del caracter braille
-		mascara = mascara >> 1; // Para lectura del siguiente bit
-	
-		if (aux)
-			golpear();
-	// Deplazar carro
-		mover(2, DER, CARRO); // Separacion máxima horizontal del caracter braille
-		mascara = mascara >> 1;
-		}
-		i++;
-		}
-	// Girar rodillo
-		mover(3, ARR, RODILLO); // Separacion mínima vertical del caracter braille
-		reset_carro();
-	}
-	// Girar rodillo
-	mover(5, ARR, RODILLO); // Separacion máxima vertical del caracter braille
-	reset_carro();
-}
-} */
 static void USBEcho(void){
-	byte rxCnt, i;
+	byte rxCnt, mv_type, i;
 
         // Find out if an Output report has been received from the host
 //	rxCnt = BulkOut(rxBuffer, OUTPUT_BYTES);
 
-	if (rxCnt == 0) return;
-	for(i=0;i<OUTPUT_BYTES;i++)
-		pagina[i]=rxBuffer[i];
-	// Estas dos lineas modifican el original
+        // Find out if an Output report has been received from the host
+
+	rxCnt = BulkOut(1, rxBuffer, NUMLINES); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
+// REVISAR la linea anterior, OUTPUT_BYTES seria = 7, para cortar al ancho de la pagina
+// rxBuffer se utiliza para usar el EP1, REVISAR para dar una mejor referencia (antes lo cargabamos a toda la pagina)
+	mv_type = rxBuffer[0]; // esta se usa para guardar el byte si la instruccion es de movimiento (EP2=MOV)
 	
-	print_page();
+	BulkOut(2, &instruction, 1); // La instruccion es de 1 byte, que viene con el EP2
+	if (rxCnt == 0) return;
+
+// mini main():	
+	if (instruction == PRINT)
+		print_line (rxBuffer);
+
+else if (instruction == MOV) {
+	if (mv_type == SHORT_OUT)
+		mov_paper (SHORT_STEPS_OUT); 
+	if (mv_type == LONG_OUT)
+		mov_paper (LONG_STEPS_OUT);	
+	}
 	apagar_motores();
 
 // se mandan estos datos por el USB al finalizar el proceso de impresión
-pagina[0]=rxCnt;
+	//pagina[0] = rxCnt;
 
+// Se manda endpoint1 haciendo un eco de los datos simplemente guardados en rxBuffer
+// TBD: Hacer el manejo de errores, usar txBuffer para mandar estos datos al host
 	for(i=0;i<OUTPUT_BYTES;i++)
-		txBuffer[i]=pagina[i];
-	
-//	BulkIn(txBuffer, OUTPUT_BYTES);
-	// ACA EMPEZAMOS A MODIFICAR
+		txBuffer[i] = rxBuffer[i];
+	BulkIn(1,txBuffer, OUTPUT_BYTES);
+
+// Se manda endpoint2 con el codigo de instruccion usado
+	BulkIn(2, &instruction, OUTPUT_BYTES);
 }
 
 void ProcessIO(void){	
@@ -315,7 +283,6 @@ void ProcessIO(void){
 
 	// Proceso USB: Agregar acá la función que realiza el dispositivo
 	// ACA!!
-
 	USBEcho();
 
 // Las siguientes lineas hacen que el dispositivo haga un eco de lo que recibe por el bus USB
@@ -331,20 +298,15 @@ void main(void){
 // Condiciones iniciales del dispositivo
     deviceState = DETACHED;
     remoteWakeup = 0x00;
-    currentConfiguration = 0x00;	
-
-
+    currentConfiguration = 0x00;
 	reset_carro();
-	
 	while(1){
 	// Asegurar que el modulo USB está disponible
 		EnableUSBModule();
-
 	// En cuanto sale del modo de prueba (UTEYE), procesa
 	// las transactiones USB
 		if(UCFGbits.UTEYE != 1)
 			ProcessUSBTransactions();
-
         // Tareas de apliacación específica
 		ProcessIO();
 	

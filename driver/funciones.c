@@ -24,7 +24,7 @@ typedef unsigned char byte;
 struct usb_bus *bus; 
 struct usb_device *dev;
 usb_dev_handle *udev;
-unsigned int WRITE,READ;
+unsigned int WRITE,READ, WRITE2,READ2;
 
 //Archivos de texto
 FILE *ascii, *braille;
@@ -141,7 +141,7 @@ void llenarrenglon (byte *ptrOut, byte *ptrIn, int ancho)
 		
 int iniciar_usb(void){
 
-int n,m,ret,sizein,sizeout,pts,valor; 
+int n,m,ret,sizein,sizeout,pts,valor,sizein2,sizeout2; 
 char string[256];
 	
 usb_init();	
@@ -193,10 +193,18 @@ for (bus = usb_busses; bus; bus = bus->next){
 						
 WRITE = dev->config[0].interface[0].altsetting[0].endpoint[1].bEndpointAddress;
 READ = dev->config[0].interface[0].altsetting[0].endpoint[0].bEndpointAddress;
+ 
+WRITE2 = dev->config[0].interface[0].altsetting[0].endpoint[3].bEndpointAddress;
+READ2 = dev->config[0].interface[0].altsetting[0].endpoint[2].bEndpointAddress;
+ 
 sizein = dev->config[0].interface[0].altsetting[0].endpoint[1].wMaxPacketSize;
-sizeout = dev->config[0].interface[0].altsetting[0].endpoint[0].wMaxPacketSize;
+sizeout = dev->config[0].interface[0].altsetting[0].endpoint[1].wMaxPacketSize;
 pts = dev->config[0].interface[0].altsetting[0].endpoint[0].bInterval;
-printf("WRITE TO %02xh READ FROM %02xh\n SIZEIN %d SIZEOUT %d\n E_PTS %d\n",WRITE,READ,sizein,sizeout,pts);
+
+sizein2 = dev->config[0].interface[0].altsetting[0].endpoint[2].wMaxPacketSize;
+sizeout2 = dev->config[0].interface[0].altsetting[0].endpoint[2].wMaxPacketSize;
+printf("EP1 - WRITE TO %02xh READ FROM %02xh  SIZEIN %d SIZEOUT %d E_PTS %d\n\
+EP2 - WRITE TO %20xh READ FROM %02xh SIZEIN %d SIZEOUT %d\n",WRITE,READ,sizein,sizeout,pts,WRITE2,READ2,sizein2,sizeout2);
 					}
 				}
 			}
