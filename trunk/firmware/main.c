@@ -88,23 +88,22 @@ volatile byte instruction;
 
 // Punto de entrada de inicialización de usuario
 void UserInit(void){
-    ADCON0 = 0xFF;		// Establece RA4 como salida
-    ADCON1 = 0x0F;		// Establecer todos los pines de I/O a digital
-    TRISB = 0x00;		// o_O' Mhmh, read the f*in datasheet!
-    TRISD = 0xc;
-    INTCON = 0;
-    INTCON2 = 0;
-
-    PORTB=0x00;	
-    PERCUTOR = 0;
+ ADCON0 = 0xFF;		// Establece RA4 como salida
+ ADCON1 = 0x0F;		// Establecer todos los pines de I/O a digital
+ TRISB = 0x00;		// o_O' Mhmh, read the f*in datasheet!
+ TRISD = 0xc;
+ INTCON = 0;
+ INTCON2 = 0;
+ PORTB = 0x00;	
+ PERCUTOR = 0;
 }
 
 // Rutina que genera un delay aproximado hecho sin presicion (para ver los LEDs encendidos)
 
 void delay(int ms){
-int i;
-	while(ms--)
-		for(i=0;i<50;i++); // Estos números son ciclos sucifientes para generar retardo
+ int i;
+   while(ms--)
+     for(i=0;i<50;i++); // Estos números son ciclos sucifientes para generar retardo
 }
 // Bucle central de proceso. En cuanto el firmware no esta ocupado atendiendo
 // el USB, se toma control acá para hacer otro procesamiento.
@@ -116,7 +115,7 @@ int i;
 
 
 void apagar_motores(void){
-	PORTB = 0x00;
+ PORTB = 0x00;
 }
 
 void mover(byte loops, byte direccion, byte motor){
@@ -155,14 +154,13 @@ else
  }
 }
 
-byte mov_paper (byte steps) {
-	mover(steps, ARR, RODILLO);
-	return steps;
-	}
+void mov_paper (byte steps) {
+ mover(steps, ARR, RODILLO);
+}
 
 void reset_carro(void){
- while(SENS_CARRO)
-  mover(1, IZQ, CARRO);
+  while(SENS_CARRO)
+    mover(1, IZQ, CARRO);
 }
 
 void golpear(void){
@@ -173,140 +171,111 @@ void golpear(void){
  delay(100);
 }
 
-// Funciones para la realización de la impresión
-/* YA NO VA MAS, SE CAMBIA POR LA f(x) QUE SIGUE ABAJO
-void check_bit(byte *p, byte pos){ // posicion del bit del 0 al 7
-byte mascara, aux;
-	mascara = 0x01; // Para la lectura del cada bit
-	mascara = mascara << pos;
-	aux = *p & mascara;
-	if (aux)
-		golpear();
-}
-
-* Funciones a implementar
-*
-* 
-*
-*
-*
-*/
 byte check_bit(byte byte_in, byte pos){
 // Recibe como parametro un byte y un indice para el byte.
 // Devuelve 1 si el bit del indice esta en 1 o cero si esta en cero.
 //  (byte, [0-7])
-byte mascara;
-   mascara = 0x01; // Para la lectura del cada bit
-   mascara = mascara << pos;
-    if (byte_in & mascara)
-      return 1;
-    return 0;
+ byte mascara;
+ mascara = 0x01; // Para la lectura del cada bit
+ mascara = mascara << pos;
+   if (byte_in & mascara)
+     return 1;
+ return 0;
 }
 
 void print_byte(byte *p){
-byte a, i, byte_in;
-byte_in = *p;
-	for (i = 8; i > 0; i--) {
-		if (check_bit(byte_in, i-1)) 
-			golpear();
-		a =(byte)i;
-// Movimiento del carro segun la posicion par-impar del braille dot
-		if (!(a&1)) // Chequea la paridad (PAR = minima sep, IMPAR = Maxima sep)
-			mover(2, DER, CARRO); // Separacion horizontal mínima del caracter braille
-		else
-			mover(4, DER, CARRO); // Separacion horizontal máxima del caracter braille
-	}
+ byte a, i, byte_in;
+ byte_in = *p;
+   for (i = 8; i > 0; i--) {
+     if (check_bit(byte_in, i-1)) 
+       golpear();
+       a =(byte)i;
+ // Movimiento del carro segun la posicion par-impar del braille dot
+     if (!(a&1)) // Chequea la paridad (PAR = minima sep, IMPAR = Maxima sep)
+       mover(2, DER, CARRO); // Separacion horizontal mínima del caracter braille
+     else
+       mover(4, DER, CARRO); // Separacion horizontal máxima del caracter braille
+    }
 }
 
 void print_line(byte *p) {
-byte width_b;
-	reset_carro();
-	apagar_motores();
-	mover(8, DER, CARRO); // Esto es una sangria
-	width_b = NUMLINES;
-	while (width_b) {
-		print_byte(p);
-		p++;
-		width_b--;
- 		}
-	apagar_motores();
+ byte width_b;
+ reset_carro();
+ apagar_motores();
+ mover(8, DER, CARRO); // Esto es una sangria
+ width_b = NUMLINES;
+   while (width_b) {
+     print_byte(p);
+     p++;
+     width_b--;
+   }
+ apagar_motores();
 }
 
-static void USBEcho(void){
-	byte rxCnt, mv_type, i;
-
-        // Find out if an Output report has been received from the host
-//	rxCnt = BulkOut(rxBuffer, OUTPUT_BYTES);
-
-        // Find out if an Output report has been received from the host
-	rxCnt = BulkOut(1, rxBuffer, NUMLINES); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
-// REVISAR la linea anterior, OUTPUT_BYTES seria = 7, para cortar al ancho de la pagina
-// rxBuffer se utiliza para usar el EP1, REVISAR para dar una mejor referencia (antes lo cargabamos a toda la pagina)
-	mv_type = rxBuffer[0]; // esta se usa para guardar el byte si la instruccion es de movimiento (EP2=MOV)
+static void USB(void){
+ byte rxCnt, mv_type, i;
+ // Find out if an Output report has been received from the host
+ rxCnt = BulkOut(1, rxBuffer, NUMLINES); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
+ // REVISAR la linea anterior, OUTPUT_BYTES seria = 7, para cortar al ancho de la pagina
+ // rxBuffer se utiliza para usar el EP1, REVISAR para dar una mejor referencia (antes lo cargabamos a toda la pagina)
+ mv_type = rxBuffer[0]; // esta se usa para guardar el byte si la instruccion es de movimiento (EP2=MOV)
 	
-	BulkOut(2, &instruction, 1); // La instruccion es de 1 byte, que viene con el EP2
-	if (rxCnt == 0) return;
+ BulkOut(2, &instruction, 1); // La instruccion es de 1 byte, que viene con el EP2
+   if (rxCnt == 0) return;
 
-// mini main():	
-  /*	if (instruction == PRINT)
-		print_line (rxBuffer);
 
-else*/ if (instruction == MOV) {
-	if (mv_type == SHORT_OUT)
-		mov_paper (SHORT_STEPS_OUT); 
-	if (mv_type == LONG_OUT)
-		mov_paper (LONG_STEPS_OUT);
-	}
-	else print_line(rxBuffer);
+
+// Interpret instructions recived from host
+  if (instruction == MOV) {
+    if (mv_type == SHORT_OUT)
+ 	mov_paper (SHORT_STEPS_OUT); 
+    if (mv_type == LONG_OUT)
+	mov_paper (LONG_STEPS_OUT);
+   }
+  else print_line(rxBuffer);
 // se mandan estos datos por el USB al finalizar el proceso de impresión
 	//pagina[0] = rxCnt;
 
 // Se manda endpoint1 haciendo un eco de los datos simplemente guardados en rxBuffer
 // TBD: Hacer el manejo de errores, usar txBuffer para mandar estos datos al host
-	for(i=0;i<OUTPUT_BYTES;i++)
-		txBuffer[i] = rxBuffer[i];
-	BulkIn(1,txBuffer, OUTPUT_BYTES);
+   for(i=0;i<OUTPUT_BYTES;i++)
+     txBuffer[i] = rxBuffer[i];
+ BulkIn(1,txBuffer, OUTPUT_BYTES);
 
 // Se manda endpoint2 con el codigo de instruccion usado
-	BulkIn(2, &instruction, OUTPUT_BYTES);
+ BulkIn(2, &instruction, OUTPUT_BYTES);
 }
 
 void ProcessIO(void){	
-	// Tareas de aplicación de Usuario USB
-    if ((deviceState < CONFIGURED) || (UCONbits.SUSPND==1))
-		return;
+// Tareas de aplicación de Usuario USB
+  if ((deviceState < CONFIGURED) || (UCONbits.SUSPND==1))
+  return;
 
-	// Proceso USB: Agregar acá la función que realiza el dispositivo
-	// ACA!!
-	USBEcho();
-
-// Las siguientes lineas hacen que el dispositivo haga un eco de lo que recibe por el bus USB
+ // Proceso USB: Agregar acá la función que realiza el dispositivo
+ // ACA!!
+ USB();
 }
 
 // Punto de entrada del Firmware
 void main(void){
-	// LLamada a la función de inicialización de usuario
-	UserInit();
-	// Inicializar USB
-    UCFG = 0x14; // Habilita las resistencias de pullup; modo full speed
+ // LLamada a la función de inicialización de usuario
+ UserInit();
+ // Inicializar USB
+ UCFG = 0x14; // Habilita las resistencias de pullup; modo full speed
 
-// Condiciones iniciales del dispositivo
-    deviceState = DETACHED;
-    remoteWakeup = 0x00;
-    currentConfiguration = 0x00;
-	apagar_motores();
-	while(1){
-	// Asegurar que el modulo USB está disponible
-		EnableUSBModule();
-	// En cuanto sale del modo de prueba (UTEYE), procesa
-	// las transactiones USB
-		if(UCFGbits.UTEYE != 1)
-			ProcessUSBTransactions();
+ // Condiciones iniciales del dispositivo
+ deviceState = DETACHED;
+ remoteWakeup = 0x00;
+ currentConfiguration = 0x00;
+ apagar_motores();
+   while(1){
+   // Asegurar que el modulo USB está disponible
+     EnableUSBModule();
+    // En cuanto sale del modo de prueba (UTEYE), procesa
+    // las transactiones USB
+       if(UCFGbits.UTEYE != 1)
+         ProcessUSBTransactions();
         // Tareas de apliacación específica
-		ProcessIO();
-	}
+      ProcessIO();
+   }
 }
-//sdcc --vc --fstack --denable-peeps --optimize-goto --optimize-cmp --optimize-df --obanksel=9 --opt-code-size --fommit-/frame-pointer -mpic16 -p18f45100 -I /usr/share/sdcc/include/pic16/ -c usb.c
-
-//sdcc --vc --fstack --denable-peeps --optimize-goto --optimize-cmp --optimize-df --obanksel=9 --opt-code-size --fommit-frame-pointer -mpic16 -p18f45100 -I /home/rajazz/Final/PICHID\ -Para\ meter\ mano/ -L /usr/share/sdcc/lib/pic16/ -Wl,"-w -s 18f45100.lkr" main.c usb.o
-
