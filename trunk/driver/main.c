@@ -43,20 +43,25 @@ for(j=0; j<30; j++)
 	car = getchar();
 	
 if (car == 'i'){
-	j=escribir_usb(udev,WRITE,braille,sizeof(braille),500);
+        for (i = 0 ; i < 1; i++){
+         escribir_usb(udev,WRITE2,&buff[2],1,500);
+        j = escribir_usb(udev,WRITE,&buff[1],1,500);
+
+//	j = escribir_usb(udev,WRITE,braille,sizeof(braille),500);
+        }
 
 } 
 	printf("Se escribieron %d \n",j);
 
-	for( i=0; i<10000; i++){}
+	//for( i=0; i<10000; i++){}
 
-	leer_usb(udev,READ,rec,j,500);
+	//leer_usb(udev,READ,rec,j,500);
 	
-	while(rec[0] != sizeof(braille))
-		leer_usb(udev,READ,rec,j,500);
+//	while(rec[0] != sizeof(braille))
+//		leer_usb(udev,READ,rec,j,500);
 		
-	for( i=0; i<j; i++)
-		printf("A  finalizado la impresion  --CODIGO %x \n",rec[i]);
+//	for( i=0; i<j; i++)
+//		printf("A  finalizado la impresion  --CODIGO %x \n",rec[i]);
 
 //Codigo de finalizacion
 if(inicializo)finalizar_usb();

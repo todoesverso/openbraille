@@ -110,13 +110,13 @@ int col_adapt(FILE *archivo_entrada, FILE * archivo_salida){
  * ancha que COLUMNAS, como puede ser una direccion web o algo por el estilo
  */
 
-
 char palabra[PALABRA] = "" , palabra_salida[PALABRA] = "" , buffer_linea[PALABRA] = "";
 
 while( !feof(archivo_entrada) ){
  fscanf(archivo_entrada, "%s", palabra);
  convertir(palabra, palabra_salida);
  strcat(palabra_salida, " ");
+ printf("hhhhhhhhh");
  if ((strlen(buffer_linea) + strlen(palabra_salida)) < COLUMNAS){
    strcat(buffer_linea, palabra_salida);
    printf ("%d\n", (strlen(buffer_linea) + strlen(palabra_salida)));

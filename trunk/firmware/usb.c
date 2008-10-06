@@ -102,7 +102,7 @@ code ConfigStruct configDescriptor =
     // Interfaz del descriptor
     0x09, 0x04, // bLength, bDescriptorType (Interface)
     0x00, 0x00, // bInterfaceNumber, bAlternateSetting
-    0x03, 0x07, // bNumEndpoints, bInterfaceClass (Printer)
+    0x04, 0x07, // bNumEndpoints, bInterfaceClass (Printer)
     0x01, 0x00, // bInterfaceSubclass, bInterfaceProtocol,
     0x00,       // iInterface
     // Impresora Endpoint 1 In
@@ -118,12 +118,12 @@ code ConfigStruct configDescriptor =
     
     // Impresora Endpoint 2 In
     0x07, 0x05, // bLength, bDescriptorType (Endpoint)
-    0x81, 0x02, // bEndpointAddress, bmAttributes (Bulk)
+    0x82, 0x02, // bEndpointAddress, bmAttributes (Bulk)
     ISZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
     0x01,       // bInterval (1 millisecond)
     // Impresora Endpoint 2 Out
     0x07, 0x05, // bLength, bDescriptorType (Endpoint)
-    0x01, 0x02, // bEndpointAddress, bmAttributes (Bulk)
+    0x02, 0x02, // bEndpointAddress, bmAttributes (Bulk)
     OSZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
     0x01,       // bInterval (1 millisecond)
     } 
