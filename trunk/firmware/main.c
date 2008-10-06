@@ -26,14 +26,14 @@
 //#define BYTESXLIN 3
 #define NUMLINES 7
 // Codigos para instrucciones del driver
-#define PRINT 1
-#define MOV 2
+#define PRINT 0x01
+#define MOV 0x02
 // Codigo para tipo de movimiento vertical
 #define SHORT_OUT 1
 #define LONG_OUT 2
 // Separaciones verticales de los braille dots
-#define SHORT_STEPS_OUT 40
-#define LONG_STEPS_OUT 70
+#define SHORT_STEPS_OUT 4
+#define LONG_STEPS_OUT 7
 
 
 // Nombres de lo que esta conectado al puerto del PIC, mirar esquemático del circuito y el pinout
@@ -174,7 +174,7 @@ void golpear(void){
 }
 
 // Funciones para la realización de la impresión
-
+/* YA NO VA MAS, SE CAMBIA POR LA f(x) QUE SIGUE ABAJO
 void check_bit(byte *p, byte pos){ // posicion del bit del 0 al 7
 byte mascara, aux;
 	mascara = 0x01; // Para la lectura del cada bit
@@ -184,14 +184,14 @@ byte mascara, aux;
 		golpear();
 }
 
-/* Funciones a implementar
+* Funciones a implementar
 *
 * 
 *
 *
 *
-*
-byte check_bit(byte byte_in, byte pos){ // posicion del bit del 0 al 7
+*/
+byte check_bit(byte byte_in, byte pos){
 // Recibe como parametro un byte y un indice para el byte.
 // Devuelve 1 si el bit del indice esta en 1 o cero si esta en cero.
 //  (byte, [0-7])
@@ -202,30 +202,27 @@ byte mascara;
       return 1;
     return 0;
 }
-*
-*
-*
-*
-*
-*/
-
 
 void print_byte(byte *p){
-byte a, i;
-	for (i = 8; i > 0; i--){
-		check_bit(p, i-1);
+byte a, i, byte_in;
+byte_in = *p;
+	for (i = 8; i > 0; i--) {
+		if (check_bit(byte_in, i-1)) 
+			golpear();
 		a =(byte)i;
+// Movimiento del carro segun la posicion par-impar del braille dot
 		if (!(a&1)) // Chequea la paridad (PAR = minima sep, IMPAR = Maxima sep)
-			mover(3, DER, CARRO); // Separacion horizontal mínima del caracter braille
+			mover(2, DER, CARRO); // Separacion horizontal mínima del caracter braille
 		else
-			mover(6, DER, CARRO); // Separacion horizontal máxima del caracter braille
+			mover(4, DER, CARRO); // Separacion horizontal máxima del caracter braille
 	}
 }
 
 void print_line(byte *p) {
 byte width_b;
+	reset_carro();
 	apagar_motores();
-	mover(12, DER, CARRO); // Esto es una sangria
+	mover(8, DER, CARRO); // Esto es una sangria
 	width_b = NUMLINES;
 	while (width_b) {
 		print_byte(p);
@@ -242,7 +239,6 @@ static void USBEcho(void){
 //	rxCnt = BulkOut(rxBuffer, OUTPUT_BYTES);
 
         // Find out if an Output report has been received from the host
-
 	rxCnt = BulkOut(1, rxBuffer, NUMLINES); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
 // REVISAR la linea anterior, OUTPUT_BYTES seria = 7, para cortar al ancho de la pagina
 // rxBuffer se utiliza para usar el EP1, REVISAR para dar una mejor referencia (antes lo cargabamos a toda la pagina)
@@ -252,17 +248,16 @@ static void USBEcho(void){
 	if (rxCnt == 0) return;
 
 // mini main():	
-	if (instruction == PRINT)
+  /*	if (instruction == PRINT)
 		print_line (rxBuffer);
 
-else if (instruction == MOV) {
+else*/ if (instruction == MOV) {
 	if (mv_type == SHORT_OUT)
 		mov_paper (SHORT_STEPS_OUT); 
 	if (mv_type == LONG_OUT)
-		mov_paper (LONG_STEPS_OUT);	
+		mov_paper (LONG_STEPS_OUT);
 	}
-	apagar_motores();
-
+	else print_line(rxBuffer);
 // se mandan estos datos por el USB al finalizar el proceso de impresión
 	//pagina[0] = rxCnt;
 
@@ -299,7 +294,7 @@ void main(void){
     deviceState = DETACHED;
     remoteWakeup = 0x00;
     currentConfiguration = 0x00;
-	reset_carro();
+	apagar_motores();
 	while(1){
 	// Asegurar que el modulo USB está disponible
 		EnableUSBModule();
@@ -309,7 +304,6 @@ void main(void){
 			ProcessUSBTransactions();
         // Tareas de apliacación específica
 		ProcessIO();
-	
 	}
 }
 //sdcc --vc --fstack --denable-peeps --optimize-goto --optimize-cmp --optimize-df --obanksel=9 --opt-code-size --fommit-/frame-pointer -mpic16 -p18f45100 -I /usr/share/sdcc/include/pic16/ -c usb.c
