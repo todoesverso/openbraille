@@ -19,7 +19,6 @@
 
 #include <pic18fregs.h>
 #include <stdio.h>
-#include <usart.h>
 #include "usb.h"
 
 // Constantes definidas por el tamaño de la pagina Braille
@@ -183,12 +182,28 @@ byte check_bit(byte byte_in, byte pos){
  return 0;
 }
 
-void print_byte(byte *p){
- byte a, i, byte_in;
+void set_bit(byte *byte_in, byte pos){
+ byte mask = 0x01, byte_aux = *byte_in;
+ mask = mask << pos;
+ *byte_in = byte_aux ^ mask; 
+ /* This could be a simple | too, but ^ makes it better
+  * because it would destroy the byte if something goes wrong. 
+  * Let's say that byte_in = 0x07 (0000 0111), and for some 
+  * reason we try to set the bit 2 the XOR would destroy the byte 
+  * byte_in = 0000 0111 ^ 0000 0100 = 0000 0011 = 0x03. This should
+  * never happen because pos will increment, but you never know ;)
+  */                         
+}
+
+
+byte print_byte(byte *p){
+ byte a, i, byte_in, byte_ctl = 0x00;
  byte_in = *p;
    for (i = 8; i > 0; i--) {
-     if (check_bit(byte_in, i-1)) 
+     if (check_bit(byte_in, i-1)){ 
        golpear();
+       set_bit(&byte_ctl, i-1); // Recreate the byte for error control
+     }
        a =(byte)i;
  // Movimiento del carro segun la posicion par-impar del braille dot
      if (!(a&1)) // Chequea la paridad (PAR = minima sep, IMPAR = Maxima sep)
@@ -196,9 +211,10 @@ void print_byte(byte *p){
      else
        mover(4, DER, CARRO); // Separacion horizontal máxima del caracter braille
     }
+   return byte_ctl;
 }
 
-void print_line(byte *p) {
+void print_line(byte *p){
  byte width_b;
  reset_carro();
  apagar_motores();
