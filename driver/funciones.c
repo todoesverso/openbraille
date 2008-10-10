@@ -204,7 +204,7 @@ pts = dev->config[0].interface[0].altsetting[0].endpoint[0].bInterval;
 sizein2 = dev->config[0].interface[0].altsetting[0].endpoint[2].wMaxPacketSize;
 sizeout2 = dev->config[0].interface[0].altsetting[0].endpoint[2].wMaxPacketSize;
 printf("EP1 - WRITE TO %02xh READ FROM %02xh  SIZEIN %d SIZEOUT %d E_PTS %d\n\
-EP2 - WRITE TO %20xh READ FROM %02xh SIZEIN %d SIZEOUT %d\n",WRITE,READ,sizein,sizeout,pts,WRITE2,READ2,sizein2,sizeout2);
+EP2 - WRITE TO %02xh READ FROM %02xh SIZEIN %d SIZEOUT %d\n",WRITE,READ,sizein,sizeout,pts,WRITE2,READ2,sizein2,sizeout2);
 					}
 				}
 			}
