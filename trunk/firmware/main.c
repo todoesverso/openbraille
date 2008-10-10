@@ -81,7 +81,7 @@ code char at 0x30000D CONFIG7H = 0xff; // No boot table protection
 // Buffers usados para el Endpoint1 (convencionalmente adoptado como Bus de datos)
 volatile byte txBuffer[INPUT_BYTES];
 volatile byte rxBuffer[OUTPUT_BYTES];
-
+volatile byte echoVector[INPUT_BYTES];
 // Buffer usado para el Endpoint2 (convencionalmente adoptado como Bus de instrucciones de 1 byte)
 volatile byte instruction;
 
@@ -214,22 +214,23 @@ byte print_byte(byte *p){
    return byte_ctl;
 }
 
-void print_line(byte *p){
+void print_line(byte *p, byte *e){
  byte width_b;
  reset_carro();
  apagar_motores();
  mover(8, DER, CARRO); // Esto es una sangria
  width_b = NUMLINES;
    while (width_b) {
-     print_byte(p);
+     *e = print_byte(p);
      p++;
+     e++;
      width_b--;
    }
  apagar_motores();
 }
 
 static void USB(void){
- byte rxCnt, mv_type, i;
+ byte rxCnt, mv_type;
  // Find out if an Output report has been received from the host
  rxCnt = BulkOut(1, rxBuffer, NUMLINES); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
  // REVISAR la linea anterior, OUTPUT_BYTES seria = 7, para cortar al ancho de la pagina
@@ -248,18 +249,18 @@ static void USB(void){
     if (mv_type == LONG_OUT)
 	mov_paper (LONG_STEPS_OUT);
    }
-  else print_line(rxBuffer);
+  else print_line(rxBuffer, echoVector);
 // se mandan estos datos por el USB al finalizar el proceso de impresión
 	//pagina[0] = rxCnt;
 
 // Se manda endpoint1 haciendo un eco de los datos simplemente guardados en rxBuffer
 // TBD: Hacer el manejo de errores, usar txBuffer para mandar estos datos al host
-   for(i=0;i<OUTPUT_BYTES;i++)
-     txBuffer[i] = rxBuffer[i];
- BulkIn(1,txBuffer, OUTPUT_BYTES);
+//   for(i=0;i<OUTPUT_BYTES;i++)
+//     txBuffer[i] = rxBuffer[i];
+        BulkIn(1, echoVector, 1);
 
-// Se manda endpoint2 con el codigo de instruccion usado
- BulkIn(2, &instruction, OUTPUT_BYTES);
+        
+        BulkIn(2, &instruction, 1);
 }
 
 void ProcessIO(void){	
