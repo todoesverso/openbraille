@@ -1,21 +1,21 @@
-/// Código de demostración de Entrada/Salida de USB en PIC 18F4550
-/// enciende/apada LED y se identifica como impresora (si todo anda bien!! :] )
-///
-/// Sin copyright, (C) 2008 todoesverso & rajazz
-///
-/// Esta biblioteca es software libre. Puede ser redistribuido y/o modificado
-/// bajo los términos de la Licencia Pública General de GNU publicada por
-/// Free Software Foundation, bien de la versión 2.1 de dicha Licencia o
-/// (según su elección) de cualquier versión posterior.
-///
-/// Esta biblioteca se distribuye con la esperanza de que sea útil, pero 
-/// SIN NINGUNA GARANTÍA, incluso sin la garantía MERCANTIL implícita o sin
-/// garantizar la CONVENIENCIA PARA UN PROPÓSITO PARTICULAR.
-/// Ver la Licencia Pública General de GNU para más detalles.
-/// Debería haber recibido una copia de la Licencia Pública General junto
-/// con este programa. Si no ha sido así, escriba a la Free Software
-/// Foundation, Inc., en 675 Mass Ave, Cambridge, MA 02139, EEUU.
-///
+/*   main.c - The main program of the firmware.
+ *
+ *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
+ *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include <pic18fregs.h>
 #include <stdio.h>
