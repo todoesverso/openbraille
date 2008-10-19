@@ -1,21 +1,3 @@
-// Marco Firmware para USB I/O con PIC 18F4550
-//
-// Sin copyright, (C) 2008 todoesverso & rajazz
-//
-
-// Esta biblioteca es software libre. Puede ser redistribuido y/o modificado
-// bajo los términos de la Licencia Pública General de GNU publicada por 
-// Free Software Foundation, bien de la versión 2.1 de dicha Licencia o 
-// (según su elección) de cualquier versión posterior.
-//
-// Esta biblioteca se distribuye con la esperanza de que sea útil, pero 
-// SIN NINGUNA GARANTÍA, incluso sin la garantía MERCANTIL implícita o sin
-// garantizar la CONVENIENCIA PARA UN PROPÓSITO PARTICULAR.
-// Ver la Licencia Pública General de GNU para más detalles.
-// Debería haber recibido una copia de la Licencia Pública General junto
-// con este programa. Si no ha sido así, escriba a la Free Software
-// Foundation, Inc., en 675 Mass Ave, Cambridge, MA 02139, EEUU.
-//
 #ifndef USB_H
 #define USB_H
 
@@ -130,7 +112,10 @@ extern volatile setupPacketStruct SetupPacket;
 #define OUTPUT_BYTES  64
 
 // Datos recibidos provenientes del host (OUT)
-extern volatile byte RxBuff[OUTPUT_BYTES];
+extern volatile byte TxBuffer[INPUT_BYTES];
+extern volatile byte RxBuffer[OUTPUT_BYTES];
+extern volatile byte RxBuffer2[OUTPUT_BYTES];
+extern volatile byte TxBuffer2[INPUT_BYTES];
 
 // Los punteros inPtr/OutPtr son usados para mover datos de los buffers  de la memoria de usario
 // (RAM/ROM/EEPROM) de/a los buffers de puerto dual
@@ -143,7 +128,7 @@ void EnableUSBModule(void);
 void ProcessUSBTransactions(void);
 
 // Funciones par la lectura/escritura de los Bulk endpoints
-byte BulkOut( byte *buffer, byte len);
-byte BulkIn(byte *buffer, byte len);
+byte BulkOut(byte ep_num, byte *buffer, byte len);
+byte BulkIn(byte ep_num, byte *buffer, byte len);
 
 #endif //USB_H

@@ -1,22 +1,3 @@
-/// Código de demostración de Entrada/Salida de USB en PIC 18F4550
-/// enciende/apada LED y se identifica como impresora (si todo anda bien!! :] )
-///
-/// Sin copyright, (C) 2008 todoesverso & rajazz
-///
-/// Esta biblioteca es software libre. Puede ser redistribuido y/o modificado
-/// bajo los términos de la Licencia Pública General de GNU publicada por
-/// Free Software Foundation, bien de la versión 2.1 de dicha Licencia o
-/// (según su elección) de cualquier versión posterior.
-///
-/// Esta biblioteca se distribuye con la esperanza de que sea útil, pero 
-/// SIN NINGUNA GARANTÍA, incluso sin la garantía MERCANTIL implícita o sin
-/// garantizar la CONVENIENCIA PARA UN PROPÓSITO PARTICULAR.
-/// Ver la Licencia Pública General de GNU para más detalles.
-/// Debería haber recibido una copia de la Licencia Pública General junto
-/// con este programa. Si no ha sido así, escriba a la Free Software
-/// Foundation, Inc., en 675 Mass Ave, Cambridge, MA 02139, EEUU.
-///
-
 #include <pic18fregs.h>
 #include <stdio.h>
 #include "usb.h"
@@ -33,7 +14,6 @@
 // Separaciones verticales de los braille dots
 #define SHORT_STEPS_OUT 4
 #define LONG_STEPS_OUT 7
-
 
 // Nombres de lo que esta conectado al puerto del PIC, mirar esquemático del circuito y el pinout
 // En el puerto D están conectados dos entradas y la salida del percutor
@@ -52,14 +32,6 @@
 // Extensión máxima de pasosn que puede recorrer el carro
 #define RECORR_CARRO 136
 
-// NOTA: Hay problemas relacionados al tiempo asociados con GET_FEAUTURE
-// cuando corre a menos de 48 MHz
-
-// Corriente:
-//   23 mA @ 16 MHz
-//   26 mA @ 24 MHz
-//   35 mA @ 48 MHz
-//
 // Definición de los registros de configuración de fusibles (fuses)
 #if defined(pic18f2550) || defined(pic18f2455) || defined(pic18f4550) || defined(pic18f4455)
 code char at 0x300000 CONFIG1L = 0x20; // CPU system clock 96MHz PLL div 2, Oscillator No div (4MHz input)
@@ -97,21 +69,11 @@ void UserInit(void){
  PERCUTOR = 0;
 }
 
-// Rutina que genera un delay aproximado hecho sin presicion (para ver los LEDs encendidos)
-
 void delay(int ms){
  int i;
    while(ms--)
      for(i=0;i<50;i++); // Estos números son ciclos sucifientes para generar retardo
 }
-// Bucle central de proceso. En cuanto el firmware no esta ocupado atendiendo
-// el USB, se toma control acá para hacer otro procesamiento.
-
-
-// Funciones para el comando de las partes móviles de la impresora
-
-// Función q se usa exlcusivamente para calibrar los motores
-
 
 void apagar_motores(void){
  PORTB = 0x00;
@@ -186,13 +148,6 @@ void set_bit(byte *byte_in, byte pos){
  byte mask = 0x01, byte_aux = *byte_in;
  mask = mask << pos;
  *byte_in = byte_aux ^ mask; 
- /* This could be a simple | too, but ^ makes it better
-  * because it would destroy the byte if something goes wrong. 
-  * Let's say that byte_in = 0x07 (0000 0111), and for some 
-  * reason we try to set the bit 2 the XOR would destroy the byte 
-  * byte_in = 0000 0111 ^ 0000 0100 = 0000 0011 = 0x03. This should
-  * never happen because pos will increment, but you never know ;)
-  */                         
 }
 
 
@@ -231,49 +186,45 @@ void print_line(byte *p, byte *e){
 
 static void USB(void){
  byte rxCnt, mv_type, ins;
- // Find out if an Output report has been received from the host
- // REVISAR la linea anterior, OUTPUT_BYTES seria = 7, para cortar al ancho de la pagina
- // rxBuffer se utiliza para usar el EP1, REVISAR para dar una mejor referencia (antes lo cargabamos a toda la pagina)
-
- rxCnt =  BulkOut( rxBuffer, 1); // La instruccion es de 1 byte, que viene con el EP2
+ rxCnt =  BulkOut(2, rxBuffer, 1); // La instruccion es de 1 byte, que viene con el EP2
    if (rxCnt == 0) return;
     instruction = rxBuffer[0];
 
-
       while (ep2Bi.Stat & UOWN)
-            ProcessUSBTransactions(); 
+            ProcessUSBTransactions();
 
+  if (instruction == MOV) {
+        do {
+        rxCnt =  BulkOut(1, rxBuffer, 1);} // La instruccion es de 1 byte, que viene con el EP2
+        while (rxCnt == 0); 
+        mv_type = rxBuffer[0];
 
-     ins =   BulkIn( rxBuffer, 1);
-     if (ins) reset_carro();
-// Interpret instructions recived from host
-/*  if (ins == MOV) {
-    BulkOut(1, rxBuffer, NUMLINES); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
-    mv_type = rxBuffer[0]; // esta se usa para guardar el byte si la instruccion es de movimiento (EP2=MOV)
+      while (ep1Bi.Stat & UOWN)
+            ProcessUSBTransactions();
+
     if (mv_type == SHORT_OUT)
- 	mov_paper (SHORT_STEPS_OUT); 
+        mov_paper(SHORT_STEPS_OUT); 
     if (mv_type == LONG_OUT)
-	mov_paper (LONG_STEPS_OUT);
+	mov_paper(LONG_STEPS_OUT);
    }
-  else if (ins == PRINT ){
-    BulkOut(1, rxBuffer, NUMLINES); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
-    print_line(rxBuffer, echoVector);
-  }*/
-   // se mandan estos datos por el USB al finalizar el proceso de impresión
-	//pagina[0] = rxCnt;
+  else if (instruction == PRINT){
+        do{
+        rxCnt =  BulkOut(1, rxBuffer, 1);} // La instruccion es de 1 byte, que viene con el EP2
+        while (rxCnt == 0);
 
+        while (ep1Bi.Stat & UOWN)
+            ProcessUSBTransactions();
+   
+        print_line(rxBuffer, echoVector);
+  }     
 
-// Se manda endpoint1 haciendo un eco de los datos simplemente guardados en rxBuffer
-// TBD: Hacer el manejo de errores, usar txBuffer para mandar estos datos al host
-//   for(i=0;i<OUTPUT_BYTES;i++)
-//     txBuffer[i] = rxBuffer[i];
+      while (ep1Bi.Stat & UOWN)
+            ProcessUSBTransactions();
 
-       // while (ep2Bi.Stat & UOWN)
-         //      ProcessUSBTransactions(); 
+     ins =   BulkIn(2, echoVector, 1);
+     if (ins) reset_carro();
 
-        
-   //     BulkIn(1, &instruction, 1);
-//        BulkIn(2, &instruction, 1);
+     apagar_motores();
 }
 
 void ProcessIO(void){	

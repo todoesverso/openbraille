@@ -1,27 +1,7 @@
-// Marco Firmware para USB I/O con PIC 18F4550
-//
-// Sin copyright, (C) 2008 todoesverso & rajazz
-//
-
-// Esta biblioteca es software libre. Puede ser redistribuido y/o modificado
-// bajo los términos de la Licencia Pública General de GNU publicada por 
-// Free Software Foundation, bien de la versión 2.1 de dicha Licencia o 
-// (según su elección) de cualquier versión posterior.
-//
-// Esta biblioteca se distribuye con la esperanza de que sea útil, pero 
-// SIN NINGUNA GARANTÍA, incluso sin la garantía MERCANTIL implícita o sin
-// garantizar la CONVENIENCIA PARA UN PROPÓSITO PARTICULAR.
-// Ver la Licencia Pública General de GNU para más detalles.
-// Debería haber recibido una copia de la Licencia Pública General junto
-// con este programa. Si no ha sido así, escriba a la Free Software
-// Foundation, Inc., en 675 Mass Ave, Cambridge, MA 02139, EEUU.
-//
-
 #include <pic18fregs.h>
 #include <string.h>
 #include <stdio.h>
 #include "usb.h"
-
 
 // Los descriptores de dispositivo y configuración. Son usados como
 // el host enumera el dispositivo y descubre que clase de dispositivo es
@@ -192,24 +172,16 @@ void InitEndpoint(void)
         UEP2 = 0x1E; // Config de endpoint 2 (identica a la de EP1)
 // Cargar el BDT de EP1
         ep1Bo.Cnt = sizeof(RxBuffer);
-
 	ep1Bo.ADDR = PTR16(&RxBuffer);
-
 	ep1Bo.Stat = UOWN | DTSEN;
-
 	ep1Bi.ADDR = PTR16(&TxBuffer);
-
 	ep1Bi.Stat = DTS;
 
 // Cargar el BDT de EP2
         ep2Bo.Cnt = sizeof(RxBuffer2);
-
 	ep2Bo.ADDR = PTR16(&RxBuffer2);
-
 	ep2Bo.Stat = UOWN | DTSEN;
-
 	ep2Bi.ADDR = PTR16(&TxBuffer2);
-
 	ep2Bi.Stat = DTS;
 }
 
@@ -218,10 +190,32 @@ void InitEndpoint(void)
 
 // Funcion BulkIn. La función devuelve la cantidad de bytes que el SIE envia al host
 // Funcion BulkIn. La función devuelve la cantidad de bytes que el SIE envia al host
-byte BulkIn(byte *buffer, byte len){
+byte BulkIn(byte ep_num, byte *buffer, byte len){
 	byte i;
 // Seleccion del EP segun la entrada ep_num
+if (ep_num == 1){
+	if (ep1Bi.Stat & UOWN)
+		return 0;
+	
+   // Se truncan las solicitudes que son demasiado largas. TBD: send
+	if(len > ISZ)
+		len = ISZ;
+	
+   // Se copian los datos del buffer de usuario al buffer dual de RAM
+	for (i = 0; i < len; i++)
+		TxBuffer[i] = buffer[i];
+	
+   // Cambia el bit de dato y da control al SIE
+	ep1Bi.Cnt = len;
+	if(ep1Bi.Stat & DTS)
+		ep1Bi.Stat = UOWN | DTSEN;
+	else
+		ep1Bi.Stat = UOWN | DTS | DTSEN;
 
+  // Finalmente la función devuelve la cantidad de bytes que va a enviar el SIE a host
+	return len;
+}
+else if (ep_num == 2){
 	// Si la CPU aún posee el SIE, entonces que no trate de escribir datos para evitar
 	// un comportamiento impredecible. Por lo tanto la funcion devuelve 0
 	// Ver hoja de datos del PIC sección 17.4.1.1 - Buffer Ownwership pag 171
@@ -245,14 +239,38 @@ byte BulkIn(byte *buffer, byte len){
 
   // Finalmente la función devuelve la cantidad de bytes que va a enviar el SIE a host
 	return len;
+}
+return 0;
 // Si ninguno de los endpoints tienen algo devuelvo 0
 }
 // Funcion BulkOut. La función devuelve la cantidad de bytes que se recibieron
-byte BulkOut(byte *buffer, byte len)
+byte BulkOut(byte ep_num, byte *buffer, byte len)
 {
 	RxLen = 0;
     // Si el SIE no posee el buffer del descriptor de salida, entonces es seguro
     // extraer los datos 
+if (ep_num ==1){
+        if(!(ep1Bo.Stat & UOWN))
+	{
+    // Se fija si el host envió menos bytes que los que fueron pedidos
+		if(len > ep1Bo.Cnt)
+			len = ep2Bo.Cnt;
+
+    // Copia los datos del buffer dual de RAM al buffer de usuario
+		for(RxLen = 0; RxLen < len; RxLen++)
+			buffer[RxLen] = RxBuffer[RxLen];
+
+    // Resetea (como al inicio) el buffer del descriptor de salida así el host
+    // puede enviar mas datos, campo de estado (Stat) de la tabla del descriptor
+		ep1Bo.Cnt = sizeof(RxBuffer);
+		if(ep1Bo.Stat & DTS)
+			ep1Bo.Stat = UOWN | DTSEN;
+		else
+			ep1Bo.Stat = UOWN | DTS | DTSEN;
+        }
+        return RxLen;
+}
+ else if (ep_num == 2){
 	if(!(ep2Bo.Stat & UOWN))
 	{
     // Se fija si el host envió menos bytes que los que fueron pedidos
@@ -274,6 +292,9 @@ byte BulkOut(byte *buffer, byte len)
 
 // Finalmente la función devuelve la cantidad de bytes que fueron recibidos del host
 	return RxLen;
+ }
+	return RxLen;
+
 }
 //
 // Comienzo del código para procesar las solicitudes estándar (Cap 9 USB)
