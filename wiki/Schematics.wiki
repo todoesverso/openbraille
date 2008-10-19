@@ -1,0 +1,16 @@
+#summary This are the schematics used.
+#labels electonic,schematic
+
+= Introduction =
+
+Just the images of the schematics.
+
+
+= Details =
+
+_Look into the repository to find the KiCAD projects with every sch._
+
+
+*This is the schematic for the pic 18F4550. Currently is quite simple, it's supposed to grow with time.*
+
+[http://code.google.com/p/openbraille/source/browse/supportfiles/images/circPIC.png]
