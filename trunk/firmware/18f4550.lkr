@@ -29,4 +29,5 @@ SECTION    NAME=CONFIG     ROM=config
 SECTION    NAME=bank1      RAM=gpr1
 SECTION    NAME=usbram4    RAM=usb4
 SECTION    NAME=usbram5    RAM=usb5
+SECTION    NAME=usbram6    RAM=usb6
 SECTION    NAME=eeprom     ROM=eedata

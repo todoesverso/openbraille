@@ -1,21 +1,22 @@
-// Marco Firmware para USB I/O con PIC 18F4550
-//
-// Sin copyright, (C) 2008 todoesverso & rajazz
-//
+/*   usb.h - The header file for usb.h.
+ *
+ *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
+ *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-// Esta biblioteca es software libre. Puede ser redistribuido y/o modificado
-// bajo los términos de la Licencia Pública General de GNU publicada por 
-// Free Software Foundation, bien de la versión 2.1 de dicha Licencia o 
-// (según su elección) de cualquier versión posterior.
-//
-// Esta biblioteca se distribuye con la esperanza de que sea útil, pero 
-// SIN NINGUNA GARANTÍA, incluso sin la garantía MERCANTIL implícita o sin
-// garantizar la CONVENIENCIA PARA UN PROPÓSITO PARTICULAR.
-// Ver la Licencia Pública General de GNU para más detalles.
-// Debería haber recibido una copia de la Licencia Pública General junto
-// con este programa. Si no ha sido así, escriba a la Free Software
-// Foundation, Inc., en 675 Mass Ave, Cambridge, MA 02139, EEUU.
-//
 #ifndef USB_H
 #define USB_H
 
@@ -130,7 +131,8 @@ extern volatile setupPacketStruct SetupPacket;
 #define OUTPUT_BYTES  64
 
 // Datos recibidos provenientes del host (OUT)
-extern volatile byte RxBuff[OUTPUT_BYTES];
+extern volatile byte RxBuffer[OUTPUT_BYTES];
+extern volatile byte RxBuffer2[OUTPUT_BYTES];
 
 // Los punteros inPtr/OutPtr son usados para mover datos de los buffers  de la memoria de usario
 // (RAM/ROM/EEPROM) de/a los buffers de puerto dual

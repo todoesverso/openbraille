@@ -1,21 +1,21 @@
-// Marco Firmware para USB I/O con PIC 18F4550
-//
-// Sin copyright, (C) 2008 todoesverso & rajazz
-//
-
-// Esta biblioteca es software libre. Puede ser redistribuido y/o modificado
-// bajo los términos de la Licencia Pública General de GNU publicada por 
-// Free Software Foundation, bien de la versión 2.1 de dicha Licencia o 
-// (según su elección) de cualquier versión posterior.
-//
-// Esta biblioteca se distribuye con la esperanza de que sea útil, pero 
-// SIN NINGUNA GARANTÍA, incluso sin la garantía MERCANTIL implícita o sin
-// garantizar la CONVENIENCIA PARA UN PROPÓSITO PARTICULAR.
-// Ver la Licencia Pública General de GNU para más detalles.
-// Debería haber recibido una copia de la Licencia Pública General junto
-// con este programa. Si no ha sido así, escriba a la Free Software
-// Foundation, Inc., en 675 Mass Ave, Cambridge, MA 02139, EEUU.
-//
+/*   usb.c - The main functions for usb handle.
+ *
+ *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
+ *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include <pic18fregs.h>
 #include <string.h>
@@ -186,30 +186,21 @@ volatile byte TxBuffer2[ISZ];
 // Inicializador de los Endpoints
 void InitEndpoint(void)
 {
-	RxLen = 0;
     // Enciende ambos endpoint para entrada y salida (EP1 y EP2)
 	UEP1 = 0x1E;  // Ver hoja de datos PIC pag 169 (USB Endpoint 1 Control)
         UEP2 = 0x1E; // Config de endpoint 2 (identica a la de EP1)
 // Cargar el BDT de EP1
         ep1Bo.Cnt = sizeof(RxBuffer);
-
 	ep1Bo.ADDR = PTR16(&RxBuffer);
-
 	ep1Bo.Stat = UOWN | DTSEN;
-
 	ep1Bi.ADDR = PTR16(&TxBuffer);
-
 	ep1Bi.Stat = DTS;
 
 // Cargar el BDT de EP2
         ep2Bo.Cnt = sizeof(RxBuffer2);
-
 	ep2Bo.ADDR = PTR16(&RxBuffer2);
-
 	ep2Bo.Stat = UOWN | DTSEN;
-
 	ep2Bi.ADDR = PTR16(&TxBuffer2);
-
 	ep2Bi.Stat = DTS;
 }
 
@@ -262,7 +253,7 @@ else if (ep_num == 2){
 	
    // Se copian los datos del buffer de usuario al buffer dual de RAM
 	for (i = 0; i < len; i++)
-		TxBuffer[i] = buffer[i];
+		TxBuffer2[i] = buffer[i];
 	
    // Cambia el bit de dato y da control al SIE
 	ep2Bi.Cnt = len;
@@ -280,8 +271,8 @@ return 0;
 // Funcion BulkOut. La función devuelve la cantidad de bytes que se recibieron
 byte BulkOut(byte ep_num, byte *buffer, byte len)
 {
+	RxLen = 0;
 if (ep_num == 1){
- RxLen = 0;
     // Si el SIE no posee el buffer del descriptor de salida, entonces es seguro
     // extraer los datos 
 	if(!(ep1Bo.Stat & UOWN))
@@ -296,7 +287,7 @@ if (ep_num == 1){
 
     // Resetea (como al inicio) el buffer del descriptor de salida así el host
     // puede enviar mas datos, campo de estado (Stat) de la tabla del descriptor
-		ep1Bo.Cnt = sizeof(RxBuff);
+		ep1Bo.Cnt = sizeof(RxBuffer);
 		if(ep1Bo.Stat & DTS)
 			ep1Bo.Stat = UOWN | DTSEN;
 		else
@@ -307,7 +298,6 @@ if (ep_num == 1){
 	return RxLen;
 }
         else if (ep_num == 2){
-	RxLen = 0;
     // Si el SIE no posee el buffer del descriptor de salida, entonces es seguro
     // extraer los datos 
 	if(!(ep2Bo.Stat & UOWN))
@@ -318,11 +308,11 @@ if (ep_num == 1){
 
     // Copia los datos del buffer dual de RAM al buffer de usuario
 		for(RxLen = 0; RxLen < len; RxLen++)
-			buffer[RxLen] = RxBuffer[RxLen];
+			buffer[RxLen] = RxBuffer2[RxLen];
 
     // Resetea (como al inicio) el buffer del descriptor de salida así el host
     // puede enviar mas datos, campo de estado (Stat) de la tabla del descriptor
-		ep2Bo.Cnt = sizeof(RxBuff);
+		ep2Bo.Cnt = sizeof(RxBuffer2);
 		if(ep2Bo.Stat & DTS)
 			ep2Bo.Stat = UOWN | DTSEN;
 		else
@@ -332,7 +322,7 @@ if (ep_num == 1){
 // Finalmente la función devuelve la cantidad de bytes que fueron recibidos del host
 	return RxLen;
         }
-return 0;
+return RxLen;
 }
 //
 // Comienzo del código para procesar las solicitudes estándar (Cap 9 USB)
