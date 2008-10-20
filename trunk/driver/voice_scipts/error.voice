@@ -1,0 +1,3 @@
+#!/bin/bash
+espeak -v es -s 135 -p 35 "Error al inicializar el dispositivo." ;
+exit 0

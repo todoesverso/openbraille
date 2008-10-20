@@ -230,37 +230,54 @@ void print_line(byte *p, byte *e){
 }
 
 static void USB(void){
- byte rxCnt, mv_type;
- // Find out if an Output report has been received from the host
- rxCnt = BulkOut(1, rxBuffer, NUMLINES); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
+ byte rxCnt;
+ /* The code should present a clear distiction between
+  * data direction
+  */
+
+ /*
+  *********************
+  *  HOST --> DEVICE  *
+  *********************
+  */
+ 
+ rxCnt = BulkOut(2, rxBuffer, 1); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
  // REVISAR la linea anterior, OUTPUT_BYTES seria = 7, para cortar al ancho de la pagina
  // rxBuffer se utiliza para usar el EP1, REVISAR para dar una mejor referencia (antes lo cargabamos a toda la pagina)
- mv_type = rxBuffer[0]; // esta se usa para guardar el byte si la instruccion es de movimiento (EP2=MOV)
-	
- BulkOut(2, &instruction, 1); // La instruccion es de 1 byte, que viene con el EP2
    if (rxCnt == 0) return;
-
+   //Now rxBuffer[0] is actually the instruction that follow
 
 
 // Interpret instructions recived from host
-  if (instruction == MOV) {
-    if (mv_type == SHORT_OUT)
+  if (rxBuffer[0] == MOV) {
+   do{
+      rxCnt = BulkOut(1, rxBuffer, 1);
+   } while (rxCnt == 0); // Now rxBuffer[0] is the kind of move
+   if (rxBuffer[0] == SHORT_OUT)
  	mov_paper (SHORT_STEPS_OUT); 
-    if (mv_type == LONG_OUT)
+    if (rxBuffer[0] == LONG_OUT)
 	mov_paper (LONG_STEPS_OUT);
    }
-  else print_line(rxBuffer, echoVector);
-// se mandan estos datos por el USB al finalizar el proceso de impresión
-	//pagina[0] = rxCnt;
 
-// Se manda endpoint1 haciendo un eco de los datos simplemente guardados en rxBuffer
-// TBD: Hacer el manejo de errores, usar txBuffer para mandar estos datos al host
-//   for(i=0;i<OUTPUT_BYTES;i++)
-//     txBuffer[i] = rxBuffer[i];
-        BulkIn(1, echoVector, 1);
+  else if (rxBuffer[0] == PRINT) {
+   do{
+      rxCnt = BulkOut(1, rxBuffer, INPUT_BYTES); // Shuld this be OUTP?
+   } while (rxCnt == 0);
+        print_line(rxBuffer, echoVector);
 
-        
-        BulkIn(2, &instruction, 1);
+   else 
+        reset_carro();
+   
+ /*
+  *********************
+  *  DEVICE --> HOST  *
+  *********************
+  */
+       do{ 
+         rxCnt =  BulkIn(1, echoVector, INPUT_BYTES);
+       } while(rxCnt == 0);
+
+        apagar_motores();
 }
 
 void ProcessIO(void){	

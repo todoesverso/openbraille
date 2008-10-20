@@ -19,6 +19,7 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "funciones.h"
 
 //Tamaño de una pagina Braille impresa (630 bytes)
@@ -38,6 +39,11 @@ rec2 = 0x00;
 
 //Codigos de inicializacion
 inicializo = iniciar_usb();
+if (!inicializo){
+ system("voice_scipts/error.voice");
+ printf("Error al inicializar la conexion USB\n");
+ return 1;
+}
 
 //if (argc!=2){
 //	printf("Error: No ha ingresado el archivo deseado\n");
@@ -63,18 +69,17 @@ printf("Presionar -i- para imprimir\n");
 	
 if (car == 'i'){
         
-        j = escribir_usb(udev,WRITE,&buff[0],1,500);
+        j = usb_bulk_write(udev,WRITE,&buff[0],1,500);
 
-	 leer_usb(udev, READ, &rec, 1, 500);
-      j1 =  escribir_usb(udev,WRITE2,&buff[3],1,500);
+	 usb_bulk_read(udev, READ, &rec, 1, 500);
+      j1 =  usb_bulk_write(udev,WRITE2,&buff[3],1,500);
 //	j = escribir_usb(udev,WRITE,braille,sizeof(braille),500);
         
-         leer_usb(udev, READ2, &rec2,1,500); 
+         usb_bulk_read(udev, READ2, &rec2,1,500); 
 
 } 
 	printf("Se escribieron %d %d\n",j,j1);
 
-	for( i=0; i<100000; i++){}
 
         printf("Se recibio en 1 = %02x \n",rec);
         printf("Se recibio en 2 = %02x\n", rec2);

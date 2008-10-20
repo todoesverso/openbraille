@@ -93,67 +93,57 @@ byte brAsciiTabla[] =
 //-----------------------------------------------------------------------------------------
 
 
-void bprint(byte x)
-{
-	int n;
-	for(n=0; n<8; n++)
-	{
-		if((x & 0x80) !=0)
-		{
-			printf("1");
+void bprint(byte x) {
+ int n;
+ for(n=0; n<8; n++) {
+        if((x & 0x80) !=0){
+	        printf("1");
 		}
-		else
-		{
-			printf("0");
-		}
-		if (n==3)
-		{
+	else {
+		printf("0");
+	     }
+	        if (n==3) {
 			printf(" "); /* Un espacio cada 4 bits */
 		}
 		x = x<<1;
 	}
-	printf("  ");
+ printf("  ");
 }
 
-byte llenarbyte(byte *ptr, byte mask)
-{
-	byte pkt = 0;
-	switch(mask)
-	{
-		case 0x30:
-			pkt = ((*ptr & mask) << 2)|(*(ptr+1) & mask)|((*(ptr+2) & mask) >> 2)|((*(ptr+3) & mask) >> 4);
-			break;
-		case 0x0c:
-			pkt = ((*ptr & mask) << 4)|((*(ptr+1) & mask) << 2)|(*(ptr+2) & mask)|((*(ptr+3) & mask) >> 2);
-			break;
-		case 0x03:
-			pkt = ((*ptr & mask) << 6)|((*(ptr+1) & mask) << 4)|((*(ptr+2) & mask) << 2)|(*(ptr+3) & mask);
-			break;
-			default: printf("Error de mascara");
+byte llenarbyte(byte *ptr, byte mask) {
+ byte pkt = 0;
+   switch(mask)	{
+	case 0x30:
+		pkt = ((*ptr & mask) << 2)|(*(ptr+1) & mask)|((*(ptr+2) & mask) >> 2)|((*(ptr+3) & mask) >> 4);
+		break;
+	case 0x0c:
+		pkt = ((*ptr & mask) << 4)|((*(ptr+1) & mask) << 2)|(*(ptr+2) & mask)|((*(ptr+3) & mask) >> 2);
+		break;
+	case 0x03:
+		pkt = ((*ptr & mask) << 6)|((*(ptr+1) & mask) << 4)|((*(ptr+2) & mask) << 2)|(*(ptr+3) & mask);
+		break;
+	default: printf("Error de mascara");
 	}
 //ptr +=4;
-	return pkt;
+ return pkt;
 }
 
-void llenarrenglon (byte *ptrOut, byte *ptrIn, int ancho)
-{
-	int i,j;
-	byte *ptrInA, *ptrOutA;
-	ptrInA = ptrIn;
-	ptrOutA = ptrOut + 21*cnt;
-	byte mascara[3] = {0x30, 0x0c, 0x03};
+void llenarrenglon(byte *ptrOut, byte *ptrIn, int ancho) {
+ int i,j;
+ byte *ptrInA, *ptrOutA;
+ ptrInA = ptrIn;
+ ptrOutA = ptrOut + 21*cnt;
+ byte mascara[3] = {0x30, 0x0c, 0x03};
 
-	for(i=0; i<3; i++)
-	{
-		ptrInA = ptrIn;
+ for(i=0; i<3; i++) {
+	ptrInA = ptrIn;
 	// LLena la linea hasta el ancho correspondiente de pagina
-		for(j = 0; j < ancho; j++)
-		{
-			*ptrOutA = llenarbyte (ptrInA, mascara[i]);
-			ptrOutA ++;
-			ptrInA +=4;
-		}
+	for(j = 0; j < ancho; j++){
+		*ptrOutA = llenarbyte (ptrInA, mascara[i]);
+		ptrOutA ++;
+		ptrInA +=4;
 	}
+ }
 }
 
 
@@ -228,7 +218,7 @@ EP2 - WRITE TO %02xh READ FROM %02xh SIZEIN %d SIZEOUT %d\n",WRITE,READ,sizein,s
 				}
 			}
 			else 
-				continue;
+ 			continue;
 		}
 	}
 	
@@ -247,20 +237,6 @@ void finalizar_usb(void){
 	usb_release_interface(udev,0);
 	usb_close (udev);
 }
-
-int escribir_usb(usb_dev_handle *dev, int ep, char *datos, int size, int timeout){
-	int ret;
-	ret = usb_bulk_write(dev, ep, datos, size, timeout);
-	return ret;
-}
-
-int leer_usb(usb_dev_handle *dev, int ep, char *datos, int size, int timeout){
-	int ret;
-	ret = usb_bulk_read(dev, ep, datos, size, timeout);
-	return ret;
-
-}
-
 
 
 byte reempchar(byte caract){

@@ -34,11 +34,6 @@ void llenarrenglon (byte *ptrOut, byte *ptrIn, int ancho);
 byte reempchar(byte caract);
 void codificar(FILE *ascii, FILE *braille);
 
-
 //De manejo de USB
 int iniciar_usb(void);
 void finalizar_usb(void);
-int escribir_usb(usb_dev_handle *dev, int ep, char *bytes, int size, int timeout);
-int leer_usb(usb_dev_handle *dev, int ep, char *bytes, int size, int timeout);
-
-//
