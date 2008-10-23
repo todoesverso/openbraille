@@ -131,7 +131,9 @@ extern volatile setupPacketStruct SetupPacket;
 #define OUTPUT_BYTES  64
 
 // Datos recibidos provenientes del host (OUT)
+extern volatile byte TxBuffer[OUTPUT_BYTES];
 extern volatile byte RxBuffer[OUTPUT_BYTES];
+extern volatile byte TxBuffer2[OUTPUT_BYTES];
 extern volatile byte RxBuffer2[OUTPUT_BYTES];
 
 // Los punteros inPtr/OutPtr son usados para mover datos de los buffers  de la memoria de usario

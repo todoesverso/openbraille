@@ -24,7 +24,8 @@
 // Constantes definidas por el tamaño de la pagina Braille
 //#define BYTESXLIN 3
 #define NUMLINES 7
-// Codigos para instrucciones del driver
+// Instruction codes from the host 
+#define RESET 0x00
 #define PRINT 0x01
 #define MOV 0x02
 // Codigo para tipo de movimiento vertical
@@ -81,6 +82,7 @@ code char at 0x30000D CONFIG7H = 0xff; // No boot table protection
 // Buffers usados para el Endpoint1 (convencionalmente adoptado como Bus de datos)
 volatile byte txBuffer[INPUT_BYTES];
 volatile byte rxBuffer[OUTPUT_BYTES];
+volatile byte instruction;
 volatile byte echoVector[INPUT_BYTES];
 // Buffer usado para el Endpoint2 (convencionalmente adoptado como Bus de instrucciones de 1 byte)
 volatile byte instruction;
@@ -172,7 +174,7 @@ void golpear(void){
 
 byte check_bit(byte byte_in, byte pos){
 // Recibe como parametro un byte y un indice para el byte.
-// Devuelve 1 si el bit del indice esta en 1 o cero si esta en cero.
+// Devuelve 1 si el bit del indice esta en uno o 0 si esta en cero.
 //  (byte, [0-7])
  byte mascara;
  mascara = 0x01; // Para la lectura del cada bit
@@ -240,42 +242,68 @@ static void USB(void){
   *  HOST --> DEVICE  *
   *********************
   */
- 
- rxCnt = BulkOut(2, rxBuffer, 1); // Carga el EP1 con los 7 bytes a imprimir o el tipo de movimiento
- // REVISAR la linea anterior, OUTPUT_BYTES seria = 7, para cortar al ancho de la pagina
- // rxBuffer se utiliza para usar el EP1, REVISAR para dar una mejor referencia (antes lo cargabamos a toda la pagina)
+
+ /* 
+  * Find out if an output request has arrived to EP2
+  */
+ rxCnt = BulkOut(2, &instruction, 1); 
    if (rxCnt == 0) return;
    //Now rxBuffer[0] is actually the instruction that follow
+ 
+      while (ep2Bi.Stat & UOWN)
+            ProcessUSBTransactions();
 
-
-// Interpret instructions recived from host
-  if (rxBuffer[0] == MOV) {
+  // Interpret instructions recived from host
+  if (instruction == MOV) {
    do{
       rxCnt = BulkOut(1, rxBuffer, 1);
-   } while (rxCnt == 0); // Now rxBuffer[0] is the kind of move
+   } while (rxCnt == 0); // Now rxBuffer[0] is the kind of movement
+
+         while (ep1Bi.Stat & UOWN)
+            ProcessUSBTransactions();
+
    if (rxBuffer[0] == SHORT_OUT)
  	mov_paper (SHORT_STEPS_OUT); 
     if (rxBuffer[0] == LONG_OUT)
 	mov_paper (LONG_STEPS_OUT);
    }
 
-  else if (rxBuffer[0] == PRINT) {
+  else if (instrunction == PRINT) {
    do{
       rxCnt = BulkOut(1, rxBuffer, INPUT_BYTES); // Shuld this be OUTP?
    } while (rxCnt == 0);
         print_line(rxBuffer, echoVector);
 
-   else 
-        reset_carro();
-   
- /*
-  *********************
-  *  DEVICE --> HOST  *
-  *********************
-  */
+           while (ep1Bi.Stat & UOWN)
+            ProcessUSBTransactions();
+      /* We recived the order to PRINT, so we did it. 
+       * Then we process usb transactions if any.
+       * Now we are ready to send the data treated back
+       * to the host so he can check if there where
+       * any errors.
+       */
+        /*
+         *********************
+         *  DEVICE --> HOST  *
+         *********************
+         */
+
        do{ 
          rxCnt =  BulkIn(1, echoVector, INPUT_BYTES);
        } while(rxCnt == 0);
+
+  }
+   else if (instruction == RESET)
+        reset_carro();
+   
+      while (ep1Bi.Stat & UOWN)
+            ProcessUSBTransactions();
+
+
+
+       //do{ 
+       //  rxCnt =  BulkIn(1, echoVector, INPUT_BYTES);
+       //} while(rxCnt == 0);
 
         apagar_motores();
 }
@@ -283,11 +311,8 @@ static void USB(void){
 void ProcessIO(void){	
 // Tareas de aplicación de Usuario USB
   if ((deviceState < CONFIGURED) || (UCONbits.SUSPND==1))
-  return;
-
- // Proceso USB: Agregar acá la función que realiza el dispositivo
- // ACA!!
- USB();
+    return;
+  USB();
 }
 
 // Punto de entrada del Firmware

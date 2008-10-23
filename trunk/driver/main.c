@@ -28,7 +28,7 @@
 
 int main(int argc, char *argv[])
 {
-int inicializo,j=0,i,j1=0;
+int inicializo,j=0,i,j1=0,j2=0;
 
 char *brailleOut, brailleIn[64], car ;
 
@@ -63,21 +63,21 @@ llenarbuffer(ascii, brailleIn);
 for(j=0; j<30; j++)
 	llenarrenglon(brailleOut,brailleIn, ANCHO);
 */
-printf("Presionar -i- para imprimir\n");
-
-	car = getchar();
-	
-if (car == 'i'){
         
-        j = usb_bulk_write(udev,WRITE,&buff[0],1,500);
 
-	 usb_bulk_read(udev, READ, &rec, 1, 500);
-      j1 =  usb_bulk_write(udev,WRITE2,&buff[3],1,500);
-//	j = escribir_usb(udev,WRITE,braille,sizeof(braille),500);
-        
-         usb_bulk_read(udev, READ2, &rec2,1,500); 
+j=  usb_bulk_write(udev,WRITE2 ,&buff[2],1,500);      
+//j2= usb_clear_halt(udev,WRITE2);
+//do{
+j= usb_bulk_write(udev,WRITE ,&buff[1],1,500);   
+//} while (j<0); 
+//j2= usb_clear_halt(udev,WRITE);
+//j1= usb_bulk_read(udev, READ  , &rec2, 1, 500);
+//j=  usb_bulk_write(udev,WRITE2 ,&buff[1],1,500);      
+//j= usb_bulk_write(udev,WRITE ,&buff[4],1,500);   
+//j2= usb_clear_halt(udev,WRITE);
+//j1= usb_bulk_read(udev, READ  , &rec2, 1, 500);
 
-} 
+
 	printf("Se escribieron %d %d\n",j,j1);
 
 
