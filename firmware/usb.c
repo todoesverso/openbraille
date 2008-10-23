@@ -108,23 +108,23 @@ code ConfigStruct configDescriptor =
     // Impresora Endpoint 1 In
     0x07, 0x05, // bLength, bDescriptorType (Endpoint)
     0x81, 0x02, // bEndpointAddress, bmAttributes (Bulk)
-    ISZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
+    ISZ, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
     0x01,       // bInterval (1 millisecond)
     // Impresora Endpoint 1 Out
     0x07, 0x05, // bLength, bDescriptorType (Endpoint)
     0x01, 0x02, // bEndpointAddress, bmAttributes (Bulk)
-    OSZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
+    OSZ, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
     0x01,       // bInterval (1 millisecond)
     
     // Impresora Endpoint 2 In
     0x07, 0x05, // bLength, bDescriptorType (Endpoint)
     0x82, 0x02, // bEndpointAddress, bmAttributes (Bulk)
-    ISZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
+    ISZ, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
     0x01,       // bInterval (1 millisecond)
     // Impresora Endpoint 2 Out
     0x07, 0x05, // bLength, bDescriptorType (Endpoint)
     0x02, 0x02, // bEndpointAddress, bmAttributes (Bulk)
-    OSZ, 0x00, // wMaxPacketSize (low), wMaxPacketSize (high)
+    OSZ, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
     0x01,       // bInterval (1 millisecond)
     } 
 };
@@ -269,14 +269,13 @@ else if (ep_num == 2){
 return 0;
 }
 // Funcion BulkOut. La función devuelve la cantidad de bytes que se recibieron
-byte BulkOut(byte ep_num, byte *buffer, byte len)
-{
-	RxLen = 0;
+byte BulkOut(byte ep_num, byte *buffer, byte len) {
+RxLen = 0;
+
 if (ep_num == 1){
     // Si el SIE no posee el buffer del descriptor de salida, entonces es seguro
     // extraer los datos 
-	if(!(ep1Bo.Stat & UOWN))
-	{
+	if(!(ep1Bo.Stat & UOWN)) {
     // Se fija si el host envió menos bytes que los que fueron pedidos
 		if(len > ep1Bo.Cnt)
 			len = ep1Bo.Cnt;
@@ -292,16 +291,12 @@ if (ep_num == 1){
 			ep1Bo.Stat = UOWN | DTSEN;
 		else
 			ep1Bo.Stat = UOWN | DTS | DTSEN;
-	}
-
-// Finalmente la función devuelve la cantidad de bytes que fueron recibidos del host
-	return RxLen;
+        } 
 }
-        else if (ep_num == 2){
+else if (ep_num == 2){
     // Si el SIE no posee el buffer del descriptor de salida, entonces es seguro
     // extraer los datos 
-	if(!(ep2Bo.Stat & UOWN))
-	{
+	if(!(ep2Bo.Stat & UOWN)) {
     // Se fija si el host envió menos bytes que los que fueron pedidos
 		if(len > ep2Bo.Cnt)
 			len = ep2Bo.Cnt;
@@ -318,10 +313,8 @@ if (ep_num == 1){
 		else
 			ep2Bo.Stat = UOWN | DTS | DTSEN;
 	}
+}
 
-// Finalmente la función devuelve la cantidad de bytes que fueron recibidos del host
-	return RxLen;
-        }
 return RxLen;
 }
 //
