@@ -179,7 +179,7 @@ volatile byte controlTransferBuffer[E0SZ];
 // Buffers especificos
 volatile byte RxBuffer[OSZ];
 volatile byte TxBuffer[ISZ];
-volatile byte RxBuffer2[OSZ];
+volatile byte RxBuffer2;
 volatile byte TxBuffer2[ISZ];
 
 //
@@ -197,7 +197,7 @@ void InitEndpoint(void)
 	ep1Bi.Stat = DTS;
 
 // Cargar el BDT de EP2
-        ep2Bo.Cnt = sizeof(RxBuffer2);
+        ep2Bo.Cnt = RxBuffer2;
 	ep2Bo.ADDR = PTR16(&RxBuffer2);
 	ep2Bo.Stat = UOWN | DTSEN;
 	ep2Bi.ADDR = PTR16(&TxBuffer2);
@@ -302,12 +302,11 @@ else if (ep_num == 2){
 			len = ep2Bo.Cnt;
 
     // Copia los datos del buffer dual de RAM al buffer de usuario
-		for(RxLen = 0; RxLen < len; RxLen++)
-			buffer[RxLen] = RxBuffer2[RxLen];
-
+			buffer[0] = RxBuffer2;
+                        RxLen = 1;
     // Resetea (como al inicio) el buffer del descriptor de salida así el host
     // puede enviar mas datos, campo de estado (Stat) de la tabla del descriptor
-		ep2Bo.Cnt = sizeof(RxBuffer2);
+		ep2Bo.Cnt = 1;
 		if(ep2Bo.Stat & DTS)
 			ep2Bo.Stat = UOWN | DTSEN;
 		else
