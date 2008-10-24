@@ -134,7 +134,7 @@ extern volatile setupPacketStruct SetupPacket;
 extern volatile byte TxBuffer[OUTPUT_BYTES];
 extern volatile byte RxBuffer[OUTPUT_BYTES];
 extern volatile byte TxBuffer2[OUTPUT_BYTES];
-extern volatile byte RxBuffer2[OUTPUT_BYTES];
+extern volatile byte RxBuffer2;
 
 // Los punteros inPtr/OutPtr son usados para mover datos de los buffers  de la memoria de usario
 // (RAM/ROM/EEPROM) de/a los buffers de puerto dual

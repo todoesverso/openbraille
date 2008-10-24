@@ -82,7 +82,6 @@ code char at 0x30000D CONFIG7H = 0xff; // No boot table protection
 // Buffers usados para el Endpoint1 (convencionalmente adoptado como Bus de datos)
 volatile byte txBuffer[INPUT_BYTES];
 volatile byte rxBuffer[OUTPUT_BYTES];
-volatile byte instruction;
 volatile byte echoVector[INPUT_BYTES];
 // Buffer usado para el Endpoint2 (convencionalmente adoptado como Bus de instrucciones de 1 byte)
 volatile byte instruction;
@@ -268,7 +267,7 @@ static void USB(void){
 	mov_paper (LONG_STEPS_OUT);
    }
 
-  else if (instrunction == PRINT) {
+  else if (instruction == PRINT) {
    do{
       rxCnt = BulkOut(1, rxBuffer, INPUT_BYTES); // Shuld this be OUTP?
    } while (rxCnt == 0);
