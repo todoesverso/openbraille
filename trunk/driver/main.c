@@ -32,7 +32,7 @@ int inicializo,j=0,i,j1=0,j2=0;
 
 char *brailleOut, brailleIn[64], car ;
 
-char buff[]={0x00,0x01,0x02,0x03,0x04,0x05,0x06, 0x07},rec, rec2;
+char buff[]={0x00,0x01,0x02,0x03,0x04,0x05,0x06},rec, rec2;
 
 rec = 0x00;
 rec2 = 0x00;
@@ -65,13 +65,13 @@ for(j=0; j<30; j++)
 */
         
 
-j=  usb_bulk_write(udev,WRITE2 ,&buff[1],1,500);      
+j=  usb_bulk_write(udev,WRITE2 ,&buff[0],1,500);      
 //j2= usb_clear_halt(udev,WRITE2);
 //do{
-j= usb_bulk_write(udev,WRITE ,&buff[1],1,500);   
+//j= usb_bulk_write(udev,WRITE ,buff,1,500);   
 //} while (j<0); 
 //j2= usb_clear_halt(udev,WRITE);
-j1= usb_bulk_read(udev, READ  , &rec2, 1, 500);
+//j1= usb_bulk_read(udev, READ  , &rec2, 1, 500);
 //j=  usb_bulk_write(udev,WRITE2 ,&buff[1],1,500);      
 //j= usb_bulk_write(udev,WRITE ,&buff[4],1,500);   
 //j2= usb_clear_halt(udev,WRITE);

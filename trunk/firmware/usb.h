@@ -127,8 +127,8 @@ extern volatile setupPacketStruct SetupPacket;
 #define E0SZ 64
 
 // Tamaño de datos para las tranferencias de entrada y salida (Usadas en funciones Bulk)
-#define INPUT_BYTES   64
-#define OUTPUT_BYTES  64
+#define INPUT_BYTES  7 
+#define OUTPUT_BYTES  7
 
 // Datos recibidos provenientes del host (OUT)
 extern volatile byte TxBuffer[OUTPUT_BYTES];

@@ -83,10 +83,12 @@ code byte deviceDescriptor[] =
     0x00, 0x01  // iSerialNumber (none), bNumConfigurations
 };
 
-// wMaxPacketSize (low) del endopointIN
-#define ISZ 64 
-// wMaxPacketSize (low) del endopointOUT
-#define OSZ 64
+// wMaxPacketSize (low) del endopoint1IN
+#define ISZ 7 
+// wMaxPacketSize (low) del endopoint1OUT
+#define OSZ 7
+// wMaxPacketSize (low) del endopoint2OUT
+#define OSZ2 1 
 
 code ConfigStruct configDescriptor =
 {
@@ -124,7 +126,7 @@ code ConfigStruct configDescriptor =
     // Impresora Endpoint 2 Out
     0x07, 0x05, // bLength, bDescriptorType (Endpoint)
     0x02, 0x02, // bEndpointAddress, bmAttributes (Bulk)
-    OSZ, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
+    OSZ2, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
     0x01,       // bInterval (1 millisecond)
     } 
 };
