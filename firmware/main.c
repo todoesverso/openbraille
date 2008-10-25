@@ -25,9 +25,10 @@
 //#define BYTESXLIN 3
 #define NUMLINES 7
 // Instruction codes from the host 
-#define RESET 0x00
-#define PRINT 0x01
-#define MOV 0x02
+#define RESET           0x00
+#define PRINT           0x01
+#define MOV_SHORT       0x02
+#define MOV_LONG        0x03
 // Codigo para tipo de movimiento vertical
 #define SHORT_OUT 1
 #define LONG_OUT 2
@@ -88,31 +89,26 @@ volatile byte instruction;
 
 // Punto de entrada de inicialización de usuario
 void UserInit(void){
- ADCON0 = 0xFF;		// Establece RA4 como salida
- ADCON1 = 0x0F;		// Establecer todos los pines de I/O a digital
- TRISB = 0x00;		// o_O' Mhmh, read the f*in datasheet!
- TRISD = 0xc;
- INTCON = 0;
- INTCON2 = 0;
- PORTB = 0x00;	
- PERCUTOR = 0;
+ ADCON0         = 0xFF;		// Establece RA4 como salida
+ ADCON1         = 0x0F;		// Establecer todos los pines de I/O a digital
+ TRISB          = 0x00;		// o_O' Mhmh, read the f*in datasheet!
+ TRISD          = 0xc;
+ INTCON         = 0;
+ INTCON2        = 0;
+ PORTB          = 0x00;	
+ PERCUTOR       = 0;
 }
 
 // Rutina que genera un delay aproximado hecho sin presicion (para ver los LEDs encendidos)
 
-void delay(int ms){
- int i;
+void delay(byte ms){
+ byte i;
    while(ms--)
-     for(i=0;i<50;i++); // Estos números son ciclos sucifientes para generar retardo
+     for(i = 0; i < 50; i++); // Estos números son ciclos sucifientes para generar retardo
+        //# = 50 !!!
 }
-// Bucle central de proceso. En cuanto el firmware no esta ocupado atendiendo
-// el USB, se toma control acá para hacer otro procesamiento.
-
 
 // Funciones para el comando de las partes móviles de la impresora
-
-// Función q se usa exlcusivamente para calibrar los motores
-
 
 void apagar_motores(void){
  PORTB = 0x00;
@@ -125,7 +121,7 @@ byte valor,i;
 byte loops_aux ;
 
 if(direccion)
- for(loops_aux=0; loops_aux < loops; loops_aux++){
+ for(loops_aux = 0; loops_aux < loops; loops_aux++){
   for(i = 0; i < 8; i++){		
    valor = pasosI[i];
    if(motor){
@@ -139,7 +135,7 @@ if(direccion)
   }
  }
 else
- for(loops_aux=0; loops_aux < loops; loops_aux++){
+ for(loops_aux = 0; loops_aux < loops; loops_aux++){
   for(i = 0; i < 8; i++){		
    valor = pasosD[i];
    if(motor){
@@ -161,6 +157,8 @@ void mov_paper (byte steps) {
 void reset_carro(void){
   while(SENS_CARRO)
     mover(1, IZQ, CARRO);
+ mover(8, DER, CARRO); // Esto es una sangria
+
 }
 
 void golpear(void){
@@ -196,7 +194,6 @@ void set_bit(byte *byte_in, byte pos){
   */                         
 }
 
-
 byte print_byte(byte *p){
  byte a, i, byte_in, byte_ctl = 0x00;
  byte_in = *p;
@@ -218,16 +215,13 @@ byte print_byte(byte *p){
 void print_line(byte *p, byte *e){
  byte width_b;
  reset_carro();
- apagar_motores();
- mover(8, DER, CARRO); // Esto es una sangria
- width_b = NUMLINES;
+ width_b = NUMLINES - 1;
    while (width_b) {
      *e = print_byte(p);
      p++;
      e++;
      width_b--;
    }
- apagar_motores();
 }
 
 static void USB(void){
@@ -235,13 +229,7 @@ static void USB(void){
  /* The code should present a clear distiction between
   * data direction
   */
-
- /*
-  *********************
-  *  HOST --> DEVICE  *
-  *********************
-  */
-
+  // *** HOST --> DEVICE  ***
  /* 
   * Find out if an output request has arrived to EP2
   */
@@ -249,26 +237,17 @@ static void USB(void){
    if (rxCnt == 0) return;
    //Now rxBuffer[0] is actually the instruction that follow
  
-      while (ep2Bi.Stat & UOWN)
-            ProcessUSBTransactions();
-
   // Interpret instructions recived from host
-  if (instruction == MOV) {
-   do{
-      rxCnt = BulkOut(1, rxBuffer, 1);
-   } while (rxCnt == 0); // Now rxBuffer[0] is the kind of movement
-
-         while (ep1Bi.Stat & UOWN)
-            ProcessUSBTransactions();
-
-   if (rxBuffer[0] == SHORT_OUT)
+  if (instruction == MOV_SHORT) {
  	mov_paper (SHORT_STEPS_OUT); 
-    if (rxBuffer[0] == LONG_OUT)
+  }
+  else if (instruction == MOV_LONG){
 	mov_paper (LONG_STEPS_OUT);
-   }
+  }
 
   else if (instruction == PRINT) {
    do{
+  // *** HOST --> DEVICE  ***
       rxCnt = BulkOut(1, rxBuffer, INPUT_BYTES); // Shuld this be OUTP?
    } while (rxCnt == 0);
         print_line(rxBuffer, echoVector);
@@ -281,12 +260,7 @@ static void USB(void){
        * to the host so he can check if there where
        * any errors.
        */
-        /*
-         *********************
-         *  DEVICE --> HOST  *
-         *********************
-         */
-
+       // *** DEVICE --> HOST ***
        do{ 
          rxCnt =  BulkIn(1, echoVector, INPUT_BYTES);
        } while(rxCnt == 0);
@@ -297,12 +271,6 @@ static void USB(void){
    
       while (ep1Bi.Stat & UOWN)
             ProcessUSBTransactions();
-
-
-
-       //do{ 
-       //  rxCnt =  BulkIn(1, echoVector, INPUT_BYTES);
-       //} while(rxCnt == 0);
 
         apagar_motores();
 }
