@@ -74,7 +74,9 @@ main(int argc, char **argv) {
 	parseDoc (docname);
 
 	return (1);
+
+
+//gcc -Wall `xml2-config --cflag` -lxml2 -o parser
 }
 
 
-#gcc -Wall `xml2-config --cflag` -lxml2 -o parser
