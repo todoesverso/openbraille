@@ -4,29 +4,13 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 
-void
-parseStory (xmlDocPtr doc, xmlNodePtr cur) {
-
-	xmlChar *key;
-	cur = cur->xmlChildrenNode;
-	while (cur != NULL) {
-	    if ((!xmlStrcmp(cur->name, (const xmlChar *)"tag1"))) {
-		    key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-		    printf("keyword: %s\n", key);
-		    xmlFree(key);
- 	    }
-	cur = cur->next;
-	}
-    return;
-}
-
-static void
-parseDoc(char *docname) {
-
+char
+*getOpt(char *option){
 	xmlDocPtr doc;
 	xmlNodePtr cur;
-
-	doc = xmlParseFile(docname);
+	xmlChar *key;
+        char *value;
+	doc = xmlParseFile("config.cfg");
 	
 	if (doc == NULL ) {
 		fprintf(stderr,"Document not parsed successfully. \n");
@@ -49,10 +33,13 @@ parseDoc(char *docname) {
 	
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
-		if ((!xmlStrcmp(cur->name, (const xmlChar *)"tag2"))){
-			parseStory (doc, cur);
+		if ((!xmlStrcmp(cur->name, (const xmlChar *) option))){
+		    key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
+		    printf("keyword: %s\n", key);
+		    strcpy(value, key);
+                    xmlFree(key);
+                    return value;
 		}
-		 
 	cur = cur->next;
 	}
 	
@@ -60,19 +47,14 @@ parseDoc(char *docname) {
 	return;
 }
 
-int
+
+
 main(int argc, char **argv) {
 
-	char *docname;
-		
-	if (argc <= 1) {
-		printf("Usage: %s docname\n", argv[0]);
-		return(0);
-	}
-
-	docname = argv[1];
-	parseDoc (docname);
-
+        getOpt("uno");
+        getOpt("dos");
+        printf("Salida %d\n",atoll(getOpt("tres")));
+        
 	return (1);
 
 
