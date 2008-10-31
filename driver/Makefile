@@ -6,16 +6,20 @@ INCLUDES=funciones.h
 CFLAGS=
 SLIBS=
 PROG=gcc
-OPT=-Wall -W -L/usr/lib/ -lusb
+OPT=-Wall 
+OPTUSB= -L/usr/lib/ -lusb
+LIBXML= `xml2-config --cflags` `xml2-config --libs` 	
 
 # Destino (target) especial (inicia con .)
 
-
-all: main.c funciones.h funciones.o
-	$(PROG) $(OPT) main.c -o brailledriver 
+all: main.c funciones.h funciones.o options.o
+	$(PROG) $(OPTUSB) $(LIBXML) main.c -o brailledriver 
 
 funciones.o: funciones.h 
 	$(PROG) -c funciones.c
+
+options.o: options.h 
+	$(PROG) $(OPT) $(LIBXML) -c options.c 
 
 clean:
 	rm *.o
