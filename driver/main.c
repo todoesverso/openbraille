@@ -34,13 +34,14 @@ int main(int argc, char *argv[])
 int inicializo,j=0,i,j1=0,j2=0;
 
 char *brailleOut, brailleIn[64], car ;
-
+char value ;
 char buff[]={0x00,0x01,0x02,0x03,0x04,0x05,0x06},rec, rec2;
 
 rec = 0x00;
 rec2 = 0x00;
 
-getOpt("dos");
+getOpt("dos", &value );
+printf ("Print: %d\n", 2+atoi(&value));
 // return 1;
 //Codigos de inicializacion
 inicializo = iniciar_usb();

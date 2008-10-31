@@ -17,24 +17,22 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 
-static char
-*getOpt(char *option) {
+void
+getOpt (char *option, char *value) {
 	xmlDocPtr doc;
 	xmlNodePtr cur;
 	xmlChar *key;
-        char *value;
 	doc = xmlParseFile("config.cfg");
 	
 	if (doc == NULL ) {
 		fprintf(stderr,"Document not parsed successfully. \n");
-		return "-1";
+		return ;
 	}
 	
 	cur = xmlDocGetRootElement(doc);
@@ -42,26 +40,26 @@ static char
 	if (cur == NULL) {
 		fprintf(stderr,"empty document\n");
 		xmlFreeDoc(doc);
-		return "-1";
+		return ;
 	}
 	
 	if (xmlStrcmp(cur->name, (const xmlChar *) "config")) {
 		fprintf(stderr,"document of the wrong type, root node != config");
 		xmlFreeDoc(doc);
-		return "-1";
+		return ;
 	}
 	
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar *) option))){
 		    key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-		    strcpy(value,(const char *) key);
+		    strcat(value,(const char * ) key);
                     xmlFree(key);
 	            xmlFreeDoc(doc);
-                    return value;
+                    return ;
 		}
 	cur = cur->next;
 	}
-        return "-1";
+        return ;
 }
 
