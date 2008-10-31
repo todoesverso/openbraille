@@ -53,7 +53,7 @@ getOpt (char *option, char *value) {
 	while (cur != NULL) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar *) option))){
 		    key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-		    strcat(value,(const char * ) key);
+		    strcpy(value,(const char * ) key);
                     xmlFree(key);
 	            xmlFreeDoc(doc);
                     return ;
