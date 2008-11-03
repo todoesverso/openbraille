@@ -17,13 +17,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <libxml/xmlmemory.h>
-#include <libxml/parser.h>
 #include "funciones.h"
-#include "options.h"
+#include "errorsdrv.h"
+
 
 //Tamaño de una pagina Braille impresa (630 bytes)
 #define TAM 3*ANCHO
@@ -40,14 +36,15 @@ char buff[]={0x00,0x01,0x02,0x03,0x04,0x05,0x06},rec, rec2;
 rec = 0x00;
 rec2 = 0x00;
 
-getOpt("dos", &value );
-printf ("Print: %d\n", 2+atoi(&value));
+//getOpt("dos", &value );
+//printf ("Print: %d\n", 2+atoi(&value));
 // return 1;
 //Codigos de inicializacion
 inicializo = iniciar_usb();
 if (!inicializo){
- system("voice_scipts/error.voice");
- printf("Error al inicializar la conexion USB\n");
+// system("voice_scipts/error.voice");
+ errors(1);
+// errors(2);
  return 1;
 }
 
