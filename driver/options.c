@@ -38,22 +38,35 @@ getOpt (char *option, char *value) {
 	cur = xmlDocGetRootElement(doc);
 	
 	if (cur == NULL) {
-		fprintf(stderr,"empty document\n");
+		fprintf(stderr,"Empty document\n");
 		xmlFreeDoc(doc);
 		return ;
 	}
 	
 	if (xmlStrcmp(cur->name, (const xmlChar *) "config")) {
-		fprintf(stderr,"document of the wrong type, root node != config");
+		fprintf(stderr,"Document of the wrong type, root node != config");
 		xmlFreeDoc(doc);
 		return ;
 	}
 	
+        /* If we arrived here it means that everything is OK
+         * so we will look for the tag 'option' and give its value
+         * to 'value'. If the value is NULL, the parameter value
+         * will be 1 char long with '\0', so the programer can 
+         * make a choice of the default value that option should\
+         * have.
+         */ 
+
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar *) option))){
 		    key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-		    strcpy(value,(const char * ) key);
+
+                    if (key == NULL)
+                     value[0] = '\0';
+                    else
+                     strcpy(value,(const char * ) key);
+
                     xmlFree(key);
 	            xmlFreeDoc(doc);
                     return ;
