@@ -44,7 +44,7 @@ inicializo = iniciar_usb();
 if (!inicializo){
 // system("voice_scipts/error.voice");
  errors(1);
-// errors(2);
+ errors(2);
  return 1;
 }
 

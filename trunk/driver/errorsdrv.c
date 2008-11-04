@@ -1,16 +1,42 @@
+/*   errorsdrv.c - The error message deliver.
+ *
+ *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
+ *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "options.h"
 
 int
 errors(int number) {
  FILE *filePtr;  
- char file_name;
- char line[512];
- int line_number = 0;
- char command[899] = "";
+ char file_name[512];
+ char line[1024];
+ char lang[10];
+ int  line_number = 0;
+ char command[1280] = "espeak -s 120 -p 35 -v ";
 
- getOpt("errors-msg", &file_name);
- 
- filePtr = fopen (&file_name, "rt");
+ getOpt("errors-msg", file_name);
+ getOpt("errors-lang", lang);
+  
+ if (lang[0] == '\0' ) 
+  strncpy(lang, "es", 2); // If no language defined use spanish
+                          // as default.
+
+
+ filePtr = fopen (file_name, "rt");
 
  if (filePtr == NULL) {
  printf("Error al abrir el archivo \n");
@@ -22,18 +48,16 @@ errors(int number) {
  
  fclose (filePtr);
  
- line_number =  strlen(line); // Re use line_number
- printf ("%d\n",line_number);
+ char *nlptr = strchr(line, '\n'); // Make sure to remove the newline char
+ if (nlptr) *nlptr = '\0';         // and add the NULL end of the string
+                                   // othewise a segfault will occur.
 
- line[line_number -1 ] = ' '; // Remove \n
+ strncat (command, lang , (strlen(lang)+1));
+ strncat (command, " '", 2);
+ strncat (command, line, strlen(line));
+ strncat (command, "'", 1);
 
- printf("%s\n",line);
-
- strcat (command, "espeak -v es -s 135 -p 35 '");
- strcat (command, line);
- strcat (command, "'");
- 
- printf("%s\n", command);
+ printf ("Error: %s\n", line);
  system(command);
  return 0;
 }
