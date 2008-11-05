@@ -20,4 +20,4 @@
 
 #include "options.c"
 
-void getOpt(char *option, char *value );
+int getOpt(char *option, char *value );
