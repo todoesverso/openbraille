@@ -20,40 +20,44 @@
 #include "funciones.h"
 #include "errorsdrv.h"
 
-
 //Tamaño de una pagina Braille impresa (630 bytes)
 #define TAM 3*ANCHO
-
 
 int main(int argc, char *argv[])
 {
 int inicializo,j=0,i,j1=0,j2=0;
-
+FILE *ascii;
 char *brailleOut, brailleIn[64], car ;
+char file_name[512];
 char value ;
 char buff[]={0x00,0x01,0x02,0x03,0x04,0x05,0x06},rec, rec2;
 
 rec = 0x00;
 rec2 = 0x00;
 
-//getOpt("dos", &value );
-//printf ("Print: %d\n", 2+atoi(&value));
-// return 1;
 //Codigos de inicializacion
 inicializo = iniciar_usb();
 if (!inicializo){
 // system("voice_scipts/error.voice");
  errors(1);
- errors(2);
- return 1;
-}
+  exit(EXIT_FAILURE);
+}*/
 
-//if (argc!=2){
-//	printf("Error: No ha ingresado el archivo deseado\n");
-//exit(1);
-//}
+if (argc != 2)
+ if (getOpt("file-name", file_name)) {
+        errors(2);
+        exit(1);
+  }
 
-//ascii = fopen(argv[1],"r");
+
+if (argv[1] != NULL )
+  ascii = fopen(argv[1], "r");
+else
+  ascii = fopen(file_name, "r");
+
+ 
+  fclose(ascii);
+exit(1);
 //braille = fopen("/tmp/braille","w");
 
 //Codigo de programa
