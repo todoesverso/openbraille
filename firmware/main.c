@@ -104,8 +104,7 @@ void UserInit(void){
 void delay(byte ms){
  byte i;
    while(ms--)
-     for(i = 0; i < 50; i++); // Estos números son ciclos sucifientes para generar retardo
-        //# = 50 !!!
+     for(i = 0; i < 200; i++); // Estos números son ciclos sucifientes para generar retardo
 }
 
 // Funciones para el comando de las partes móviles de la impresora

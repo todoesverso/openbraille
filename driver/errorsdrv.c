@@ -25,13 +25,13 @@ errors(int number) {
  char file_name[512];
  char line[1024];
  char lang[10];
- int  line_number = 0;
+ int  line_number = 0, defa = 0;
  char command[1280] = "espeak -s 120 -p 35 -v ";
 
  getOpt("errors-msg", file_name);
- getOpt("errors-lang", lang);
+ defa = getOpt("errors-lang", lang);
   
- if (lang[0] == '\0' ) 
+ if ( defa == 1 ) 
   strncpy(lang, "es", 2); // If no language defined use spanish
                           // as default.
 

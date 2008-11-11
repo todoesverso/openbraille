@@ -36,12 +36,14 @@ rec = 0x00;
 rec2 = 0x00;
 
 //Codigos de inicializacion
+
 inicializo = iniciar_usb();
+
+/*
 if (!inicializo){
-// system("voice_scipts/error.voice");
  errors(1);
   exit(EXIT_FAILURE);
-}*/
+}
 
 if (argc != 2)
  if (getOpt("file-name", file_name)) {
@@ -59,7 +61,7 @@ else
   fclose(ascii);
 exit(1);
 //braille = fopen("/tmp/braille","w");
-
+*/
 //Codigo de programa
 //codificar(ascii,braille);
 
@@ -72,13 +74,14 @@ for(j=0; j<30; j++)
 */
         
 
-j=  usb_bulk_write(udev,WRITE2 ,&buff[0],1,500);      
+j=usb_bulk_write(udev,WRITE2 ,&buff[0],1,500);      
+//j=usb_bulk_write(udev,WRITE2 ,&buff[1],1,500);      
 //j2= usb_clear_halt(udev,WRITE2);
 //do{
-//j= usb_bulk_write(udev,WRITE ,buff,1,500);   
+//j= usb_bulk_write(udev,WRITE ,&buff[3],1,500);   
 //} while (j<0); 
 //j2= usb_clear_halt(udev,WRITE);
-//j1= usb_bulk_read(udev, READ  , &rec2, 1, 500);
+//j1=usb_bulk_read(udev, READ  , &rec2, 1, 500);
 //j=  usb_bulk_write(udev,WRITE2 ,&buff[1],1,500);      
 //j= usb_bulk_write(udev,WRITE ,&buff[4],1,500);   
 //j2= usb_clear_halt(udev,WRITE);
