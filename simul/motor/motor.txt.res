@@ -85,17 +85,15 @@ Initial Transient Solution
 
 Node                                   Voltage
 ----                                   -------
-in                                           5
-7                                      4.46816
-3                                     0.661047
-6                                           24
-1                                     0.402303
-out                                    2.56972
-4                                           24
-5                                      20.0671
-t1:4                                  0.876773
-2                                     0.199721
-v_motor#branch                       -0.214303
-v1#branch                          -0.00393295
-v2#branch                         -8.10025e-05
+in                                           0
+vbasebc                            2.32761e-09
+3                                           12
+vbase                                  1.27851
+out                                    0.39095
+2                                           12
+t1:4                                  0.670067
+1                                    0.0121291
+v_motor#branch                        -0.11609
+v1#branch                          -0.00536074
+v2#branch                          2.32761e-12
 

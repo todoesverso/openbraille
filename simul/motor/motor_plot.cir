@@ -6,7 +6,7 @@ load rawspice.raw
 
 
 *User defined vector and plot commands: 
-plot in out
+plot in out vbase vbasebc
 
 .endc 
 .end 
