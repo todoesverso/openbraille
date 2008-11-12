@@ -1,0 +1,14 @@
+#summary Here I'll post information about the motor circuit
+#labels Featured
+
+= Introduction =
+
+Here I'll post information about the motor circuit
+
+
+= Details =
+
+Simulation plot:
+
+
+http://openbraille.googlecode.com/svn/trunk/simul/motor/output.png
