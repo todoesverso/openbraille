@@ -22,3 +22,8 @@ url = http://www.beyondlogic.org/usbnutshell/usb-in-a-nutshell.pdf
 lic = Copyright 2002, Craig Peacock (Craig.Peacock@beyondlogic.org)
 file = doc/bilbio/usb-in-a-nutshell.pdf
 ####################
+titulo =  La introducción no-tan-corta a LATEX
+url = http://ctan.binkerton.com/info/lshort/spanish/lshort.pdf
+lic = GPLv2
+file = doc/biblio/lshort.pdf
+####################
