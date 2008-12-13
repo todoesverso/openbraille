@@ -1,0 +1,76 @@
+\documentclass[12pt,a4paper]{report}
+%Encabezado segun reglas de trabajo final
+
+% Paquetes usados
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+%\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{psfig}
+\usepackage{subfigure}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{graphics}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[centerlast,small,bf]{caption2}
+\usepackage{template}
+
+% Formateador de  portada
+\newcommand{\THESISNAMEA}{Impresora Braille - Implementaci\'on libre }
+\newcommand{\THESISAUTHORA}{\hspace*{1in}Rosales Victor Hugo\hspace*{1.2in}787774}
+\newcommand{\THESISAUTHORB}{\hspace*{1in}German Horacio Sanguinetti\hspace*{1.2in}977969}
+\newcommand{\THESISDATE}{Diciembre de 2008}
+\newcommand{\THESISYEAR}{2009}
+\newcommand{\THESISSINODALA}{Ing. John Coppens}
+%-----------------------------------------------------------------------------------------
+
+\title{\THESISNAMEA}
+\date{\THESISDATE}
+
+% No se que hace esto, por las dudas lo saque.
+%\setcaptionwidth{13cm}
+
+\psfigurepath{./img/}
+
+% ----------------------------------------------------------------------------
+\begin{document}
+
+\include{portada}
+
+\include{agradecimientos}
+% -----------------------------------------
+\tableofcontents  %% Genera indice general.
+% -----------------------------------------
+
+\include{prologo}
+% Prólogo, donde se definan sus alcances, propósitos y objetivos.
+
+
+
+% Segun reglamento de trabajo final
+% Desarrollo, en esta parte se deben incorporar todos los conocimientos Ingenieriles
+% que permitan superar los problemas planteados.
+% No necesariamente se deben llegar a resultados positivos, puede suceder que se
+% obtengan resultados negativos y son tan válidos como los anteriores, no olvidar
+% que la idea del T. F. es como el primer trabajo profesional.
+% En este punto es importante hacer intervenir la mayor cantidad de materias que se
+% han cursado, porque fundamentalmente estamos hablando de un trabajo
+% integrador.
+
+%---------------------------------------------------------------------------
+% Cada capitulo debe ser un archivo separado para mejor mantenimiento.
+% Ademas cada capitulo debe tener
+% \chapter{title}
+%	- Prologo del capitulo sin ningun formato especial(?)
+%	- Secciones....
+%---------------------------------------------------------------------------
+
+
+%\include{software_libre}
+\include{diagnostico}
+
+% ----------------------------------------------------------------------------
+
+\end{document}
