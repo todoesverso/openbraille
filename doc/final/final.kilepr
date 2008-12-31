@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=main.tex
+lastDocument=software_libre.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -21,8 +21,8 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=0
-open=false
-order=6
+open=true
+order=1
 
 [item:agradecimientos.tex]
 archive=true
@@ -30,17 +30,17 @@ column=26
 encoding=UTF-8
 highlight=LaTeX
 line=5
-open=false
-order=1
+open=true
+order=4
 
 [item:diagnostico.tex]
 archive=true
 column=0
 encoding=
-highlight=
+highlight=LaTeX
 line=0
-open=false
-order=-1
+open=true
+order=2
 
 [item:final.kilepr]
 archive=true
@@ -53,21 +53,21 @@ order=-1
 
 [item:main.tex]
 archive=true
-column=21
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=71
+line=61
 open=true
 order=0
 
 [item:portada.tex]
 archive=true
-column=12
+column=39
 encoding=UTF-8
 highlight=LaTeX
-line=33
-open=false
-order=2
+line=38
+open=true
+order=5
 
 [item:prologo.tex]
 archive=true
@@ -75,17 +75,17 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=1
-open=false
-order=3
+open=true
+order=6
 
 [item:software_libre.tex]
 archive=true
-column=21
+column=23
 encoding=UTF-8
 highlight=LaTeX
-line=68
-open=false
-order=5
+line=0
+open=true
+order=3
 
 [item:template.sty]
 archive=true
