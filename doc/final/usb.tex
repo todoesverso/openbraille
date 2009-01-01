@@ -18,10 +18,10 @@ implementaciones comerciales solo soportan el ent\'andar \emph{2.0}.
 La especificaci\'on USB provee una serie de atributos con los cuales se pueden
 implementar dispositivos seg\'un el precio/rendimiento deseado.
 
-\subsection{Caracter\'isticas}
+\section{Caracter\'isticas}
 Del amplio rango de caracter\'isticas definidas en el ent\'andar, es posible
 agruparlas en ocho categor\'ias:
-% Reescribir lo de arriba
+% Reescribir lo de arriba y agregar mas
 
 \begin{itemize}
  \item Facilidad de uso para el usuario final
@@ -53,6 +53,21 @@ Un sistema USB se  define segun tres grandes \'areas:
  \item Dispositivo USB
  \item \emph{Host} USB
 \end{itemize}
+
+\subsection{Interconexi\'on USB}
+
+La interconexi\'on USB define la manera en la que los dispositivos USB se
+conectan entre si y con el \emph{host}. 
+
+\subsubsection{Topolog\'ia del bus}
+
+USB usa una topolog\'ia de estrella por niveles. Un \emph{hub}\footnote{La
+palabra \emph{hub} se traduce al castellano como \emph{centro}, pero su
+traducci\'on no sera usada en este documento por cuestiones pr\'acticas.}
+est\'a ubicado al centro de cada estrella. Las conexiones cableadas se dan
+entre el \emph{host} y un \emph{hub} o funci\'on, entre \emph{hub} y
+\emph{hub}, o entre un \emph{hub} y una funci\'on. \\
+
 
 
 
