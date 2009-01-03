@@ -79,4 +79,18 @@ de la topolog\'ia.
 \label{fig:usb_topology}
 \end{figure}
 
+\subsubsection{\emph{Host} USB}
 
+La especificaci\'on admite un solo \emph{Host} para un todo sistema USB. La
+interf\'az USB del \emph{host}, se la denomina \emph{Host
+Controller}\footnote{Al igual que con \emph{host}, esta palabra se mantedr\'a
+en ingles.}. La implementaci\'on de un \emph{Host Controller} puede ser una
+combinaci\'on de hardware, firmware o software. El \emph{hub} ra\'iz esta
+integrado en el sistema \emph{host}, proveyendo puntos de acceso.
+
+\subsubsection{Dispositivo USB}
+
+Los dispositivos USB pueden ser dispositivos funcionales o bien \emph{hubs}.
+En ambos casos los deben ser capaces de entender el protocolo USB
+y responder a peticiones estandares USB ademas de cumplir su funci\'on
+intr\'inseca. 
