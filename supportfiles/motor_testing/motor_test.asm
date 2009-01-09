@@ -4,7 +4,7 @@
 ;        Autor: German Sanguinetti
 ;############################################################
         list            p=pic16f877a
-        include         p16f877a.inc
+        include         <p16f877a.inc>
         __config _HS_OSC & _WDT_OFF & _PWRTE_ON & _CP_OFF
         errorlevel      -302    ;para el msg de bank warning
 
