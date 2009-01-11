@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0  11/1/2009-11:08:15
+#
+$CMP 74LS126
+D Quad buffer 3 State out
+K TTL Buffer 3State
+$ENDCMP
+#
+#End Doc Library
