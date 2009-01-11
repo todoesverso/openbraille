@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  11/1/2009-11:49:16
+EESchema-DOCLIB  Version 2.0  11/1/2009-16:26:39
 #
 $CMP 7805
 D Linear Regulator +5V
@@ -10,6 +10,11 @@ $CMP C
 D Condensateur non polarise
 $ENDCMP
 #
+$CMP CONN_3
+D Symbole general de connecteur
+K CONN
+$ENDCMP
+#
 $CMP CONN_6
 D ymbole general de connecteur
 K CONN
@@ -19,8 +24,9 @@ $CMP NPN
 F transistors/bipolar/*.*
 $ENDCMP
 #
-$CMP PIC16F84
-F microchip/pic16f84.pdf
+$CMP POT
+D Potentionmetre
+K R
 $ENDCMP
 #
 $CMP R

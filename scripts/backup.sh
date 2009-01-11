@@ -11,7 +11,3 @@ rm -fr trunk/ 			      ;
 svn commit ../tags/trunk.tgz -m "Commit generado por backup.sh (`date`)";
 
 exit 0
-
-
-
-
