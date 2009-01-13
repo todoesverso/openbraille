@@ -18,7 +18,7 @@ implementaciones comerciales solo soportan el ent\'andar \emph{2.0}.
 La especificaci\'on USB provee una serie de atributos con los cuales se pueden
 implementar dispositivos seg\'un el precio/rendimiento deseado.
 
-\section{Caracter\'isticas}
+\subsection{Caracter\'isticas}
 Del amplio rango de caracter\'isticas definidas en el ent\'andar, es posible
 agruparlas en ocho categor\'ias:
 % Reescribir lo de arriba y agregar mas
@@ -79,7 +79,7 @@ de la topolog\'ia.
 \label{fig:usb_topology}
 \end{figure}
 
-\subsubsection{\emph{Host} USB}
+\subsection{\emph{Host} USB}
 
 La especificaci\'on admite un solo \emph{Host} para un todo sistema USB. La
 interf\'az USB del \emph{host}, se la denomina \emph{Host
@@ -88,9 +88,73 @@ en ingles.}. La implementaci\'on de un \emph{Host Controller} puede ser una
 combinaci\'on de hardware, firmware o software. El \emph{hub} ra\'iz esta
 integrado en el sistema \emph{host}, proveyendo puntos de acceso.
 
-\subsubsection{Dispositivo USB}
+\subsection{Dispositivo USB}
 
 Los dispositivos USB pueden ser dispositivos funcionales o bien \emph{hubs}.
-En ambos casos los deben ser capaces de entender el protocolo USB
-y responder a peticiones estandares USB ademas de cumplir su funci\'on
-intr\'inseca. 
+En ambos casos deben ser capaces de entender el protocolo USB y responder a
+peticiones estandares USB ademas de cumplir su funci\'on intr\'inseca. 
+
+% Explicar --- UHCI, OHCI, EHCI
+\begin{Huge} TERMINAR!!! \end{Huge}
+
+
+\section{USB en linux}
+
+Linux comenz\'o a soportar el protocolo USB desde la versi\'on 2.2.7
+(\emph{principio de 1999}), con codigo aportado por el mismo \emph{Linus
+Torvalds\footnote{Codigo fuente
+en: ftp://ftp.kernel.org/pub/linux/kernel/testing/old/usb/}
+\footnote{V\'ease:
+http://marc.info/?l=linux-usb\&m=92282561930486\&w=2}
+}.\\
+
+Con el paso del tiempo el soporte de linux para el protoco USB ha aumentado
+considerablemente, y actualmente existen drivers para una enorme cantidad de
+dispositivos.\\
+
+Linux interpone varias capas de abstracci\'on entre el usuario y el hardware
+USB, en la figura \ref{fig:usb_linux_layers} se puede apreciar una
+representacion de dichas capas.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{./img/usb_linux_layers.png}
+\caption{Soporte USB de linux.}
+\label{fig:usb_linux_layers}
+\end{figure}
+
+
+En los cap\'itulos siguientes se describir\'a como es
+manejado el protocolo a nivel del kernel y una \emph{API} libre de mas alto
+nivel.
+
+
+\subsection{Manejo USB de bajo nivel}
+
+El kernel linux posee documentaci\'on embebida, la cual puede ser generada en
+formato \emph{postscipt} \footnote{V\'ease -
+http://es.wikipedia.org/wiki/PostScript}, pdf, o html. Para lograr esto basta
+con bajar el codigo del kernel y compilar la documentaci\'on de la siguiente
+manera:
+
+
+\begin{scriptsize}
+	\begin{verbatim}
+	$ wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-x.y.z.tar.bz2
+	$ tar -xjf linux-x.y.z.tar.bz2
+	$ cd  linux-x.y.z/
+	$ make pdfdocs
+	\end{verbatim}
+\end{scriptsize}
+
+En la documentaci\'on generada se encuentra una secci\'on espec\'ifica sobre
+USB.\\
+
+Basicamente linux posee en su nivel m\'as bajo drivers para el controlador
+host (ya sean UHCI, OHCI o EHCI), el cual se comunica con el
+\emph{usbcore}\footnote{Tambi\'en llamado API, pero aqui nos referiremos como
+\emph{usbcore} o \emph{core} por cuestiones pr\'acticas.} quien interactua
+directamente con los drivers espec\'ificos de cada dispositivo (Ver figura
+\ref{fig:usb_linux_layers}).
+
+
