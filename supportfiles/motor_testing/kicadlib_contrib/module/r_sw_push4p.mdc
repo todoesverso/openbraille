@@ -1,0 +1,9 @@
+PCBNEW-LibDoc----V1  31/8/2005-17:06:13
+#
+$MODULE sw_push4p
+Li sw_push4p
+Cd Botao de pressao - 4 pinos
+Kw SWITCH DEV
+$EndMODULE
+#
+$EndLIBDOC

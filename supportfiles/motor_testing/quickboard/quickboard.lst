@@ -1,0 +1,75 @@
+EESchema (20080825)  >> Creation date: 13/1/2009-21:00:41
+
+#Cmp ( order = Reference )
+| C1         0.1u        
+| C2         0.1u        
+| C3         100u        
+| C4         10u         
+| C5         33p         
+| C6         33p         
+| D1         LED         
+| K1         CONN_3      
+| P1         CONN_6      
+| Q1         BC337       
+| Q2         TIP122      
+| Q3         TIP122      
+| Q4         TIP122      
+| Q5         TIP122      
+| R1         10k         
+| R2         10k         
+| R3         10k         
+| R4         10k         
+| R5         1k          
+| R6         3k3         
+| R7         3k3         
+| R8         3k3         
+| R9         3k3         
+| R10        3k3         
+| R11        3k3         
+| RV1        POT10k      
+| SW1        Left        
+| SW2        RESET       
+| SW3        Right       
+| SW4        Stop        
+| U1         7805        
+| U***1      PIC16F84A   
+| X1         4MHz        
+#End Cmp
+
+#Cmp ( order = Value )
+| 0.1u         C1        
+| 0.1u         C2        
+| 100u         C3        
+| 10k          R1        
+| 10k          R2        
+| 10k          R3        
+| 10k          R4        
+| 10u          C4        
+| 1k           R5        
+| 33p          C5        
+| 33p          C6        
+| 3k3          R6        
+| 3k3          R7        
+| 3k3          R8        
+| 3k3          R9        
+| 3k3          R10       
+| 3k3          R11       
+| 4MHz         X1        
+| 7805         U1        
+| BC337        Q1        
+| CONN_3       K1        
+| CONN_6       P1        
+| LED          D1        
+| Left         SW1       
+| PIC16F84A    U***1     
+| POT10k       RV1       
+| RESET        SW2       
+| Right        SW3       
+| Stop         SW4       
+| TIP122       Q2        
+| TIP122       Q3        
+| TIP122       Q4        
+| TIP122       Q5        
+#End Cmp
+
+#End List

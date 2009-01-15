@@ -1,0 +1,33 @@
+PCBNEW-LibDoc----V1  3/9/2006-18:13:32
+#
+$MODULE LCD_16x4
+Li LCD_16x4
+Cd Convertido por ToKicad
+Kw ToKicad
+$EndMODULE
+#
+$MODULE LCD_16x2
+Li LCD_16x2
+Cd Convertido por ToKicad
+Kw ToKicad
+$EndMODULE
+#
+$MODULE LCD_16x2_4
+Li LCD_16x2_4
+Cd Convertido por ToKicad
+Kw ToKicad
+$EndMODULE
+#
+$MODULE LCD_16x2_2
+Li LCD_16x2_2
+Cd Convertido por ToKicad
+Kw ToKicad
+$EndMODULE
+#
+$MODULE LCD_16x2_3
+Li LCD_16x2_3
+Cd Convertido por ToKicad
+Kw ToKicad
+$EndMODULE
+#
+$EndLIBDOC

@@ -1,0 +1,251 @@
+# EESchema Netlist Version 1.1 created  13/1/2009-23:10:50
+(
+ ( /4969D5E6 C2 C1 0.1u
+  ( 1 N-000030 )
+  ( 2 GND )
+ )
+ ( /4969D641 C2 C2 0.1u
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4969D5E1 C2V10 C3 100u
+  ( 1 N-000030 )
+  ( 2 GND )
+ )
+ ( /496CFE00 C1V8 C4 10u
+  ( 1 N-000024 )
+  ( 2 GND )
+ )
+ ( /496A1866 C1 C5 33p
+  ( 1 GND )
+  ( 2 N-000004 )
+ )
+ ( /496A185D C1 C6 33p
+  ( 1 N-000029 )
+  ( 2 GND )
+ )
+ ( /496CFED8 LEDV D1 LED
+  ( 1 N-000023 )
+  ( 2 GND )
+ )
+ ( /496A11A0 bornier3 K1 CONN_3
+  ( 1 VCC )
+  ( 2 GND )
+  ( 3 N-000030 )
+ )
+ ( /4969D985 bornier6 P1 CONN_6
+  ( 1 N-000030 )
+  ( 2 N-000009 )
+  ( 3 N-000021 )
+  ( 4 N-000008 )
+  ( 5 N-000020 )
+  ( 6 GND )
+ )
+ ( /4969D9E5 TO92-CBE Q1 BC337
+  ( 1 GND )
+  ( 2 N-000010 )
+  ( 3 N-000024 )
+ )
+ ( /4969D8F6 TO220 Q2 TIP122
+  ( 1 GND )
+  ( 2 N-000013 )
+  ( 3 N-000009 )
+ )
+ ( /4969D8F5 TO220 Q3 TIP122
+  ( 1 GND )
+  ( 2 N-000017 )
+  ( 3 N-000021 )
+ )
+ ( /4969D8B8 TO220 Q4 TIP122
+  ( 1 GND )
+  ( 2 N-000012 )
+  ( 3 N-000008 )
+ )
+ ( /4969D895 TO220 Q5 TIP122
+  ( 1 GND )
+  ( 2 N-000006 )
+  ( 3 N-000020 )
+ )
+ ( /4969DACB R4 R1 10k
+  ( 1 N-000015 )
+  ( 2 VCC )
+ )
+ ( /4969DAE1 R4 R2 10k
+  ( 1 N-000016 )
+  ( 2 VCC )
+ )
+ ( /4969DAEA R4 R3 10k
+  ( 1 N-000014 )
+  ( 2 VCC )
+ )
+ ( /496A13CE R4 R4 10k
+  ( 1 N-000003 )
+  ( 2 VCC )
+ )
+ ( /496A1165 R4 R5 1k
+  ( 1 N-000005 )
+  ( 2 N-000024 )
+ )
+ ( /496CFEFA R4 R6 3k3
+  ( 1 N-000023 )
+  ( 2 VCC )
+ )
+ ( /4969DA98 R4 R7 3k3
+  ( 1 N-000010 )
+  ( 2 N-000019 )
+ )
+ ( /496A0E85 R4 R8 3k3
+  ( 1 N-000013 )
+  ( 2 N-000018 )
+ )
+ ( /496A0E8E R4 R9 3k3
+  ( 1 N-000017 )
+  ( 2 N-000007 )
+ )
+ ( /496A0E98 R4 R10 3k3
+  ( 1 N-000012 )
+  ( 2 N-000011 )
+ )
+ ( /496A0E99 R4 R11 3k3
+  ( 1 N-000006 )
+  ( 2 N-000022 )
+ )
+ ( /496A1A45 RV2 RV1 POT10k
+  ( 1 N-000005 )
+  ( 2 VCC )
+  ( 3 VCC )
+ )
+ ( /4969DC03 PUSH_BUTT_SHAPE1 SW1 Left
+  ( 1 N-000015 )
+  ( 2 GND )
+ )
+ ( /496A1338 PUSH_BUTT_SHAPE1 SW2 RESET
+  ( 1 GND )
+  ( 2 N-000003 )
+ )
+ ( /4969DBDD PUSH_BUTT_SHAPE1 SW3 Right
+  ( 1 N-000014 )
+  ( 2 GND )
+ )
+ ( /4969DB23 PUSH_BUTT_SHAPE1 SW4 Stop
+  ( 1 N-000016 )
+  ( 2 GND )
+ )
+ ( /496CFD23 40dip-Ell1000 U***1 PIC16F84A
+  ( 1 N-000007 )
+  ( 2 N-000018 )
+  ( 3 ? )
+  ( 4 N-000003 )
+  ( 5 GND )
+  ( 6 N-000015 )
+  ( 7 N-000016 )
+  ( 8 N-000014 )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 ? )
+  ( 12 N-000024 )
+  ( 13 N-000019 )
+  ( 14 VCC )
+  ( 15 N-000004 )
+  ( 16 N-000029 )
+  ( 17 N-000022 )
+  ( 18 N-000011 )
+ )
+ ( /4969D648 LM78XX U1 7805
+  ( GND GND )
+  ( VI N-000030 )
+  ( VO VCC )
+ )
+ ( /496A1A89 HC-33UV X1 4MHz
+  ( 1 N-000029 )
+  ( 2 N-000004 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component C3
+ SM*
+ C?
+ C1-1
+$endlist
+$component C4
+ CP*
+ SM*
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component C6
+ SM*
+ C?
+ C1-1
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R7
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R8
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R9
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R10
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R11
+ R?
+ SM0603
+ SM0805
+$endlist
+$endfootprintlist
+}

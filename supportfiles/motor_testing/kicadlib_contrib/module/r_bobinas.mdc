@@ -1,0 +1,13 @@
+PCBNEW-LibDoc----V1  7/6/2006-00:15:35
+#
+$MODULE caneca_7mm
+Li caneca_7mm
+Kw BOBINA
+$EndMODULE
+#
+$MODULE caneca_5mm
+Li caneca_5mm
+Kw BOBINA
+$EndMODULE
+#
+$EndLIBDOC
