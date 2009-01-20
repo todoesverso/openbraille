@@ -137,7 +137,6 @@ http://es.wikipedia.org/wiki/PostScript}, pdf, o html. Para lograr esto basta
 con bajar el codigo del kernel y compilar la documentaci\'on de la siguiente
 manera:
 
-
 \begin{scriptsize}
 	\begin{verbatim}
 	$ wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-x.y.z.tar.bz2
@@ -156,5 +155,33 @@ host (ya sean UHCI, OHCI o EHCI), el cual se comunica con el
 \emph{usbcore} o \emph{core} por cuestiones pr\'acticas.} quien interactua
 directamente con los drivers espec\'ificos de cada dispositivo (Ver figura
 \ref{fig:usb_linux_layers}).
+
+
+%% Esto ya no es tan bajo nivel, deberi tener otra seccion
+En el c\'odigo fuente del kernel existe un \emph{esquelto}\footnote{V\'ease
+- http://lxr.linux.no/linux+v2.6.28/drivers/usb/usb-skeleton.c} de un driver
+gen\'erico, con varias variables definidas, funciones y macros \'utiles.
+Este \emph{esqueleto} fue escrito por Greg Kroah-Hartman\footnote{Mail - 
+greg@kroah.com} y basado en \emph{pci-skeleton.c}\footnote{V\'ease -
+http://lxr.linux.no/linux+v2.6.28/drivers/net/pci-skeleton.c}.
+Este \emph{driver gen\'erico} posee todo lo necesario para , con
+modificaciones suficientes, escribir un driver espec\'ifico de un dispositivo.
+
+\subsection{URBs (API de bajo nivel)}
+
+El kernel maneja\footnote{Si bien es la forma mas recomendada, puede evitarse
+el uso de esta API} el acceso de los distintos drivers al sistema USB mediante
+mensajes de \emph{pedidos de bloques USB} (\emph{URB - USB Request
+Block}\footnote{El acronimo \emph{URB} se usar\'en el documento por
+cuestiones pr\'acticas}).\\
+
+El concepto b\'asico de \emph{URBs} es el paso de mensajes de forma
+asincr\'onica. 
+Un \emph{URB} contine toda la informacion necesaria para hacer una
+transacci\'on USB y provee ademas un \emph{manejador}\footnote{\emph{Handler}
+en ingles.} con toda la informaci\'on de la transacci\'on.
+Por la naturaleza as\'incrona de los URBs, ni bien se env\'ian, estos son
+encolados y la funci\'on vulve inmediatamente. 
+
 
 
