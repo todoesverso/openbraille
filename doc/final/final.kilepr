@@ -89,9 +89,9 @@ order=4
 
 [item:usb.tex]
 archive=true
-column=58
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=160
+line=305
 open=true
 order=2

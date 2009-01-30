@@ -128,7 +128,6 @@ En los cap\'itulos siguientes se describir\'a como es
 manejado el protocolo a nivel del kernel y una \emph{API} libre de mas alto
 nivel.
 
-
 \subsection{Manejo USB de bajo nivel}
 
 El kernel linux posee documentaci\'on embebida, la cual puede ser generada en
@@ -172,7 +171,7 @@ modificaciones suficientes, escribir un driver espec\'ifico de un dispositivo.
 El kernel maneja\footnote{Si bien es la forma mas recomendada, puede evitarse
 el uso de esta API} el acceso de los distintos drivers al sistema USB mediante
 mensajes de \emph{pedidos de bloques USB} (\emph{URB - USB Request
-Block}\footnote{El acronimo \emph{URB} se usar\'en el documento por
+Block}\footnote{El acronimo \emph{URB} se usar\'a en el documento por
 cuestiones pr\'acticas}).\\
 
 El concepto b\'asico de \emph{URBs} es el paso de mensajes de forma
@@ -181,7 +180,126 @@ Un \emph{URB} contine toda la informacion necesaria para hacer una
 transacci\'on USB y provee ademas un \emph{manejador}\footnote{\emph{Handler}
 en ingles.} con toda la informaci\'on de la transacci\'on.
 Por la naturaleza as\'incrona de los URBs, ni bien se env\'ian, estos son
-encolados y la funci\'on vulve inmediatamente. 
+encolados y la funci\'on vuelve inmediatamente. 
+
+% FAAAAKKKKK como mierda me las arreglo para explicar todo esto, que
+% quilombo!!!!
+% Seguir...
 
 
+\subsection{API de alto nivel - libusb}
+
+La API \emph{libusb} consiste en un set de librerias de codigo abierto
+licenciadas bajo LGPL (%Expandir el nombre y poner footnote con url
+% Hacer lo mismo con libusb ). 
+Dichas librerias resuelven la comunicaci\'on
+USB pero a nivel de usuario.
+La API se encuentra en casi todoas las distribuciones de GNU/Linux, y se
+presenta en forma de libreria dinamica para usar con aplicaciones ya
+compiladas y un paquete extra para \emph{development}\footnote{Del ingles
+desarrollo}, con los archivos cabecera, programas para compilar, y
+la documentaci\'on completa de sus funcionalidades con algunos ejemplos
+extras. \\
+
+La libreria provee entre definiciones y estructuras, las siguientes funciones:
+\begin{footnotesize}
+\begin{verbatim}
+/* usb.c */
+usb_dev_handle *usb_open(struct usb_device *dev);
+int usb_close(usb_dev_handle *dev);
+int usb_get_string(usb_dev_handle *dev, int index, int langid, char *buf,
+        size_t buflen);
+int usb_get_string_simple(usb_dev_handle *dev, int index, char *buf,
+        size_t buflen);
+
+/* descriptors.c */
+int usb_get_descriptor_by_endpoint(usb_dev_handle *udev, int ep,
+        unsigned char type, unsigned char index, void *buf, int size);
+int usb_get_descriptor(usb_dev_handle *udev, unsigned char type,
+        unsigned char index, void *buf, int size);
+
+/* <arch>.c */
+int usb_bulk_write(usb_dev_handle *dev, int ep, const char *bytes, int size,
+        int timeout);
+int usb_bulk_read(usb_dev_handle *dev, int ep, char *bytes, int size,
+        int timeout);
+int usb_interrupt_write(usb_dev_handle *dev, int ep, const char *bytes, int
+		size, int timeout);
+int usb_interrupt_read(usb_dev_handle *dev, int ep, char *bytes, int size,
+        int timeout);
+int usb_control_msg(usb_dev_handle *dev, int requesttype, int request,
+        int value, int index, char *bytes, int size, int timeout);
+int usb_set_configuration(usb_dev_handle *dev, int configuration);
+int usb_claim_interface(usb_dev_handle *dev, int interface);
+int usb_release_interface(usb_dev_handle *dev, int interface);
+int usb_set_altinterface(usb_dev_handle *dev, int alternate);
+int usb_resetep(usb_dev_handle *dev, unsigned int ep);
+int usb_clear_halt(usb_dev_handle *dev, unsigned int ep);
+int usb_reset(usb_dev_handle *dev);
+\end{verbatim}
+\end{footnotesize}
+
+Todas las funciones de esta libreria (para la version estable 0.1) son
+s\'incronas, lo que significa que se debe esperar a que termine la operaci\'on
+para poder seguir. Por este motivo la mayoria de las funciones implemetan un
+\emph{timeout} en milisegundos.\\
+
+% Poner primero, antes del codigo, un diagrama de flujo del mismo
+
+
+Para comenzar una comunicaci\'on USB con esta libreria es preciso primero
+descubrir el dipositivo, esto se logra con:
+
+\begin{footnotesize}
+	\begin{verbatim}
+struct usb_bus *busses;
+    
+usb_init();
+usb_find_busses();
+usb_find_devices();
+    
+busses = usb_get_busses();
+	\end{verbatim}
+\end{footnotesize}
+
+Luego de esto ya se poseen los \emph{busses} USB del sitema. Es preciso luego
+iterar sobre cada uno de ellos para encontrar el dispositivo especifico de la
+siguiente manera:
+
+\begin{footnotesize}
+\begin{verbatim}
+struct usb_bus *bus;
+int c, i, a;
+    
+/* ... */
+    
+for (bus = busses; bus; bus = bus->next) {
+  struct usb_device *dev;
+    
+    for (dev = bus->devices; dev; dev = dev->next) {
+        /* Buscar el dispositivo por VendorID */
+        if (dev->descriptor.idVendor == MY_ID) {
+            /* Buscar el dispositivo por ProductID */
+            if (dev->descriptor.idProduct==USBPRINTER){
+            /* Abrir dispositivo */
+            udev = usb_open(dev);
+            /* Reclamar la interfaz */
+            ret = usb_claim_interface(udev,0); 
+
+            /* Programa */
+            }	...
+        }
+    }
+}
+\end{verbatim}
+\end{footnotesize}
+
+Una limitaci\'on intr\'inseca de la libreria es que se requiere abrir tantas
+instancias del dispositivo como interfaces se desee usar de \'el.\\
+
+Estas librerias satisfacen tanto el estandar USB 1.0 como el 2.0, es por ello
+que si el dispositivo respeta el estandar, establecer una comunicaci\'on a
+USB requiere solo la adici\'on de algunas funciones al codigo fuente para
+inicializar la comunicaci\'on, para buscar el dispositivo, para abrirlo y
+luego el programa en si.
 
