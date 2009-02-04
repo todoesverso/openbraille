@@ -37,7 +37,23 @@ agruparlas en ocho categor\'ias:
 La combinaci\'on de estas caracter\'isticas hacen a la versatilidad del
 ent\'andar, ya que permiten implementar todo tipo de dispositivos seg\'un la
 carga, versatilidad, eficiencia, precio, velocidad y dem\'as atributos que
-puedan inferir en un diese\~no.
+puedan inferir en un diese\~no.\\
+
+Para la veri\'on 2.0 de la epecificaci\'on, el protocolo soporta tres
+velocidades de transimsi\'on como se muestra en la
+tabla \ref{tab:velocidad_usb}.
+
+\begin{table}[h]
+\centering
+% use packages: array,booktabs
+\begin{tabular}{|c|c|}        \hline
+High Speed & 480 Mbits/seg \\ \hline 
+Full Speed & 12 Mbits/seg  \\ \hline
+Low Speed & 1.5 Mbits/seg  \\ \hline
+\end{tabular}
+\caption{Velocidades de USB} 
+\label{tab:velocidad_usb}
+\end{table}
 
 \subsection{Arquitectura}
 
@@ -54,6 +70,13 @@ Un sistema USB se  define segun tres grandes \'areas:
  \item \emph{Host} USB
 \end{itemize}
 
+\subsubsection{Caracter\'isticas el\'ectricas}
+
+USB usa cuatro cables para alimentaci\'on y se\~nal. La se\~nal viaja a travez
+de un par trenzado y se encuentra codificada con Non Return to Zero Inverted
+(NRZI). En la figura \ref{fig:usb_electric} se muestra un diagrama de un cable
+USB.
+
 \subsection{Interconexi\'on USB}
 
 La interconexi\'on USB define la manera en la que los dispositivos USB se
@@ -68,7 +91,7 @@ est\'a ubicado al centro de cada estrella. Las conexiones cableadas se dan
 entre el \emph{host} y un \emph{hub} o funci\'on, entre \emph{hub} y
 \emph{hub}, o entre un \emph{hub} y una funci\'on. \\
 
-Debido a cuestiones de tiempo, el n\'umero maximo de niveles permitido es
+Debido a cuestiones de latencia, el n\'umero m\'aximo de niveles permitido es
 siete, incluida la ra\'iz. La figura \ref{fig:usb_topology} muestra un esquema
 de la topolog\'ia.
 
@@ -87,6 +110,13 @@ Controller}\footnote{Al igual que con \emph{host}, esta palabra se mantedr\'a
 en ingles.}. La implementaci\'on de un \emph{Host Controller} puede ser una
 combinaci\'on de hardware, firmware o software. El \emph{hub} ra\'iz esta
 integrado en el sistema \emph{host}, proveyendo puntos de acceso.
+En la versi\'on 1.1 de la especificaci\'on, exixtian dos tipod de
+controladores de \emph{hots}; \emph{Universal Host Controller Interface}
+(UHCI)\footnote{Desarrolada por Intel} y \emph{Open Host Controller Interface}
+(OHCI)\footnote{Desarrollada por Compaq, Microsoft y National Semiconductors}.
+Luego con para le versi\'on 2.0 de la especificaci\'on de defini\'o un tercer
+controlador; \emph{Enhanced Host Controller Interface} (EHCI)\footnote{Que
+luego pasaria a convertirse en el estandar mas usado.}
 
 \subsection{Dispositivo USB}
 
@@ -95,7 +125,7 @@ En ambos casos deben ser capaces de entender el protocolo USB y responder a
 peticiones estandares USB ademas de cumplir su funci\'on intr\'inseca. 
 
 % Explicar --- UHCI, OHCI, EHCI
-\begin{Huge} TERMINAR!!! \end{Huge}
+%\begin{Huge} TERMINAR!!! \end{Huge}
 
 
 \section{USB en linux}
@@ -299,7 +329,7 @@ instancias del dispositivo como interfaces se desee usar de \'el.\\
 
 Estas librerias satisfacen tanto el estandar USB 1.0 como el 2.0, es por ello
 que si el dispositivo respeta el estandar, establecer una comunicaci\'on a
-USB requiere solo la adici\'on de algunas funciones al codigo fuente para
+USB requiere solo la adici\'on de algunas funciones al codigo fuente para;
 inicializar la comunicaci\'on, para buscar el dispositivo, para abrirlo y
 luego el programa en si.
 
