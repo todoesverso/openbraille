@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=usb.tex
+lastDocument=resumen.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -33,6 +33,15 @@ line=0
 open=true
 order=1
 
+[item:el_dispositivo.tex]
+archive=true
+column=0
+encoding=UTF-8
+highlight=LaTeX
+line=70
+open=true
+order=7
+
 [item:final.kilepr]
 archive=true
 column=1769239653
@@ -47,7 +56,7 @@ archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
-line=57
+line=35
 open=true
 order=0
 
@@ -69,6 +78,33 @@ line=1
 open=false
 order=6
 
+[item:propuesta_tecnica.tex]
+archive=true
+column=0
+encoding=UTF-8
+highlight=LaTeX
+line=69
+open=true
+order=8
+
+[item:propuestas_iniciales.tex]
+archive=true
+column=0
+encoding=UTF-8
+highlight=LaTeX
+line=90
+open=true
+order=9
+
+[item:resumen.tex]
+archive=true
+column=0
+encoding=UTF-8
+highlight=LaTeX
+line=0
+open=true
+order=6
+
 [item:software_libre.tex]
 archive=true
 column=0
@@ -80,18 +116,18 @@ order=5
 
 [item:template.sty]
 archive=true
-column=11
+column=55
 encoding=UTF-8
 highlight=LaTeX
-line=39
+line=36
 open=true
 order=4
 
 [item:usb.tex]
 archive=true
-column=4
+column=70
 encoding=UTF-8
 highlight=LaTeX
-line=77
+line=76
 open=true
 order=2
