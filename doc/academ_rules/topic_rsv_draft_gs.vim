@@ -18,7 +18,7 @@ barreras técnicas de comunicación, sociales, económicas y humanas.
 
 En el desarrollo del Trabajo Final se realizarán las siguientes
     actividades:
-		I: Problema – Requerimientos, especificaciones e investigacion.
+		I: Problema Investigacion, requerimientos y especificaciones.
 		II: Diseño conceptual
 		III: Modelo. Cálculos, aproximaciones y estimaciones.
 		IV: Simulación y calibración. Re-diseño
