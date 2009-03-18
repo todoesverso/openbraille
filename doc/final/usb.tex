@@ -73,8 +73,9 @@ Un sistema USB se  define segun tres grandes \'areas:
 \subsubsection{Caracter\'isticas el\'ectricas}
 
 USB usa cuatro cables para alimentaci\'on y se\~nal. La se\~nal viaja a travez
-de un par trenzado y se encuentra codificada con Non Return to Zero Inverted
-(NRZI). En la figura \ref{fig:electric_usb} se muestra un diagrama de un cable
+de un par trenzado diferencial y se encuentra codificada con Non Return to Zero
+Inverted (NRZI). En la figura \ref{fig:electric_usb} se muestra un diagrama de
+un cable
 USB.
 
 \begin{figure}
@@ -82,6 +83,24 @@ USB.
 \includegraphics[scale=0.5]{./img/electric_usb.png}
 \caption{Cable USB.}
 \label{fig:electric_usb}
+\end{figure}
+
+Al ser un par diferencial, el host iterpreta un \emph{1} diferencial cuando D+
+es 200 mV mayor que D- y un \emph{0} diferencial cuando D- es 200 mV mayor que
+D+. 
+Los dispositivos USB indican su velocidad mediante una resistencia de
+\emph{pull-up} a 3.3 V. En el caso de un \emph{full speed device} se col\'oca
+una resistencia de 1.5K en D+ a 3.3 V, y para \emph{low speed device} se coloca
+una resistencia de 1.5K a 3.3 V, como se muestra en la figura
+\ref{fig:electric_speed_usb}.
+Algunos fabricantes sulen integrar estas resistencias de \emph{pull-up} dentro
+de sus \emph{chips} para ser activadas mediante software.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{./img/electric_speed_usb.png}
+\caption{Velocidad USB.}
+\label{fig:electric_speed_usb}
 \end{figure}
 
 
@@ -134,6 +153,15 @@ peticiones estandares USB ademas de cumplir su funci\'on intr\'inseca.
 
 % Explicar --- UHCI, OHCI, EHCI
 %\begin{Huge} TERMINAR!!! \end{Huge}
+
+
+El protocolo USB define capas de abstracci\'on, cada cual con una funcionalidad
+espec\'ifica. Normalmente los \emph{chips} manejan las capas mas bajas, para
+abstraer al usuario de todo lo que ocurre en lo mas bajo del protocolo.\\
+
+
+
+
 
 
 \section{USB en linux}
