@@ -159,8 +159,89 @@ El protocolo USB define capas de abstracci\'on, cada cual con una funcionalidad
 espec\'ifica. Normalmente los \emph{chips} manejan las capas mas bajas, para
 abstraer al usuario de todo lo que ocurre en lo mas bajo del protocolo.\\
 
+Una transacci\'on USB consiste de los siguientes paquetes:
+\begin{itemize}
+ \item Token (paquete cabecera)
+ \item Data (opcional)
+ \item Status (handshaking)
+\end{itemize}
+
+Los paquetes USB tienen ciertos campos comunes: 
+\begin{itemize}
+ \item Sync: Es un campo de sincronismo y todos los paquetes deben comenzar
+con uno.
+ \item PID: Es el identificador de paquete que informa el tipo de paquete que
+es.
+ \item ADDR: Es la direcci\'on a la cual esta asignado el paquete
+ \item ENDP: Este campo de 4 bits permite direccionar hasta 16
+\emph{endpoints}.
+ \item CRC: Lleva la informaci\'on de un chequeo de redundancia c\'iclica de
+los datos
+ \item EOP: Este campo indica la finalizaci\'on del paquete.
+\end{itemize}
 
 
+\subsubsection{Paquete \emph{Token}}
+Los paquetes \emph{token} son usados para indicar el tipo de transacci\'on que
+se realizar\'a. Existen tres tipos de paquetes \emph{token}:
+
+\begin{itemize}
+ \item IN - Informa al dispositivo USB que el host desea leer informaci\'on
+ \item OUT - Inrofma al dispositivo USB que el host desea escribir
+informaci\'on
+ \item Setup - Es usado para comenzar transferencias de control
+\end{itemize}
+
+Un paquete \emph{token} esta formado por los siguientes campos mostrados en la
+tabla \ref{tab:usb_token_fields}
+
+
+\begin{table}[h]
+\centering
+% use packages: array,booktabs
+\begin{tabular}{|c|c|c|c|c|c|} \hline
+Sync & PID & ADDR & ENDP & CRC5 & EOP\\ \hline
+\end{tabular}
+\caption{Campos Token} 
+\label{tab:usb_token_fields}
+\end{table}
+
+\subsubsection{Paquete \emph{Data}}
+Un paquete \emph{data} esta formado por los siguientes campos mostrados en la
+tabla \ref{tab:usb_data_fields}
+
+\begin{table}[h]
+\centering
+% use packages: array,booktabs
+\begin{tabular}{|c|c|c|c|c|} \hline
+Sync & PID & DATA & CRC16 & EOP\\ \hline
+\end{tabular}
+\caption{Campos Data} 
+\label{tab:usb_data_fields}
+\end{table}
+
+\subsubsection{Paquete \emph{Status}}
+Los paquetes \emph{status} son usados para indicar el tipo de estado de la
+transacci\'on. Existen tres tipos de paquetes \emph{status}:
+
+\begin{itemize}
+ \item ACK - Reconocimiento de que el paquete fue recibido.
+ \item NAK - Avisa de que el dispositivo no puede recibir ni enviar datos.
+ \item STALL - Significa que el dispositivo necesita la intevenci\'on del host.
+\end{itemize}
+
+Un paquete \emph{status} esta formado por los siguientes campos mostrados en la
+tabla \ref{tab:usb_status_fields}.
+
+\begin{table}[h]
+\centering
+% use packages: array,booktabs
+\begin{tabular}{|c|c|c|} \hline
+Sync & PID & EOP\\ \hline
+\end{tabular}
+\caption{Campos Status} 
+\label{tab:usb_status_fields}
+\end{table}
 
 
 
