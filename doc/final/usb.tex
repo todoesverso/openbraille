@@ -9,15 +9,20 @@ Actualmente el est\'andar se encuentra en su versi\'on 3.0\footnote{V\'ease -
 http://www.usb.org/developers/docs/}, aunque la mayor\'ia de las
 implementaciones comerciales solo soportan el ent\'andar \emph{2.0}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Historia}
 %No me gusta como titulo 'historia' habria que pensar otra cosa
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Decripci\'on}
 % Aca iria el funcionamiento del USB, difierenciado por \subsection{}
 % Por ahora me estoy basando en la spec 2.0 oficial.
 La especificaci\'on USB provee una serie de atributos con los cuales se pueden
 implementar dispositivos seg\'un el precio/rendimiento deseado.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Caracter\'isticas}
 Del amplio rango de caracter\'isticas definidas en el ent\'andar, es posible
 agruparlas en ocho categor\'ias:
@@ -55,6 +60,7 @@ Low Speed & 1.5 Mbits/seg  \\ \hline
 \label{tab:velocidad_usb}
 \end{table}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Arquitectura}
 
 USB es un \emph{bus} cableado que soporta conexiones entre un \emph{host} y
@@ -70,6 +76,7 @@ Un sistema USB se  define segun tres grandes \'areas:
  \item \emph{Host} USB
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Caracter\'isticas el\'ectricas}
 
 USB usa cuatro cables para alimentaci\'on y se\~nal. La se\~nal viaja a travez
@@ -104,11 +111,13 @@ de sus \emph{chips} para ser activadas mediante software.
 \end{figure}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Interconexi\'on USB}
 
 La interconexi\'on USB define la manera en la que los dispositivos USB se
 conectan entre si y con el \emph{host}. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Topolog\'ia del bus}
 
 USB usa una topolog\'ia de estrella por niveles. Un \emph{hub}\footnote{La
@@ -129,6 +138,8 @@ de la topolog\'ia.
 \label{fig:usb_topology}
 \end{figure}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\emph{Host} USB}
 
 La especificaci\'on admite un solo \emph{Host} para un todo sistema USB. La
@@ -145,6 +156,8 @@ Luego con para le versi\'on 2.0 de la especificaci\'on de defini\'o un tercer
 controlador; \emph{Enhanced Host Controller Interface} (EHCI)\footnote{Que
 luego pasaria a convertirse en el estandar mas usado.}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Dispositivo USB}
 
 Los dispositivos USB pueden ser dispositivos funcionales o bien \emph{hubs}.
@@ -180,7 +193,7 @@ los datos
  \item EOP: Este campo indica la finalizaci\'on del paquete.
 \end{itemize}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Paquete \emph{Token}}
 Los paquetes \emph{token} son usados para indicar el tipo de transacci\'on que
 se realizar\'a. Existen tres tipos de paquetes \emph{token}:
@@ -206,6 +219,8 @@ Sync & PID & ADDR & ENDP & CRC5 & EOP\\ \hline
 \label{tab:usb_token_fields}
 \end{table}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Paquete \emph{Data}}
 Un paquete \emph{data} esta formado por los siguientes campos mostrados en la
 tabla \ref{tab:usb_data_fields}
@@ -220,6 +235,8 @@ Sync & PID & DATA & CRC16 & EOP\\ \hline
 \label{tab:usb_data_fields}
 \end{table}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Paquete \emph{Status}}
 Los paquetes \emph{status} son usados para indicar el tipo de estado de la
 transacci\'on. Existen tres tipos de paquetes \emph{status}:
@@ -244,7 +261,40 @@ Sync & PID & EOP\\ \hline
 \end{table}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Enpoints}
+Un aspecto muy importante del estandar USB es la forma en la que se logra la
+comunicaci\'on entre el host y el dispositivo.
+Un \emph{endpoint} es un buffer \'unico que define la punta extrema de un
+canal de comunicaci\'on. La identificaci\'on de un endpoint en particular se
+lleva a cabo mediante un campo de 4 bits permitiendo un m\'aximo de 16
+endpoints. Cada enpoint funciona como emisor o receptor de datos como se ve en
+la figura \ref{fig:usb_endpoints}.
 
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{./img/usb_endpoints.png}
+\caption{Endpoints de USB.}
+\label{fig:usb_endpoints}
+\end{figure}
+
+Entonces si por ejemplo el host emite un pedido de descripci\'on de dispositivo
+(\emph{device descriptor request}) el dispositivo va a determinar por medio de
+el campo \emph{ADDR} si el pedido esta dirigido hacia \'el, y luego copiar\'a
+el dato en el endpoint correspondiente al que indica el campo \emph{ENDP}, que
+luego podra ser leido por la aplicaci\'on embebida en el dispositivo. 
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{USB en linux}
 
 Linux comenz\'o a soportar el protocolo USB desde la versi\'on 2.2.7
@@ -275,6 +325,8 @@ En los cap\'itulos siguientes se describir\'a como es
 manejado el protocolo a nivel del kernel y una \emph{API} libre de mas alto
 nivel.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Manejo USB de bajo nivel}
 
 El kernel linux posee documentaci\'on embebida, la cual puede ser generada en
@@ -313,6 +365,8 @@ http://lxr.linux.no/linux+v2.6.28/drivers/net/pci-skeleton.c}.
 Este \emph{driver gen\'erico} posee todo lo necesario para , con
 modificaciones suficientes, escribir un driver espec\'ifico de un dispositivo.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{URBs (API de bajo nivel)}
 
 El kernel maneja\footnote{Si bien es la forma mas recomendada, puede evitarse
@@ -334,6 +388,7 @@ encolados y la funci\'on vuelve inmediatamente.
 % Seguir...
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{API de alto nivel - libusb}
 
 La API \emph{libusb} consiste en un set de librerias de codigo abierto
