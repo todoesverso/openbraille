@@ -334,8 +334,62 @@ re-trasmision de errores para asegurar la integridad de los mismos.\\
 Las transferencias bulk no poseen un ancho de banda asignado, por lo cual no
 aseguran latencia alguna.\\
 
+Las transacciones bulk pueden ser de tipo \emph{IN} o \emph{OUT} como se ve en
+la figura \ref{fig:usb_bulk_transaction}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{./img/usb_bulk_transaction.png}
+\caption{Transacci\'on Bulk.}
+\label{fig:usb_bulk_transaction}
+\end{figure}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Descriptores USB}
+% Revisar pagina 240 de la spec usb 2.0 grafico de estados para agregar
+% Agregar proceso de enumeracion de la spec pag 243	
+Los descriptores USB son estructuras de datos con formatos especif\'icos, en
+los cuales se almacena todos los atributos del dispositivo.
+Cada descriptor comienza con un campo donde se almacena el tama\~no de dicho
+descriptor, seguido inmediatamente por un campo que identifica el tipo de
+descriptor.\\
+Entre los descriptotes mas comunes se enucentran:
+
+\begin{itemize}
+ \item Device: Cada dispositivo tiene un solo descriptor \emph{device}, y
+\'estos poseen informaci\'on b\'asica sobre \'el. Entre otras cosas este
+descriptor tiene un n\'umero identificador del vendedor y el dispositivo en
+si. Tiene ademas un campo con la informacion de cuantas configuraciones
+soporta el dispositivo.
+
+ \item Configuration: Este descriptor posee entre otras cosas el tipo de
+alimentaci\'on y el n\'umero de interfaces configuradas del dispositivo.
+
+ \item Interface: Este descriptor puede ser visto como una cabecera con
+informaci\'on sobre un grupo de endpoints.
+
+ \item Enpoint: Este descriptor posee toda la informaci\'on necesaria para car
+acterizar cada endpoint. Entre otras cosas aqui se define el tipo de
+transefrencia que usa el endpoint (bulk, interrupt, isochronous, control), el
+tama\~no de los paquetes, etc. El endpoint 0 siempre es cosiderado de control
+y debe estar configurado.
+
+ \item String: Estos descriptores poseen informaci\'on legible por humanos que
+peden ser indexados por otros descriptores. 
+
+\end{itemize}
+
+Los desciptores pueden ser ordenados jer\'arquicamente segun se ve en la
+figura \ref{fig:usb_descriptors}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{./img/usb_descriptors.png}
+\caption{Descriptores USB.}
+\label{fig:usb_descriptors}
+\end{figure}
 
 
 
@@ -368,9 +422,8 @@ representacion de dichas capas.
 \end{figure}
 
 
-En los cap\'itulos siguientes se describir\'a como es
-manejado el protocolo a nivel del kernel y una \emph{API} libre de mas alto
-nivel.
+En los cap\'itulos siguientes se describir\'a como es manejado el protocolo a
+nivel del kernel y una \emph{API} libre de mas alto nivel.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
