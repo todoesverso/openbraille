@@ -283,9 +283,56 @@ Entonces si por ejemplo el host emite un pedido de descripci\'on de dispositivo
 (\emph{device descriptor request}) el dispositivo va a determinar por medio de
 el campo \emph{ADDR} si el pedido esta dirigido hacia \'el, y luego copiar\'a
 el dato en el endpoint correspondiente al que indica el campo \emph{ENDP}, que
-luego podra ser leido por la aplicaci\'on embebida en el dispositivo. 
+luego podra ser leido por la aplicaci\'on embebida en el dispositivo.\\
+
+El enpoint 0 debe existir en todos los dispositivos, ya cumple la funci\'on
+espec\'ifica de realizar el handshaking y todo el control en una
+comunicaci\'on USB. 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transferencias USB}
+La especificaci\'on USB define cuatro tipos de transferencia:
+
+\begin{itemize}
+ \item Control
+ \item Interrupt
+ \item Isochronous 
+ \item Bulk
+\end{itemize}
+
+Debido a el alcance de \'este trabajo solo se desarrollar\'an las
+transferencias \emph{Control} y \emph{Bulk}, que fueron las usadas durante el
+desarrollo del proyecto.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Control}
+Las transferencias de control son usadas para petici\'on y reporte de estados o
+emisi\'on de ordenes. Este tipo de transferencia posee tres etapas distintas:
+
+\begin{itemize}
+ \item Setup:
+		Durante esta estapa se realiza la petici\'on de datos.
+ \item Data:
+		En esta etapa se realiza el intercambio de datos y puede consistir de
+varias transferencias \emph{IN} o \emph{OUT} segun corresponda. 
+ \item Status:
+		Esta etapa se realiza al finalizar la transefrencia de control y
+determina el exito o no de la operaci\'on.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bulk}
+Las transferencias tipo \emph{bulk}, son usadas para transmisi\'on de grandes
+pedazos de datos. \'Este tipo transferencias provee correcci\'on de datos
+con un campo \emph{CRC} de 16 bits y un mecanismo de detecci\'on y
+re-trasmision de errores para asegurar la integridad de los mismos.\\
+
+Las transferencias bulk no poseen un ancho de banda asignado, por lo cual no
+aseguran latencia alguna.\\
 
 
 
