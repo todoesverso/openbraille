@@ -391,6 +391,124 @@ figura \ref{fig:usb_descriptors}
 \label{fig:usb_descriptors}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Estados USB}
+Los dispositivos USB poseen varios estados definidos por los cuales pueden
+transicionar durante su uso.
+El diagrama de estados completo de un dispositivo USB puede verse en la figura
+\ref{fig:usb_states}.
+
+
+% Spec 2,.0 pag 240
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{./img/usb_states.png}
+\caption{Estados USB.}
+\label{fig:usb_states}
+\end{figure}
+
+
+En la tabla \ref{tab:usb_states}, se puede apreciar una breve explicaci\'on de
+cada estado
+
+% Spec 2,.0 pag 241
+\begin{table}[h]
+\begin{scriptsize}
+\centering
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}|c|c|c|c|c|c|p{5cm}|} \hline
+
+% Header Titles
+\rowcolor[gray]{.9}
+Attached & Powered & Default & Address & Configured & Suspended
+& Descripci\'on\\ \hline
+
+% Table fill
+% 1 %
+No & -- & -- & -- & -- & -- & 
+El dispositio no est\'a enchufado\\
+\hline
+% 2 %
+Si & No & -- & -- & -- & -- & 
+El dispositivo esta enchufado pero no alimentado.\\
+\hline 
+% 3 %
+Si & Si & No & -- & -- & -- &
+El dispositivo se encuentra enchufado y alimentado, pero no ha sido
+reseteado.\\
+\hline
+% 4 %
+Si & Si & Si & No & -- & -- &
+El dispositico se encuentra enchufado, alimentado y ha sido reseteado, pero no
+se le ha asignado una direcci\'on \'unica.\\
+\hline
+% 5 %
+Si & Si & Si & Si & No & -- &
+El dispositivo esta enchufado, alimentado, ha sido reseteado y se le ha
+asignado una direcci\'on \'unica, pero no ha sigo configurado.\\
+\hline
+% 6 %
+Si & Si & Si & Si & Si & No &
+El dispositivo est\'a enchufado, alimentado, ha sido reseteado, se le ha
+asignado una direcci\'on \'unica, ha sido configurado y no esta suspendido. El
+host puede hacer uso del dispositivo ahora.\\
+\hline
+% 7 &
+Si & Si & -- & -- & -- & Si &
+El dispositivo se encuentra como minimo enchufado y alimentado, pero no ha
+presentado actividad alguna en los ultimos 3 ms, por lo que el dipositivo se
+encuentra suspendido y no puede ser usado por el host.\\
+\hline 
+
+\end{tabular*}
+\caption{Estados USB.} 
+\label{tab:usb_states}
+\end{scriptsize}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Enumeraci\'on del bus USB}
+El proceso de enumeraci\'on determina si un dispositivo se ha conectado al
+bus, a que puerto, sus configuraciones, intefaces, etc.
+A continuaci\'on se listan los acciones que se llevan a cabo durante el
+proceso de enumeraci\'on.
+
+% Spec 2.0 pag 243
+\begin{enumerate}
+ % 1 %
+ \item El hub a el cual el dispositivo esta conectado informa al host del
+evento. En este paso el dispositivo se encuentra \emph{POWERED} y el puerto al
+cual esta enchufado se encuentra deshabilitado.
+ % 2 %
+ \item El host determina la naturaleza del cambio consultandole al hub.
+ % 3 %
+ \item El host conoce ahora el puerto al cual se ha conectado el dispositivo y
+espera 100 ms para que se normalice su alimentaci\'on. El host habilita el
+puerto y envia una petici\'on de \emph{reset}.
+ % 4 %
+ \item El hub ejecuta el pedido de \emph{reset} para ese puerto y luego el
+puerto queda habilitado. El dispositivo pasa a el estado \emph{DEFAULT} y no
+puede consumir mas de 100 mA. Todos sus registros han sidos reseteados y
+responde a la direcci\'on por defecto.
+ % 5 %
+ \item El host asigna una direcci\'on \'unica al dispositiv y esta pasa al
+estado \emph{ADDRESS}.
+ % 6 %
+ \item El host lee del dispositivo el tama\~no de datos que puede recibir antes
+de que \'este reciba la direcci\'on.
+ % 7 %
+ \item El host lee toda la configuracion de dispositivo.
+ % 8 %
+ \item Basado en la configuraci\'on obtenida, el host asigna un valor de
+configuraci\'on al dipositivo y \'este pasa a el estado de \emph{CONFIGURED}.
+Desde el puento de vista del dipositivo \'este se encuentra listo para ser
+usado.
+\end{enumerate}
+
+
+
+
 
 
 
