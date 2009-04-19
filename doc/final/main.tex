@@ -18,6 +18,23 @@
 \usepackage{template}
 \usepackage{colortbl}
 
+% Syntax hl C
+\usepackage{listings}
+ \definecolor{Brown}{cmyk}{0,0.81,1,0.60}
+ \definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+ \definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+\lstset{language=C,frame=ltrb,framesep=5pt,basicstyle=\scriptsize,
+  keywordstyle=\ttfamily\color{OliveGreen},
+ identifierstyle=\ttfamily\color{CadetBlue}\bfseries, 
+ commentstyle=\color{Brown},
+ stringstyle=\ttfamily,
+ showstringspaces=ture,fontadjust=true,breaklines=true}
+
+
+
+
+
+
 % Formateador de  portada
 \newcommand{\THESISNAMEA}{Impresora Braille - Implementaci\'on libre }
 \newcommand{\THESISAUTHORA}{\hspace*{1in}Rosales Victor Hugo\hspace*{1.2in}787774}
@@ -52,7 +69,7 @@
 
 % Segun reglamento de trabajo final
 % Desarrollo, en esta parte se deben incorporar todos los conocimientos 
-% Ingenierilesque permitan superar los problemas planteados.
+% Ingenieriles que permitan superar los problemas planteados.
 % No necesariamente se deben llegar a resultados positivos, puede suceder que
 % se obtengan resultados negativos y son tan válidos como los anteriores, no
 % olvidar que la idea del T. F. es como el primer trabajo profesional.
