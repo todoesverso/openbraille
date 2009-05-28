@@ -506,6 +506,29 @@ Desde el puento de vista del dipositivo \'este se encuentra listo para ser
 usado.
 \end{enumerate}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{PIC18F4550 USB}
+% Habra que ponerle el cosito de copyright al lado de Microchip?
+La familia de microcontroladores PIC18FX455/X550 de Microchip provee
+conexi\'on USB de tipo \emph{full} y \emph{high-speed}. Dicha comunicaci\'on
+se lleva acabo mediante lo que Microchip denomina \emph{USB Serial Interface
+Engine} (\emph{USB SIE}) o simplemente \emph{SIE}. 
+El \emph{SIE} es capaz de interactuar con un transceptor tanto externo como
+con interno. Y se provee tambien un regulador de voltaje de 3.3V interno
+completamente integrado para alimentar el tranceptor.
+
+En la figura \ref{fig:pic_usb_internal} se muestra un diagrama interno de
+la arquitectura USB de \'esta familia de microcontroladores.
+
+% Datasheet pag 163
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{./img/pic_usb_internal.png}
+\caption{Arquitectura USB de la familia PIC18FX455/X550.}
+\label{fig:pic_usb_internal}
+\end{figure}
+
 
 
 
