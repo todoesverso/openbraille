@@ -533,12 +533,98 @@ la arquitectura USB de \'esta familia de microcontroladores.
 \subsection{Registros}
 El modulo USB es controlado mediante 22 registros diponibles en el
 microcontrolador, la mayoria de los cuales son de lectura y escritura.
+A continuaci\'on se describir\'an en brevedad cada registro implicado en
+\'este trabajo.
 
+\subsubsection{UCON}
+% Generar una ref para el apendice del datasheet del 18f4550
+El registro \emph{UCON} \footnote{Para m\'as detalles referirse al
+ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 164, o bien a
+http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf}
+posee los bits necesarios para controlar el modulo USB
+durante las transferencias. De aqui se controlan:
+
+\begin{itemize}
+ \item Activar o desactivar el perif\'erico USB
+
+ \item Reset del puntero del buffer Ping-Pong  
+
+ \item Control del modo \emph{suspend}
+
+ \item Activar o desactivar la transferencia de paquetes
+\end{itemize}
+
+\subsubsection{UCFG}
+% Generar una ref para el apendice del datasheet del 18f4550
+El registro \emph{UCFG} \footnote{Para m\'as detalles referirse al
+ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 165, o bien a
+http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf} contiene los bits
+necesarios para determinar el comportamiento del modulo USB. Dicho registro
+controla:
+
+\begin{itemize}
+ \item Velocidad del bus (\emph{Full/Low speed})
+
+ \item Activar o desactivar resistencias internas de Pull-Up
+
+ \item Activar o desactivar el tranceptor interno
+
+ \item Uso del buffer de ping-pong
+\end{itemize}
+
+\subsubsection{USTAT}
+El registro \emph{USTAT} \footnote{Para m\'as detalles referirse al
+ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 168, o bien a
+http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf} contine la
+informaci\'ion espec\'ifica de la \'ultima transferencia recibida. De \'este
+registro se puede leer:
+
+\begin{itemize}
+ \item Informaci\'on de transacciones en el buffer de ping-pong
+
+ \item N\'umero de enpoint en el que se realiz\'o la \'ultima transacci\'on
+
+ \item Direcci\'on de la ultima transacci\'on (\emph{IN o OUT 'token'})
+\end{itemize}
+
+\'Este registro posee un stack del tipo \emph{FIFO} de cuatro niveles que
+permite al \emph{SIE} procesar otras transacciones en otros enpoints mientras
+el microcontrolador procesa la informaci\'on que se encuentra actualemten en
+el registro \emph{USTAT}, como se puede apreciar en la figura
+\ref{fig:ustat_fifo}.
+
+% Datasheet pag 168
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{./img/ustat_fifo.png}
+\caption{Stack FIFO del registro USTAT.}
+\label{fig:ustat_fifo}
+\end{figure}
+
+\subsubsection{UEPn}
+Los registro \emph{UEPn} \footnote{Para m\'as detalles referirse al
+ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 173, o bien a
+http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf} contiene la
+configuraci\'on de cada uno de los 16 enpoints. La letra 'n' representa el
+n\'umero del enpoint.
+Mediante estos registros se puede configurar, para cada endpoint
+individualmente, los siguientes pa\'ametros:
+
+\begin{itemize}
+ \item Activar o desactivar el \emph{handshaking}
+
+ \item Activar o desactivar las transferencias de control (\emph{SETUP})
+
+ \item Activar o desactivar la direcci\'on (\emph{IN o OUT})
+
+ \item Poner el enpoint en modo \emph{STALL}
+\end{itemize}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \section{USB en linux}
 
 Linux comenz\'o a soportar el protocolo USB desde la versi\'on 2.2.7
