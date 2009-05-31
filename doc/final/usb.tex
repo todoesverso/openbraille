@@ -515,7 +515,7 @@ conexi\'on USB de tipo \emph{full} y \emph{high-speed}. Dicha comunicaci\'on
 se lleva acabo mediante lo que Microchip denomina \emph{USB Serial Interface
 Engine} (\emph{USB SIE}) o simplemente \emph{SIE}. 
 El \emph{SIE} es capaz de interactuar con un transceptor tanto externo como
-con interno. Y se provee tambien un regulador de voltaje de 3.3V interno
+interno. Y se provee tambien un regulador de voltaje de 3.3V interno
 completamente integrado para alimentar el tranceptor.
 
 En la figura \ref{fig:pic_usb_internal} se muestra un diagrama interno de
@@ -602,8 +602,8 @@ el registro \emph{USTAT}, como se puede apreciar en la figura
 \end{figure}
 
 \subsubsection{UEPn}
-Los registro \emph{UEPn} \footnote{Para m\'as detalles referirse al
-ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 173, o bien a
+Los registros \emph{UEPn} \footnote{Para m\'as detalles referirse al
+ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 169, o bien a
 http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf} contiene la
 configuraci\'on de cada uno de los 16 enpoints. La letra 'n' representa el
 n\'umero del enpoint.
@@ -619,6 +619,38 @@ individualmente, los siguientes pa\'ametros:
 
  \item Poner el enpoint en modo \emph{STALL}
 \end{itemize}
+
+
+\subsubsection{UADDR}
+El registro \emph{UADDR} \footnote{Para m\'as detalles referirse al
+ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 170, o bien a
+http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf} contiene la
+direcci\'on \'unica que el perif\'erico decodificar\'a una vez activado. Es el
+microcontrolador quien debe encargarse de escribir la direcci\'on obtenida
+durante el proceso de enumeraci\'on.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{USB RAM}
+Los datos USB se mueven entre el n\'ucleo del microcontrolador y el \emph{SIE}
+mediante un segmento de memoria compartida denominado \emph{USB RAM}.
+Este segmento de memoria de puerto dual se encuentra mapeado en espacio de
+memoria de datos normal ubicada en el Banco 4 en la direcci\'on 7 (0x400 hasta
+0x7FF) por un total de 1Kb como se observa en la figura \ref{fig:usb_mem}.
+
+% Datasheet pag 170
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{./img/usb_mem.png}
+\caption{Mapeo de memoria \emph{USB RAM}.}
+\label{fig:usb_mem}
+\end{figure}
+
+
+
+
+
+
+
 
 
 
