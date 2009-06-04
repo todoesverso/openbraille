@@ -27,3 +27,9 @@ url = http://ctan.binkerton.com/info/lshort/spanish/lshort.pdf
 lic = GPLv2
 file = doc/biblio/lshort.pdf
 ####################
+titulo = Atrapados en libertad
+url = http://www.unc.edu.ar/institucional/periodicohoylauniversidad/2008/numero-46/HoylaUniversidad-46.pdf
+# http://www.unc.edu.ar/institucional/periodicohoylauniversidad/ultimaedicion
+lic = #Averiguar
+file = HoylaUniversidad-46.pdf
+####################
