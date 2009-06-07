@@ -11,11 +11,13 @@ implementaciones comerciales solo soportan el ent\'andar \emph{2.0}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \section{Historia}
 %No me gusta como titulo 'historia' habria que pensar otra cosa
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \section{Decripci\'on}
 % Aca iria el funcionamiento del USB, difierenciado por \subsection{}
 % Por ahora me estoy basando en la spec 2.0 oficial.
@@ -263,6 +265,7 @@ Sync & PID & EOP\\ \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \section{Enpoints}
 Un aspecto muy importante del estandar USB es la forma en la que se logra la
 comunicaci\'on entre el host y el dispositivo.
@@ -292,6 +295,7 @@ comunicaci\'on USB.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \section{Transferencias USB}
 La especificaci\'on USB define cuatro tipos de transferencia:
 
@@ -347,6 +351,7 @@ la figura \ref{fig:usb_bulk_transaction}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \section{Descriptores USB}
 % Revisar pagina 240 de la spec usb 2.0 grafico de estados para agregar
 % Agregar proceso de enumeracion de la spec pag 243	
@@ -393,6 +398,7 @@ figura \ref{fig:usb_descriptors}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \section{Estados USB}
 Los dispositivos USB poseen varios estados definidos por los cuales pueden
 transicionar durante su uso.
@@ -468,6 +474,7 @@ encuentra suspendido y no puede ser usado por el host.\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \section{Enumeraci\'on del bus USB}
 El proceso de enumeraci\'on determina si un dispositivo se ha conectado al
 bus, a que puerto, sus configuraciones, intefaces, etc.
@@ -508,6 +515,7 @@ usado.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{PIC18F4550 USB}
 % Habra que ponerle el cosito de copyright al lado de Microchip?
 La familia de microcontroladores PIC18FX455/X550 de Microchip provee
@@ -645,9 +653,102 @@ memoria de datos normal ubicada en el Banco 4 en la direcci\'on 7 (0x400 hasta
 \label{fig:usb_mem}
 \end{figure}
 
+De \'esta memoria, el Banco 4 (400h a 4FFh), esta dedicada exclusivamente al
+control individual de cada endpoint, quedando disponible para uso de datos de
+USB la parte no usada del Banco 4 hasta el Banco 7.\\
 
+Por estar mapeada en memoria de datos y siendo accesible tanto por el
+microcontrolador como por el \emph{SIE}, la \emph{USB RAM}, se maneja mediante
+un sistema de semaforos, asegurando de \'esta manera que un solo dispositivo
+este accediendo al mismo segmento de memoria a la vez.
 
+\subsection{Desciptores de Buffer y Tabla de Descriptores de Buffers}
+Para proveerle cierta felxibilidad al usuario, el m\'odulo USB hace uso de
+una estructura particualr de datos donde se describen los \emph{endpoints} del
+USB denominada \emph{Buffer Descriptor Table (BDT)}. \\
 
+La BDT se compone de \emph{Buffer Descriptors (BDs)} los cuales, a su vez, se
+componen de 4 registros:
+
+\begin{itemize}
+ \item BDnSTAT: Registro de estado del BD
+
+ \item BDnCNT:  Registro de tama\~no de bloque de memoria del BD
+
+ \item BDnADRH: Direcci\'on alta del BD
+
+ \item BDnADRL: Direcci\'on baja del BD
+\end{itemize}
+
+\'Esta disposicion sepuede apreciar mejor en la figura \ref{fig:pic_bdt.png}.
+
+% Datasheet pag 171
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{./img/pic_bdt.png}
+\caption{Tabla de descriptores de Buffers\emph{BDT}.}
+\label{fig:pic_bdt}
+\end{figure}
+
+\subsection{BDn}
+Los \emph{BDs} se componen de 4 registros (o bytes) por lo que cada
+\emph{BDnSTAT} se encuentra siempre siempre a 4n-1 bytes de distancia de la
+direcci\'on 400h.\\
+
+\'Este registro tiene la particularidad de poseer un comportameinto que
+depende de su contexto.
+
+\subsubsection{Modo CPU}
+Cuando \emph{UOWN} = 0 (\emph{BDnSTAT$<7>$}), el microcontrolador posee el
+control sobre dicho \emph{BD}. Del registro \emph{BDnSTAT} se destacan los
+siguientes bits:
+
+\begin{itemize}
+ \item bit 7 - \emph{UOWN}: Se encuentra en 0 cuando el \emph{BD} le pertenece
+al microcontrolador
+
+ \item bit 2 - \emph{BSTALL}: Activad o desactivar el estado \emph{STALL}
+
+ \item bit 1-0 - \emph{BC9:BC8}: Los dos bits m\'as significantes del
+contador, quien determina el tama\~no del los datos \emph{IN} o \emph{OUT}.
+\end{itemize}
+
+El registro \emph{BDnCNT} contine los bits 7:0 que determinan el tama\~no del
+buffer. De esta manera los buffers se limitan a un tam\~no espec\'ifico que
+ser\'a el que se puede recibir en una transferencia \emph{OUT}. Mientras que
+en una transferencia \emph{IN} se fija el tama\~no del dato que se
+transmitir\'a al host.\\
+
+En cuanto a los registros \emph{BDnADRL} y \emph{BDnADRH} poseen la
+direcci\'on de USB RAM de los enpoints. El microcontrolador no posee ningun
+mecanismo intr\'inseco que valide dicha direcc\'ion, lo cual deberia hacerse
+mediante software.\\
+
+\subsubsection{Modo SIE}
+Cuando \emph{UOWN} = 1 (\emph{BDnSTAT$<7>$}), el \emph{BD} se encuetra bajo
+el control del \emph{SIE}. Luego los bits de \'este registro adquieren otro
+significado:
+
+\begin{itemize}
+ \item bit 7 - \emph{UOWN}: Se encuentra en 1 cuando el \emph{BD} le pertenece
+al \emph{SIE}
+
+ \item bit 5-4 - \emph{PID3:0}: Poseen el \emph{PID} de la transacci\'on
+(\emph{IN, OUT, SETUP})
+
+ \item bit 1-0 - \emph{BC9:BC8}: Los dos bits m\'as significantes del
+contador, quien determina el tama\~no del los datos \emph{IN} o \emph{OUT}.
+\end{itemize}
+
+El registro \emph{BDnCNT} contine los bits 7:0 que determinan el tama\~no del
+buffer. Es el \emph{SIE} quien actualiza estos valores segun la ultima
+transacci\'on efectuada. En una transacci\'on del tipo \emph{OUT}, el
+\emph{SIE} compara el tama\~no del dato recibido si supera el que esta
+definido en este registro autom\'aticamente se emite una se\~nal del tipo
+\emph{NAK}. Cuendo se hace un \emph{IN}, el \emph{SIE} actualiza este registro
+con la cantidad de datos enviados.\
+Con este m\'etodo es posible luego hacer chequeos del resultado verdadero de
+las transacci\'ones USB. 
 
 
 
@@ -684,7 +785,7 @@ representacion de dichas capas.
 
 
 En los cap\'itulos siguientes se describir\'a como es manejado el protocolo a
-nivel del kernel y una \emph{API} libre de mas alto nivel.
+nivel del kernel y una \emph{API} libre de m\'as alto nivel.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -755,8 +856,7 @@ encolados y la funci\'on vuelve inmediatamente.
 La API \emph{libusb} consiste en un set de librerias de codigo abierto
 licenciadas bajo LGPL (%Expandir el nombre y poner footnote con url
 % Hacer lo mismo con libusb ). 
-Dichas librerias resuelven la comunicaci\'on
-USB pero a nivel de usuario.
+Dichas librerias resuelven la comunicaci\'on USB pero a nivel de usuario.
 La API se encuentra en casi todoas las distribuciones de GNU/Linux, y se
 presenta en forma de libreria dinamica para usar con aplicaciones ya
 compiladas y un paquete extra para \emph{development}\footnote{Del ingles
