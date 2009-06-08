@@ -8,7 +8,7 @@ SDCC_HOME=/usr/share/sdcc/
 
 CC=sdcc
 
-OPTS1= --vc  --denable-peeps --optimize-goto --optimize-cmp --optimize-df\
+OPTS1= -Wl --vc  --denable-peeps --optimize-goto --optimize-cmp --optimize-df\
 --obanksel=2 --opt-code-size --fommit-frame-pointer -mpic16 -p18f4550 -I\
 $(SDCC_HOME)\include/pic16/ -c
 
