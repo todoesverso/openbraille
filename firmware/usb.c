@@ -23,111 +23,125 @@
 #include "usb.h"
 
 
-// Los descriptores de dispositivo y configuración. Son usados como
-// el host enumera el dispositivo y descubre que clase de dispositivo es
-// y que interfaces soporta
+/**
+ * Device and configuration descriptors.  These are used as the
+ * host enumerates the device and discovers what class of device
+ * it is and what interfaces it supports.
+**/
 
-// Tamaños en bytes de los desciptores
+/**
+ * Size in bytes of descriptors
+ **/
 #define DEVICE_DESCRIPTOR_SIZE 0x12
 #define CONFIG_HEADER_SIZE  0x09
 #define CONFIG_DESCRIPTOR_SIZE 0x25
-// EL tamaño total del descriptor de configuración es
-// 0x09	 +  0x09  +  0x07  +  0x07  =  0x20 
+/**
+ * The total size of the configuration descriptor
+ * 0x09	 +  0x09  +  0x07  +  0x07  =  0x20 
+ **/
+
 #define CFSZ CONFIG_HEADER_SIZE+CONFIG_DESCRIPTOR_SIZE
 
-// Estrucutra del descriptor de configuración
+/** 
+ * Struct of Configuration Descriptor
+ * @configHeader:
+ * @Descriptor:
+ * 
+ **/
 typedef struct _configStruct
 {
     byte configHeader[CONFIG_HEADER_SIZE];
     byte Descriptor[CONFIG_DESCRIPTOR_SIZE]; 
 } ConfigStruct;
 
-// Variables globales
-byte deviceState;   // Estados visibles (de USB 2.0, cap 9.1.1)
+/**
+ * Global Variables
+ **/
+/**
+ * Visible States (USB 2.0 Spec, chap 9.1.1)
+ **/
+byte deviceState;  
 byte remoteWakeup;
 byte deviceAddress;
 byte selfPowered;
 byte currentConfiguration;
 
 
-// Etapas en la transferencia de control - ver la especif USB cap 5
+/* Control Transfer Stages - see USB spec chapter 5                          */
+/* Start of a control transfer (followed by 0 or more data stages)           */
+#define SETUP_STAGE    0 
+#define DATA_OUT_STAGE 1 /* Data from host to device                         */
+#define DATA_IN_STAGE  2 /* Data from device to host                         */
+#define STATUS_STAGE   3 /* Unused - if data I/O went ok, then back to setup */
 
-// Comienzo de una transferencia de control (seguido por 0 o mas etapas de dato)
-#define SETUP_STAGE    0
-// Datos desde host hacia el dispositivo
-#define DATA_OUT_STAGE 1 
-// Datos desde dispositivo hacia host
-#define DATA_IN_STAGE  2 
-// No se usa (si el dato de Entrada/Salida anduvo bien, entonces regresa a Setup)
-#define STATUS_STAGE   3
+byte ctrlTransferStage; /* Holds the current stage in a control transfer     */
+byte requestHandled;    /* Set to 1 if request was understood and processed. */
 
-byte ctrlTransferStage; // Mantiene el estado actual en una transferencia de control
-byte requestHandled;    // Establecida a 1 si la solicitud fue entendida y procesada
+byte *outPtr;           /* Data to send to the host                     */
+byte *inPtr;            /* Data from the host                           */
+word wCount;            /* Number of bytes of data                      */
+byte RxLen;             /* # de bytes colocados dentro del buffer       */
 
-byte *outPtr;           // Dato para enviar al host
-byte *inPtr;            // Dato proveniente del host
-word wCount;            // Cantidad de bytes de dato
-byte RxLen;    // # de bytes colocados dentro del buffer
-
-// Descriptor del dispositivo
+/**
+ * Device Descriptor
+ **/
 code byte deviceDescriptor[] =
 {
-    DEVICE_DESCRIPTOR_SIZE, 0x01, // bLength, bDescriptorType
-    0x00, 0x02, // bcdUSB (low byte), bcdUSB (high byte)
-    0x00, 0x00, // bDeviceClass, bDeviceSubClass
-    0x00, E0SZ, // bDeviceProtocl, bMaxPacketSize
-    0xD8, 0x04, // idVendor (low byte), idVendor (high byte)
-    0x31, 0x75, // idProduct (low byte), idProduct (high byte)
-    0x01, 0x00, // bcdDevice (low byte), bcdDevice (high byte)
-    0x01, 0x02, // iManufacturer, iProduct
-    0x00, 0x01  // iSerialNumber (none), bNumConfigurations
+    DEVICE_DESCRIPTOR_SIZE, 0x01, /* bLength, bDescriptorType                */
+    0x00, 0x02,                   /* bcdUSB (LB), bcdUSB (HB)                */
+    0x00, 0x00,                   /* bDeviceClass, bDeviceSubClass           */
+    0x00, E0SZ,                   /* bDeviceProtocl, bMaxPacketSize          */
+    0xD8, 0x04,                   /* idVendor (LB), idVendor (HB)            */
+    0x31, 0x75,                   /* idProduct (LB), idProduct (HB)          */
+    0x01, 0x00,                   /* bcdDevice (LB), bcdDevice (HB)          */
+    0x01, 0x02,                   /* iManufacturer, iProduct                 */
+    0x00, 0x01                    /* iSerialNumber (none), bNumConfigurations*/
 };
 
-// wMaxPacketSize (low) del endopoint1IN
-#define ISZ 7 
-// wMaxPacketSize (low) del endopoint1OUT
-#define OSZ 7
-// wMaxPacketSize (low) del endopoint2OUT
-#define OSZ2 1 
+#define ISZ 7                /* wMaxPacketSize (low) of endopoint1IN         */
+#define OSZ 7                /* wMaxPacketSize (low) of endopoint1OUT        */
+#define OSZ2 1               /* wMaxPacketSize (low) of endopoint2OUT        */
 
+/**
+ * Configuration Descriptor
+ **/
 code ConfigStruct configDescriptor =
 {
     {
-    // Descriptor de configuración, contiene el descriptor de la clase
-    CONFIG_HEADER_SIZE, 0x02, // bLength, bDescriptorType (Configuration)
-    CFSZ, 0x00, // wTotalLength (low), wTotalLength (high)
-    0x01, 0x01, // bNumInterfaces, bConfigurationValue
-    0x00, 0xA0, // iConfiguration, bmAttributes ()
-    0x32,       // bMaxPower (100 mA)
+    /* Descriptor de configuracin, contiene el descriptor de la clase */
+    CONFIG_HEADER_SIZE, 0x02, /* bLength, bDescriptorType (Configuration) */
+    CFSZ, 0x00,               /* wTotalLength (low), wTotalLength (high)  */
+    0x01, 0x01,               /* bNumInterfaces, bConfigurationValue      */
+    0x00, 0xA0,               /* iConfiguration, bmAttributes ()          */
+    0x32,                     /* bMaxPower (100 mA)                       */
     },
     {
     // Interfaz del descriptor
-    0x09, 0x04, // bLength, bDescriptorType (Interface)
-    0x00, 0x00, // bInterfaceNumber, bAlternateSetting
-    0x04, 0x07, // bNumEndpoints, bInterfaceClass (Printer)
-    0x01, 0x00, // bInterfaceSubclass, bInterfaceProtocol,
-    0x00,       // iInterface
+    0x09, 0x04,               /* bLength, bDescriptorType (Interface)     */
+    0x00, 0x00,               /* bInterfaceNumber, bAlternateSetting      */
+    0x04, 0x07,               /* bNumEndpoints, bInterfaceClass (Printer) */
+    0x01, 0x00,               /* bInterfaceSubclass, bInterfaceProtocol   */
+    0x00,                     /* iInterface                               */
     // Impresora Endpoint 1 In
-    0x07, 0x05, // bLength, bDescriptorType (Endpoint)
-    0x81, 0x02, // bEndpointAddress, bmAttributes (Bulk)
-    ISZ, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
-    0x01,       // bInterval (1 millisecond)
+    0x07, 0x05,               /* bLength, bDescriptorType (Endpoint)      */
+    0x81, 0x02,               /* bEndpointAddress, bmAttributes (Bulk)    */
+    ISZ, 0x00,                /* wMaxPacketSize (L), wMaxPacketSize (H)   */
+    0x01,                     /* bInterval (1 millisecond)                */
     // Impresora Endpoint 1 Out
-    0x07, 0x05, // bLength, bDescriptorType (Endpoint)
-    0x01, 0x02, // bEndpointAddress, bmAttributes (Bulk)
-    OSZ, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
-    0x01,       // bInterval (1 millisecond)
-    
+    0x07, 0x05,               /* bLength, bDescriptorType (Endpoint)      */
+    0x01, 0x02,               /* bEndpointAddress, bmAttributes (Bulk)    */
+    OSZ, 0x00,                /* wMaxPacketSize (L), wMaxPacketSize (H)   */
+    0x01,                     /* bInterval (1 millisecond)                */
     // Impresora Endpoint 2 In
-    0x07, 0x05, // bLength, bDescriptorType (Endpoint)
-    0x82, 0x02, // bEndpointAddress, bmAttributes (Bulk)
-    ISZ, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
-    0x01,       // bInterval (1 millisecond)
+    0x07, 0x05,               /* bLength, bDescriptorType (Endpoint)      */
+    0x82, 0x02,               /* bEndpointAddress, bmAttributes (Bulk)    */
+    ISZ, 0x00,                /* wMaxPacketSize (L), wMaxPacketSize (H)   */
+    0x01,                     /* bInterval (1 millisecond)                */
     // Impresora Endpoint 2 Out
-    0x07, 0x05, // bLength, bDescriptorType (Endpoint)
-    0x02, 0x02, // bEndpointAddress, bmAttributes (Bulk)
-    OSZ2, 0x00,  // wMaxPacketSize (low), wMaxPacketSize (high)
-    0x01,       // bInterval (1 millisecond)
+    0x07, 0x05,               /* bLength, bDescriptorType (Endpoint)      */
+    0x02, 0x02,               /* bEndpointAddress, bmAttributes (Bulk)    */
+    OSZ2, 0x00,               /* wMaxPacketSize (L), wMaxPacketSize (H)   */
+    0x01,                     /* bInterval (1 millisecond)                */
     } 
 };
 
@@ -135,16 +149,18 @@ code ConfigStruct configDescriptor =
 // Descriptores String (cadenas de caracteres)
 //
 
-// Según la especificación del USB, el string de índice 0 contiene el código de lenguaje
+/**
+ * According to USB spec, the 0 index has the lenguage code 
+ **/
 code byte stringDescriptor0[] =
 {
-    0x04, STRING_DESCRIPTOR, // bLength, bDscType
-    0x09, 0x04,		// Establece el wLANGID en 0x0409 (English,USA)
+    0x04, STRING_DESCRIPTOR,    /* bLength, bDscType                            */
+    0x09, 0x04,		        // Stablish wLANGID with 0x0409 (English,USA)   */
 };
 
 code byte stringDescriptor1[] =
 {
-    0x1A, STRING_DESCRIPTOR, // bLength, bDscType
+    0x1A, STRING_DESCRIPTOR,                    /* bLength, bDscType */
     'E', 0x00, 'm', 0x00, 'b', 0x00, 'o', 0x00,
     's', 0x00, 's', 0x00, 'e', 0x00, 'r', 0x00,
     ' ', 0x00, ' ', 0x00,
@@ -153,52 +169,63 @@ code byte stringDescriptor1[] =
 
 code byte stringDescriptor2[] =
 {
-    0x20, STRING_DESCRIPTOR, // bLength, bDscType
+    0x20, STRING_DESCRIPTOR,                    /* bLength, bDscType */
     'U', 0x00, 'S', 0x00, 'B', 0x00, ' ', 0x00,
     'B', 0x00, 'r', 0x00, 'a', 0x00, 'i', 0x00,
     'l', 0x00, 'l', 0x00, 'e', 0x00, ' ', 0x00,
     '0', 0x00, '.', 0x00, '1', 0x00,
 };
 
-volatile BDT at 0x0400 ep0Bo; //Endpoint #0 BD Out
-volatile BDT at 0x0404 ep0Bi; //Endpoint #0 BD In
-volatile BDT at 0x0408 ep1Bo; //Endpoint #1 BD Out
-volatile BDT at 0x040C ep1Bi; //Endpoint #1 BD In
-volatile BDT at 0x0410 ep2Bo; //Endpoint #2 BD Out
-volatile BDT at 0x0414 ep2Bi; //Endpoint #2 BD In
+volatile BDT at 0x0400 ep0Bo; /* Endpoint #0 BD OUT     */
+volatile BDT at 0x0404 ep0Bi; /* Endpoint #0 BD IN      */
+volatile BDT at 0x0408 ep1Bo; /* Endpoint #1 BD OUT     */
+volatile BDT at 0x040C ep1Bi; /* Endpoint #1 BD IN      */
+volatile BDT at 0x0410 ep2Bo; /* Endpoint #2 BD OUT     */
+volatile BDT at 0x0414 ep2Bi; /* Endpoint #2 BD IN      */
 
-// TBD: add definitions for additional endpoints (2-16).
-
-// Colocar los buffers endpoint 0 dentro del puerto RAM dual
+/*
+ * Put endpoint 0 buffers into dual port RAM
+ **/
 #pragma udata usbram5 SetupPacket controlTransferBuffer
 volatile setupPacketStruct SetupPacket;
 volatile byte controlTransferBuffer[E0SZ];
 
-// Colocar los buffers I/O de USB dentro del puerto RAM dual
+/**
+ * Put I/O buffersinto dual port USB RAM
+ **/
 #pragma udata usbram5 RxBuffer TxBuffer 
-
 #pragma udata usbram6 RxBuffer2 TxBuffer2
-// Buffers especificos
+
+/** 
+ * Specific Buffers
+ **/
 volatile byte RxBuffer[OSZ];
 volatile byte TxBuffer[ISZ];
 volatile byte RxBuffer2;
 volatile byte TxBuffer2[ISZ];
 
-//
-// Inicializador de los Endpoints
+
+/** 
+ * Enpoints Initialization
+ **/
 void InitEndpoint(void)
 {
-    // Enciende ambos endpoint para entrada y salida (EP1 y EP2)
-	UEP1 = 0x1E;  // Ver hoja de datos PIC pag 169 (USB Endpoint 1 Control)
-        UEP2 = 0x1E; // Config de endpoint 2 (identica a la de EP1)
-// Cargar el BDT de EP1
+    	/* Turn on both IN and OUT for this endpoints (EP1 & EP2)       */
+        UEP1 = 0x1E;  /* See PIC datasheet, page 169 (USB E1 Control)   */
+        UEP2 = 0x1E;  /* Same as above for EP2                          */
+
+	/** 
+         * Load EP1's BDT
+         **/
         ep1Bo.Cnt = sizeof(RxBuffer);
 	ep1Bo.ADDR = PTR16(&RxBuffer);
 	ep1Bo.Stat = UOWN | DTSEN;
 	ep1Bi.ADDR = PTR16(&TxBuffer);
 	ep1Bi.Stat = DTS;
 
-// Cargar el BDT de EP2
+	/** 
+         * Load de EP2's BDT
+         **/
         ep2Bo.Cnt = RxBuffer2;
 	ep2Bo.ADDR = PTR16(&RxBuffer2);
 	ep2Bo.Stat = UOWN | DTSEN;
@@ -206,79 +233,94 @@ void InitEndpoint(void)
 	ep2Bi.Stat = DTS;
 }
 
-//
 // Funciones de tranferencia de datos IN y OUT (Bulk)
 
-// Funcion BulkIn. La función devuelve la cantidad de bytes que el SIE envia al host
-// Funcion BulkIn. La función devuelve la cantidad de bytes que el SIE envia al host
+// Funcion BulkIn. La funcin devuelve la cantidad de bytes que el SIE envia al host
+/**
+ * BulkIn() - Makes an IN and returns the amount of bytes transfered
+ * @ep_num:   Number of the endpoint to be used (only EP1 & EP2)
+ * @buffer:   Buffer of the data to be transfered
+ * @len:      Lenght of the bytes transfered
+ *
+ * The function checks if the BD is owned by the CPU retunrning 0 if so.
+ * (PIC 18F4550 datasheet page 171 section 17.4.1.1 - Buffer Ownership)
+ *
+ * Send up to len bytes to the host.  The actual number of bytes sent is returned
+ * to the caller.  If the send failed (usually because a send was attempted while
+ * the SIE was busy processing the last request), then 0 is returned.
+ **/ 
 byte BulkIn(byte ep_num, byte *buffer, byte len){
 	byte i;
-// Seleccion del EP segun la entrada ep_num
+/**
+ * If slelected EP1
+ **/
 if (ep_num == 1){        
 
-	// Si la CPU aún posee el SIE, entonces que no trate de escribir datos para evitar
-	// un comportamiento impredecible. Por lo tanto la funcion devuelve 0
-	// Ver hoja de datos del PIC sección 17.4.1.1 - Buffer Ownwership pag 171
+        /** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         * If CPU owns the BD do not write to it and return 0. 
+         **/
 	if (ep1Bi.Stat & UOWN)
 		return 0;
-	
-   // Se truncan las solicitudes que son demasiado largas. TBD: send
-	if(len > ISZ)
+	/**
+         * Truncate requests that are too large 
+         **/
+	if(len > ISZ)       
 		len = ISZ;
 	
-   // Se copian los datos del buffer de usuario al buffer dual de RAM
+        /**
+        * Copy data from user's buffer to dual-port ram buffer
+        **/
 	for (i = 0; i < len; i++)
 		TxBuffer[i] = buffer[i];
 	
-   // Cambia el bit de dato y da control al SIE
+        /**
+         * Toggle the data bit and give control to the SIE
+         **/
 	ep1Bi.Cnt = len;
 	if(ep1Bi.Stat & DTS)
 		ep1Bi.Stat = UOWN | DTSEN;
 	else
 		ep1Bi.Stat = UOWN | DTS | DTSEN;
 
-  // Finalmente la función devuelve la cantidad de bytes que va a enviar el SIE a host
 	return len;
 }
 
+/**
+ * If selected EP2
+ **/
 else if (ep_num == 2){
-
-	// Si la CPU aún posee el SIE, entonces que no trate de escribir datos para evitar
-	// un comportamiento impredecible. Por lo tanto la funcion devuelve 0
-	// Ver hoja de datos del PIC sección 17.4.1.1 - Buffer Ownwership pag 171
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	if (ep2Bi.Stat & UOWN)
 		return 0;
 	
-   // Se truncan las solicitudes que son demasiado largas. TBD: send
 	if(len > ISZ)
 		len = ISZ;
 	
-   // Se copian los datos del buffer de usuario al buffer dual de RAM
 	for (i = 0; i < len; i++)
 		TxBuffer2[i] = buffer[i];
 	
-   // Cambia el bit de dato y da control al SIE
 	ep2Bi.Cnt = len;
 	if(ep2Bi.Stat & DTS)
 		ep2Bi.Stat = UOWN | DTSEN;
 	else
 		ep2Bi.Stat = UOWN | DTS | DTSEN;
 
-  // Finalmente la función devuelve la cantidad de bytes que va a enviar el SIE a host
 	return len;
 }
 // Si ninguno de los endpoints tienen algo devuelvo 0
 return 0;
 }
-// Funcion BulkOut. La función devuelve la cantidad de bytes que se recibieron
+// Funcion BulkOut. La funcion devuelve la cantidad de bytes que se recibieron
 byte BulkOut(byte ep_num, byte *buffer, byte len) {
 RxLen = 0;
-
+/**
+ * If selected EP1
+ **/
 if (ep_num == 1){
     // Si el SIE no posee el buffer del descriptor de salida, entonces es seguro
     // extraer los datos 
 	if(!(ep1Bo.Stat & UOWN)) {
-    // Se fija si el host envió menos bytes que los que fueron pedidos
+    // Se fija si el host envio menos bytes que los que fueron pedidos
 		if(len > ep1Bo.Cnt)
 			len = ep1Bo.Cnt;
 
@@ -286,7 +328,7 @@ if (ep_num == 1){
 		for(RxLen = 0; RxLen < len; RxLen++)
 			buffer[RxLen] = RxBuffer[RxLen];
 
-    // Resetea (como al inicio) el buffer del descriptor de salida así el host
+    // Resetea (como al inicio) el buffer del descriptor de salida asi el host
     // puede enviar mas datos, campo de estado (Stat) de la tabla del descriptor
 		ep1Bo.Cnt = sizeof(RxBuffer);
 		if(ep1Bo.Stat & DTS)
@@ -295,18 +337,21 @@ if (ep_num == 1){
 			ep1Bo.Stat = UOWN | DTS | DTSEN;
         } 
 }
+/**
+ * If selected EP2
+ **/
 else if (ep_num == 2){
     // Si el SIE no posee el buffer del descriptor de salida, entonces es seguro
     // extraer los datos 
 	if(!(ep2Bo.Stat & UOWN)) {
-    // Se fija si el host envió menos bytes que los que fueron pedidos
+    // Se fija si el host envio menos bytes que los que fueron pedidos
 		if(len > ep2Bo.Cnt)
 			len = ep2Bo.Cnt;
 
     // Copia los datos del buffer dual de RAM al buffer de usuario
 			buffer[0] = RxBuffer2;
                         RxLen = 1;
-    // Resetea (como al inicio) el buffer del descriptor de salida así el host
+    // Resetea (como al inicio) el buffer del descriptor de salida asi el host
     // puede enviar mas datos, campo de estado (Stat) de la tabla del descriptor
 		ep2Bo.Cnt = 1;
 		if(ep2Bo.Stat & DTS)
@@ -318,30 +363,37 @@ else if (ep_num == 2){
 
 return RxLen;
 }
-//
-// Comienzo del código para procesar las solicitudes estándar (Cap 9 USB)
-//
+
+/**
+ * Start of code to process standard requests (USB chapter 9)
+ **/
 
 // Solicitud GET_DESCRIPTOR (X) (los datos parecen estar contenidos el el paquete Setup)
-// (X) será Device, Configuration o String según se identifique al tipo de solicitud
+// (X) sera Device, Configuration o String segun se identifique al tipo de solicitud
 
+/**
+ * GetDescriptor(void) - Process Descriptors requests
+ *
+ * 
+ *
+ **/
 static void GetDescriptor(void)
 {
-    if(SetupPacket.bmRequestType == 0x80)  // Dirección del dato de dispositivo a host
+    if(SetupPacket.bmRequestType == 0x80)  // Direccion del dato de dispositivo a host
     {
         byte descriptorType  = SetupPacket.wValue1; // El MSB contiene el tipo de descriptor
-	byte descriptorIndex = SetupPacket.wValue0; // El LSB contiene el índice de descriptor
+	byte descriptorIndex = SetupPacket.wValue0; // El LSB contiene el indice de descriptor
 
   // GetDescriptor(Device)
         if (descriptorType == DEVICE_DESCRIPTOR) // Indentifica si la solicitud es de dispositivo
         {
                 requestHandled = 1;		// La solicitud fue tomada
-                outPtr = (byte *)&deviceDescriptor; // Apunta a la dirección del descriptor
-                wCount = DEVICE_DESCRIPTOR_SIZE; // El tamaño de este descriptor es de 0x12 bytes
+                outPtr = (byte *)&deviceDescriptor; // Apunta a la direccion del descriptor
+                wCount = DEVICE_DESCRIPTOR_SIZE; // El tamano de este descriptor es de 0x12 bytes
         }
   // GetDescriptor(Configuration)
-	// En este caso también trae los descriptores de Interface y Endpoint
-	else if (descriptorType == CONFIGURATION_DESCRIPTOR) // Si la solicitud es de configuración
+	// En este caso tambien trae los descriptores de Interface y Endpoint
+	else if (descriptorType == CONFIGURATION_DESCRIPTOR) // Si la solicitud es de configuracion
         {
                 requestHandled = 1;
                 outPtr = (byte *)&configDescriptor;
@@ -354,21 +406,21 @@ static void GetDescriptor(void)
         {
                 requestHandled = 1;
                 if (descriptorIndex == 0)	// El primer string contiene el Codigo de lenguaje
-                    outPtr = (byte *) &stringDescriptor0; // Apunta a la dirección del primer descriptor
+                    outPtr = (byte *) &stringDescriptor0; // Apunta a la direccion del primer descriptor
                 else if (descriptorIndex == 1)  // Gralmente el segundo trae el nombre del autor
                     outPtr = (byte *) &stringDescriptor1;
                 else
                     outPtr = (byte *) &stringDescriptor2; // Y el ultimo el nombre del dispositivo
-                wCount = *outPtr;	// Devuelve la indirección del puntero ya que el primer
-					// byte de los decriptores contiene el tamaño que ocupan
-					// Esto mismo se podría haber hecho en los casos anteriores
+                wCount = *outPtr;	// Devuelve la indireccion del puntero ya que el primer
+					// byte de los decriptores contiene el tamano que ocupan
+					// Esto mismo se podria haber hecho en los casos anteriores
         }
         else
         {
 	// No se reconoce que solicita...
-	// Se podría escribir algunas lineas para que vuelva y guardar en una variable un código
-	// de error, pudiendo saltar o realizar alguna interrupción.
-	// Luego con una tabla se reconoce el tipo de error. También se puede hacer
+	// Se podria escribir algunas lineas para que vuelva y guardar en una variable un codigo
+	// de error, pudiendo saltar o realizar alguna interrupcion.
+	// Luego con una tabla se reconoce el tipo de error. Tambien se puede hacer
 	// parpardear un LED que avise el error
         }
     }
@@ -386,8 +438,8 @@ static void GetStatus(void)
   // GetStatus(Device)
     if (recipient == 0x00) 
     {
-	    // El desriptor solicitado es el dispositivo entonces se envía buffer con el
-	    // estado en que está el dispositivo
+	    // El desriptor solicitado es el dispositivo entonces se envia buffer con el
+	    // estado en que esta el dispositivo
         requestHandled = 1;
         // Establece los bits para el estado de auto alimentacion y despertar remoto
 	// El estado se define con los 2 bits menos siginificativos
@@ -407,19 +459,19 @@ static void GetStatus(void)
 	// del endpoint en el D0
     {
 	// Los 4 bits menos significativos de Windex de la solicitud contienen
-	// el número de endpoint, se guardan en la variable
+	// el numero de endpoint, se guardan en la variable
 	//
 	// D15 D14 D13 D12 D11 D10 D9 D8 D7 D6 D5 D4 D3 D2 D1 D0
 	//----------------------------- Dir ----- Endpoint Number
 
         byte endpointNum = SetupPacket.wIndex0 & 0x0F;
-	// La dirección del flujo de datos está en el bit D7 de Windex
+	// La direccion del flujo de datos esta en el bit D7 de Windex
         byte endpointDir = SetupPacket.wIndex0 & 0x80;
         requestHandled = 1;
 
 	// Cada descriptor de endpoint tiene una longitud de 8 bytes, llevando 4 bytes de
-	// separación entre las tablas de los descriptores.
-	// Ver la organización de memoria de la Tabla de Descriptores de Endpoint en la
+	// separacion entre las tablas de los descriptores.
+	// Ver la organizacion de memoria de la Tabla de Descriptores de Endpoint en la
 	// hoja de datos del PIC pag 171, para 
 
         inPtr = (byte *)&ep0Bo + (endpointNum * 8); 
@@ -431,9 +483,9 @@ static void GetStatus(void)
             controlTransferBuffer[0] = 0x01;
     }
 	// Si la solicitud fue tomada por alguno de los anteriores (requestHandled)
-    	// la información fue cargada en los dos primeros elementos del arreglo de bytes
+    	// la informacion fue cargada en los dos primeros elementos del arreglo de bytes
      	// controlTransferBuffer, por lo tanto se posiciona al puntero OUT de usuario 
-    	// en la dirección del arreglo y se cargan 2 bytes correspondientes al tamaño
+    	// en la direccion del arreglo y se cargan 2 bytes correspondientes al tamano
      	// de la solicitud a procesar
 	if (requestHandled)
 	{
@@ -443,7 +495,7 @@ static void GetStatus(void)
 }
 
 // Solicitudes SET_FEATURE(X) y CLEAR_FEATURE(X)
-// (Usadas para activar/desactivar características booleanas)
+// (Usadas para activar/desactivar caracteristicas booleanas)
 
 static void SetFeature(void)
 {
@@ -453,7 +505,7 @@ static void SetFeature(void)
 
   // SetFeature(Device)
     if (recipient == 0x00) // El desriptor solicitado es el dispositivo
-	// Las únicas dos características disponbles son DEVICE_REMOTE_WAKEUP (0X01) y TEST_MODE
+	// Las unicas dos caracteristicas disponbles son DEVICE_REMOTE_WAKEUP (0X01) y TEST_MODE
     {
         if (feature == DEVICE_REMOTE_WAKEUP)
         {
@@ -464,28 +516,28 @@ static void SetFeature(void)
             else
                 remoteWakeup = 0;
         }
-	// TEST_MODE no está implementado...
+	// TEST_MODE no esta implementado...
         // TBD: Handle TEST_MODE
 	
   // SetFeature(Interface)
-	// Según la especificación no hay funciones set y clear de características para Interface
-	// Pueden ser usadas para establecer características booleanas
+	// Segun la especificacion no hay funciones set y clear de caracteristicas para Interface
+	// Pueden ser usadas para establecer caracteristicas booleanas
     }
   // SetFeature(Endpoint)
     else if (recipient == 0x02) // El desriptor solicitado es el endpoint
     {
-// Para obtener número y tipo (IN/OUT) de Endpoint se obtienen nuevamente del Windex del paquete
+// Para obtener numero y tipo (IN/OUT) de Endpoint se obtienen nuevamente del Windex del paquete
 
         byte endpointNum = SetupPacket.wIndex0 & 0x0F;
         byte endpointDir = SetupPacket.wIndex0 & 0x80;
-	// Indentifica si la característica solicitada es detener el Endpoint anterior
+	// Indentifica si la caracteristica solicitada es detener el Endpoint anterior
         if ((feature == ENDPOINT_HALT) && (endpointNum != 0))
         {
             requestHandled = 1;
 
 	// Cada descriptor de endpoint tiene una longitud de 8 bytes, llevando 4 bytes de
-	// separación entre las tablas de los descriptores
-	// Ver la organización de memoria de la Tabla de Descriptores de Endpoint en la
+	// separacion entre las tablas de los descriptores
+	// Ver la organizacion de memoria de la Tabla de Descriptores de Endpoint en la
 	// hoja de datos del PIC
 
 	// Detiene el endpoint mientras no sea el endpoint 0
@@ -507,25 +559,25 @@ static void SetFeature(void)
     }
 }
 
-// Proceso de las solicitudes estándares
+// Proceso de las solicitudes estandares
 
 void ProcessStandardRequest(void)
 {
     byte request = SetupPacket.bRequest; 
     // Se indentifican las solicitudes sean de tipo estandar
     if((SetupPacket.bmRequestType & 0x60) != 0x00)
-        // Esta función atiende solo a las solicitudes estandar del USB (D6D5 = 00b)
+        // Esta funcion atiende solo a las solicitudes estandar del USB (D6D5 = 00b)
 	// Se enmascaran para detectar solo las solicitudes estandar del USB
-        // En caso de que sean solicitudes de Clase o Vendedor no se procesan con esta función
+        // En caso de que sean solicitudes de Clase o Vendedor no se procesan con esta funcion
 	return;
 
   // SetAddress(Device)
     if (request == SET_ADDRESS)
     {
-        // Establece la dirección del dispositivo.  Todas las solicitudes futuras
-        // vendrán a esa dirección. En realidad, no se se puede establecer UADDR
-        // a la nueva direccióm aun porque el resto de la transacción SET_ADDRESS
-        // utiliza la dirección 0.
+        // Establece la direccion del dispositivo.  Todas las solicitudes futuras
+        // vendran a esa direccion. En realidad, no se se puede establecer UADDR
+        // a la nueva direcciom aun porque el resto de la transaccion SET_ADDRESS
+        // utiliza la direccion 0.
             requestHandled = 1;
             deviceState = ADDRESS;
 	// Se guarda la nueva direccion en la variable definida para este fin
@@ -543,12 +595,12 @@ void ProcessStandardRequest(void)
             // TBD: ensure the new configuration value is one that
             // exists in the descriptor.
             if (currentConfiguration == 0)
-                // Si el valor de la configuración es cero, el dispositivo se coloca
+                // Si el valor de la configuracion es cero, el dispositivo se coloca
 		// en el estado direccionado (USB 2.0 - 9.4.7)
                 deviceState = ADDRESS;
             else
             {
-                // Establece la configuración
+                // Establece la configuracion
                 deviceState = CONFIGURED;
                 // Inicializa los endpoints para todas las interfaces
    		InitEndpoint();
@@ -574,7 +626,7 @@ void ProcessStandardRequest(void)
     }
     else if (request == GET_INTERFACE)
     {
-            // No se soporta interfaces alternadas. Se envía
+            // No se soporta interfaces alternadas. Se envia
             // cero de regreso al host.
 
             requestHandled = 1;
@@ -592,14 +644,14 @@ void ProcessStandardRequest(void)
     //else
 }
 
-// Etapa de datos de la transferencia de control que envía datos al host
+// Etapa de datos de la transferencia de control que envia datos al host
 void InDataStage(void)
 {
     byte i;
     word bufferSize;
 
-    // Determina cuantos bytes se envían al host, en caso de que la cantidad de datos supere
-    // el tamaño del EP0, lo que va a llevar a multiples transacciones para completarse.
+    // Determina cuantos bytes se envian al host, en caso de que la cantidad de datos supere
+    // el tamano del EP0, lo que va a llevar a multiples transacciones para completarse.
     if(wCount < E0SZ)
         bufferSize = wCount;
     else
@@ -611,9 +663,9 @@ void InDataStage(void)
     ep0Bi.Cnt = (byte)(bufferSize & 0xFF);
     ep0Bi.ADDR = PTR16(&controlTransferBuffer);
 
-    // Actualiza la cantidad de bytes que todavía necesitan ser enviados. Tomando
-    // todo el dato de regreso al host puede llevar multiples transacciones, así
-    // se calcula el nuevo valor que quedan todavía para una futura entrega
+    // Actualiza la cantidad de bytes que todavia necesitan ser enviados. Tomando
+    // todo el dato de regreso al host puede llevar multiples transacciones, asi
+    // se calcula el nuevo valor que quedan todavia para una futura entrega
     wCount = wCount - bufferSize;
 
     // Mueve el dato al buffer de salida USB donde queda asentado
@@ -639,7 +691,7 @@ void OutDataStage(void)
         *inPtr++ = *outPtr++; //Copia los contenidos de los buffer bit a bit
 }
 
-// Proceso del la etapa de setup en una transferencia de control. Este código inicializa
+// Proceso del la etapa de setup en una transferencia de control. Este codigo inicializa
 // las banderas que le permiten al firmware saber que hacer durante los estados subsecuentes 
 // de la transferencia
 
@@ -652,23 +704,23 @@ void SetupStage(void)
 
     // Inicializa el proceso de transferncia
     ctrlTransferStage = SETUP_STAGE;
-    requestHandled = 0; // La solicitud no ha sido manejada todavía
-    wCount = 0;         // No hay bits transferidos todavía
+    requestHandled = 0; // La solicitud no ha sido manejada todavia
+    wCount = 0;         // No hay bits transferidos todavia
 
-    // Se fija si la solicitud corresponde a una de tipo estandar (Según lo definido en Cap 9 de USB)
+    // Se fija si la solicitud corresponde a una de tipo estandar (Segun lo definido en Cap 9 de USB)
     ProcessStandardRequest();
     // TBD: Add handlers for any other classes/interfaces in the device
 
     if (!requestHandled)
     {
-        // Si el servicio no fue manejado luego de procesar las solicitudes estádar
+        // Si el servicio no fue manejado luego de procesar las solicitudes estadar
 	// entonces se detienen los EP0 (endpoints 0 = stalled)
         ep0Bo.Cnt = E0SZ;
         ep0Bo.ADDR = PTR16(&SetupPacket);
         ep0Bo.Stat = UOWN | BSTALL;
         ep0Bi.Stat = UOWN | BSTALL;
     }
-// Se identifica la dirección del flujo de datos para comenzar con el paquete
+// Se identifica la direccion del flujo de datos para comenzar con el paquete
     else if (SetupPacket.bmRequestType & 0x80)
     {
         // Dispositivo a host
@@ -698,7 +750,7 @@ void SetupStage(void)
         ep0Bi.Stat = UOWN | DTS | DTSEN;
 
         // Establece el descritptor del buffer en el endpoint 0 para recibir datos
-	// con la dirección y el estado correspondiente
+	// con la direccion y el estado correspondiente
         ep0Bo.Cnt = E0SZ;
         ep0Bo.ADDR = PTR16(&controlTransferBuffer);
         ep0Bo.Stat = UOWN | DTS | DTSEN;
@@ -720,7 +772,7 @@ void WaitForSetupStage(void)
 
 // Este es el punto inicial del proceso de la transferencia de control. El codigo directamente
 // sigue la secuencia de transacciones descriptas en el cap 5 del USB2.0. 
-// El único flujo de control en este firmware es el Flujo de Control por defecto (endpoint 0).
+// El unico flujo de control en este firmware es el Flujo de Control por defecto (endpoint 0).
 // Los mensajes de control que tiene diferente destino son descartados
 void ProcessControlTransfer(void)
 {
@@ -728,13 +780,13 @@ void ProcessControlTransfer(void)
     {
         // Endpoint 0: salida
         byte PID = (ep0Bo.Stat & 0x3C) >> 2; // Extrae el PID del medio de BD0STAT
- // Se identifica la idenificación del paquete para iniciar el la transacción correspondiente
+ // Se identifica la idenificacion del paquete para iniciar el la transaccion correspondiente
 	if (PID == 0x0D)
-            // SETUP PID - comienzo de una transacción
+            // SETUP PID - comienzo de una transaccion
             SetupStage();
         else if (ctrlTransferStage == DATA_OUT_STAGE)
         {
-            // Completa la etapa de datos asi todas la información ha
+            // Completa la etapa de datos asi todas la informacion ha
             // pasado del host al dispositivo antes de atenderlo
             OutDataStage();
 
@@ -767,7 +819,7 @@ void ProcessControlTransfer(void)
 
         if (ctrlTransferStage == DATA_IN_STAGE)
         {
-            // Comienzo (o continuación) de la transmision de dato
+            // Comienzo (o continuacion) de la transmision de dato
             InDataStage();
 
             // Devuelve el control sobre el SIE y cambia el bit de dato
@@ -786,7 +838,7 @@ void ProcessControlTransfer(void)
 
 }
 
-// Habilitación del módulo USB
+// Habilitacion del modulo USB
 
 void EnableUSBModule(void)
 {
@@ -822,7 +874,7 @@ void UnSuspend(void)
 }
 
 // Los dispositivos Full speed toman un paquete Start Of Frame (SOF) cada 1 milisegundo
-// Con esta interrupción, simplemente se enmascara y no se hace nada mas
+// Con esta interrupcion, simplemente se enmascara y no se hace nada mas
 void StartOfFrame(void)
 {
     // TBD: Add a callback routine to do something
