@@ -20,22 +20,26 @@
 #ifndef USB_H
 #define USB_H
 
-#define DEBUG_PRINT 0
-
-// Operador para conversión de formato a dirección de memoria dentro del PIC (ver Hoja de datos)
+/**
+ * Convert pointers to fit PIC memory type 
+ **/
 #define PTR16(x) ((unsigned int)(((unsigned long)x) & 0xFFFF))
 
-// Se definen los tipos para variable de un 1 byte y 2 bytes
+/**
+ * Define two new types of variables
+ **/
 typedef unsigned char byte; 
 typedef unsigned int  word;
 
-// Operadores para separar variables de tipo word en 2 variables de tipo byte
+/**
+ * Separate words into 2 varialbes type byte
+ **/
 #define LSB(x) (x & 0xFF)
 #define MSB(x) ((x & 0xFF00) >> 8)
 
-//
-// Códigos de solicitud estádar (ver USB 2.0 Spec Ref Table 9-4)
-//
+/**
+ * Standard Request Codes USB 2.0 Spec Ref Table 9-4
+ **/
 #define GET_STATUS         0
 #define CLEAR_FEATURE      1
 #define SET_FEATURE        3
@@ -48,30 +52,36 @@ typedef unsigned int  word;
 #define SET_INTERFACE     11
 #define SYNCH_FRAME       12
 
-// Tipos de Descriptores
+/**
+ * Devicriptor Types
+ **/
 #define DEVICE_DESCRIPTOR        0x01
 #define CONFIGURATION_DESCRIPTOR 0x02
 #define STRING_DESCRIPTOR        0x03
 #define INTERFACE_DESCRIPTOR     0x04
 #define ENDPOINT_DESCRIPTOR      0x05
 
-// Selectores para las características estándar
+/**
+ * Standard Feature Selectors
+ **/
 #define DEVICE_REMOTE_WAKEUP    0x01
 #define ENDPOINT_HALT           0x00
 
+/**
+ * Buffer Descriptor bit masks (from PIC datasheet)
+ **/
+#define UOWN   0x80 /* USB Own Bit                              */
+#define DTS    0x40 /* Data Toggle Synchronization Bit          */
+#define KEN    0x20 /* BD Keep Enable Bit                       */
+#define INCDIS 0x10 /* Address Increment Disable Bit            */
+#define DTSEN  0x08 /* Data Toggle Synchronization Enable Bit   */
+#define BSTALL 0x04 /* Buffer Stall Enable Bit                  */
+#define BC9    0x02 /* Byte count bit 9                         */
+#define BC8    0x01 /* Byte count bit 8                         */
 
-// Máscaras de bits para el Buffer Descriptor (de la hoja de datos del PIC)
-#define UOWN   0x80 // USB Own Bit
-#define DTS    0x40 // Data Toggle Synchronization Bit
-#define KEN    0x20 // BD Keep Enable Bit
-#define INCDIS 0x10 // Address Increment Disable Bit
-#define DTSEN  0x08 // Data Toggle Synchronization Enable Bit
-#define BSTALL 0x04 // Buffer Stall Enable Bit
-#define BC9    0x02 // Byte count bit 9
-#define BC8    0x01 // Byte count bit 8
-
-// Estados del dispositivo (Ver USB 2.0 Cap 9.1.1)
-// Son los diferentes valores que puede adoptar la variable deviceState
+/**
+ *  Device states (USB spec Chap 9.1.1)
+ **/
 #define DETACHED     0
 #define ATTACHED     1
 #define POWERED      2
@@ -79,59 +89,76 @@ typedef unsigned int  word;
 #define ADDRESS      4
 #define CONFIGURED   5
 
-// Definición de las estructuras según la posición en memoria del PIC (ver Hoja de datos)
-// Cada tabla del descriptor del buffer ocupa 4 bytes, con los siguientes campos
+/**
+ * BDT  - Buffer Descriptor Table
+ * @stat: 
+ * @Cnt:
+ * @ADDR:
+ *
+ **/
 typedef struct _BDT
 {
     byte Stat;
     byte Cnt;
     word ADDR;
-} BDT; //Buffer Descriptor Table (Tabla del descriptor del buffer)
+} BDT; 
 
-//
-// Variables globales
-extern byte deviceState;    // Estados visibles (de USB 2.0, cap 9.1.1)
+
+/**
+ * Global Variables 
+ **/
+extern byte deviceState; /* Visible device states (from USB 2.0, chap 9.1.1) */ 
 extern byte selfPowered;
 extern byte remoteWakeup;
 extern byte currentConfiguration;
 
-extern volatile BDT at 0x0400 ep0Bo; //Endpoint #0 BD Out
-extern volatile BDT at 0x0404 ep0Bi; //Endpoint #0 BD In
-extern volatile BDT at 0x0408 ep1Bo; //Endpoint #1 BD Out
-extern volatile BDT at 0x040C ep1Bi; //Endpoint #1 BD In
-extern volatile BDT at 0x0410 ep2Bo; //Endpoint #2 BD Out
-extern volatile BDT at 0x0414 ep2Bi; //Endpoint #2 BD In
+extern volatile BDT at 0x0400 ep0Bo; /* Endpoint #0 BD Out      */
+extern volatile BDT at 0x0404 ep0Bi; /* Endpoint #0 BD In       */      
+extern volatile BDT at 0x0408 ep1Bo; /* Endpoint #1 BD Out      */
+extern volatile BDT at 0x040C ep1Bi; /* Endpoint #1 BD In       */      
+extern volatile BDT at 0x0410 ep2Bo; /* Endpoint #2 BD Out      */
+extern volatile BDT at 0x0414 ep2Bi; /* Endpoint #2 BD In       */
 
-
-// Cada solicitud de dispositivo comienza con un paquete de establecimiento (setup packet)
-// de 8 bytes (USB 2.0, chap 9.3) con un disposición estandar.
-// Los significados de wValue y wIndex varían dependiendo del tipo de solicitud
-// y la solicitud específica
-typedef struct _setupPacketStruct
-{
-    byte bmRequestType; // D7: Dirección del flujo de datos, D6..5: Tipo, D4..0: Receptor
-    byte bRequest;      // Solicitud específica
-    byte wValue0;       // LSB de wValue
-    byte wValue1;       // MSB de wValue
-    byte wIndex0;       // LSB de wIndex
-    byte wIndex1;       // MSB de wIndex
-    word wLength;       // Cantidad de bytes a transferir si existe una etapa de dato (Data Stage)
-    byte extra[56];     // Relleno para igualar la capacidad máxima del buffer del Endpoint 0
+/**
+ * setupPacketStruct - 
+ *
+ * Every device request starts with an 8 byte setup packet (USB 2.0, chap 9.3)
+ * with a standard layout.  The meaning of wValue and wIndex will
+ * vary depending on the request type and specific request.
+ **/
+typedef struct _setupPacketStruct {
+    byte bmRequestType; /* D7: Direction, D6..5: Type, D4..0: Recipient      */
+    byte bRequest;      /* Specific request                                  */
+    byte wValue0;       /* LSB of wValue                                     */
+    byte wValue1;       /* MSB of wValue                                     */
+    byte wIndex0;       /* LSB of wIndex                                     */
+    byte wIndex1;       /* MSB of wIndex                                     */
+    word wLength;       /* Number of bytes to transfer if a data stage       */
+    byte extra[56];     /* Fill out to same size as Endpoint 0 max buffer    */
 } setupPacketStruct;
 
-// Variable utilizada como paquete de establecimiento
+/**
+ * Variable for Setup Packets
+ **/
 extern volatile setupPacketStruct SetupPacket;
 
-// Tamaño del buffer para el endpoint 0
+/**
+ * Size of the buffer for endpoint 0
+ **/
 #define E0SZ 64
 
-// Tamaño de datos para las tranferencias de entrada y salida (Usadas en funciones Bulk)
-#define INPUT_BYTES  7 
-#define OUTPUT_BYTES  7
+/**
+ * Size of data for BulkIN and BulkOut
+ **/
+#define INPUT_BYTES     7 
+#define OUTPUT_BYTES    7
 
-// Datos recibidos provenientes del host (OUT)
+/**
+ * IN/OUT Buffers
+ * RxBuffer2 is only 1 byte long.
+ **/
 extern volatile byte TxBuffer[OUTPUT_BYTES];
-extern volatile byte RxBuffer[OUTPUT_BYTES];
+extern volatile byte RxBuffer[INPUT_BYTES];
 extern volatile byte TxBuffer2[OUTPUT_BYTES];
 extern volatile byte RxBuffer2;
 
@@ -149,4 +176,4 @@ void ProcessUSBTransactions(void);
 byte BulkOut(byte ep_num, byte *buffer, byte len);
 byte BulkIn(byte ep_num, byte *buffer, byte len);
 
-#endif //USB_H
+#endif /* USB_H */
