@@ -32,9 +32,9 @@
 /**
  * Size in bytes of descriptors
  **/
-#define DEVICE_DESCRIPTOR_SIZE 0x12
-#define CONFIG_HEADER_SIZE  0x09
-#define CONFIG_DESCRIPTOR_SIZE 0x25
+#define DEVICE_DESCRIPTOR_SIZE  0x12
+#define CONFIG_HEADER_SIZE      0x09
+#define CONFIG_DESCRIPTOR_SIZE  0x25
 /**
  * The total size of the configuration descriptor
  * 0x09	 +  0x09  +  0x07  +  0x07  =  0x20 
@@ -65,7 +65,6 @@ byte remoteWakeup;
 byte deviceAddress;
 byte selfPowered;
 byte currentConfiguration;
-
 
 /* Control Transfer Stages - see USB spec chapter 5                          */
 /* Start of a control transfer (followed by 0 or more data stages)           */
@@ -114,28 +113,28 @@ code ConfigStruct configDescriptor = {
     0x32,                     /* bMaxPower (100 mA)                          */
     },
     {
-    // Interfaz del descriptor
+    /* Interface Descriptor   */
     0x09, 0x04,               /* bLength, bDescriptorType (Interface)        */
     0x00, 0x00,               /* bInterfaceNumber, bAlternateSetting         */
     0x04, 0x07,               /* bNumEndpoints, bInterfaceClass (Printer)    */
     0x01, 0x00,               /* bInterfaceSubclass, bInterfaceProtocol      */
     0x00,                     /* iInterface                                  */
-    // Impresora Endpoint 1 In
+    /* EP1 IN */
     0x07, 0x05,               /* bLength, bDescriptorType (Endpoint)         */
     0x81, 0x02,               /* bEndpointAddress, bmAttributes (Bulk)       */
     ISZ, 0x00,                /* wMaxPacketSize (L), wMaxPacketSize (H)      */
     0x01,                     /* bInterval (1 millisecond)                   */
-    // Impresora Endpoint 1 Out
+    /* EP1 OUT */
     0x07, 0x05,               /* bLength, bDescriptorType (Endpoint)         */
     0x01, 0x02,               /* bEndpointAddress, bmAttributes (Bulk)       */
     OSZ, 0x00,                /* wMaxPacketSize (L), wMaxPacketSize (H)      */
     0x01,                     /* bInterval (1 millisecond)                   */
-    // Impresora Endpoint 2 In
+    /* EP2 IN */
     0x07, 0x05,               /* bLength, bDescriptorType (Endpoint)         */
     0x82, 0x02,               /* bEndpointAddress, bmAttributes (Bulk)       */
     ISZ, 0x00,                /* wMaxPacketSize (L), wMaxPacketSize (H)      */
     0x01,                     /* bInterval (1 millisecond)                   */
-    // Impresora Endpoint 2 Out
+    /* EP2 OUT */
     0x07, 0x05,               /* bLength, bDescriptorType (Endpoint)         */
     0x02, 0x02,               /* bEndpointAddress, bmAttributes (Bulk)       */
     OSZ2, 0x00,               /* wMaxPacketSize (L), wMaxPacketSize (H)      */
@@ -207,7 +206,6 @@ void InitEndpoint(void)
     	/* Turn on both IN and OUT for this endpoints (EP1 & EP2)       */
         UEP1 = 0x1E;  /* See PIC datasheet, page 169 (USB E1 Control)   */
         UEP2 = 0x1E;  /* Same as above for EP2                          */
-
 	/** 
          * Load EP1's BDT
          **/
@@ -216,7 +214,6 @@ void InitEndpoint(void)
 	ep1Bo.Stat = UOWN | DTSEN;
 	ep1Bi.ADDR = PTR16(&TxBuffer);
 	ep1Bi.Stat = DTS;
-
 	/** 
          * Load de EP2's BDT
          **/
@@ -242,61 +239,61 @@ void InitEndpoint(void)
  **/ 
 byte BulkIn(byte ep_num, byte *buffer, byte len){
 	byte i;
-/**
- * If slelected EP1
- **/
-if (ep_num == 1){        
+        /**
+         * If slelected EP1
+         **/
+        if (ep_num == 1){        
         /** 
          * If SIE owns the BD do not try to send anything and return 0. 
          **/
-	if (ep1Bi.Stat & UOWN)
-		return 0;
+	        if (ep1Bi.Stat & UOWN)
+		        return 0;
 	/**
          * Truncate requests that are too large 
          **/
-	if(len > ISZ)       
-		len = ISZ;
+	        if(len > ISZ)       
+		        len = ISZ;
         /**
         * Copy data from user's buffer to dual-port ram buffer
         **/
-	for (i = 0; i < len; i++)
-		TxBuffer[i] = buffer[i];
+	        for (i = 0; i < len; i++)
+		        TxBuffer[i] = buffer[i];
         /**
          * Toggle the data bit and give control to the SIE
          **/
-	ep1Bi.Cnt = len;
-	if(ep1Bi.Stat & DTS)
-		ep1Bi.Stat = UOWN | DTSEN;
-	else
-		ep1Bi.Stat = UOWN | DTS | DTSEN;
+	        ep1Bi.Cnt = len;
+	        if(ep1Bi.Stat & DTS)
+		        ep1Bi.Stat = UOWN | DTSEN;
+        	else
+	        	ep1Bi.Stat = UOWN | DTS | DTSEN;
 
-	return len;
-}
-/**
- * If selected EP2 (same as above)
- **/
-else if (ep_num == 2){
-	if (ep2Bi.Stat & UOWN)
-		return 0;
+	        return len;
+        }
+        /**
+        * If selected EP2 (same as above)
+        **/
+        else if (ep_num == 2){
+	        if (ep2Bi.Stat & UOWN)
+		        return 0;
 	
-	if(len > ISZ)
-		len = ISZ;
+	        if(len > ISZ)
+		        len = ISZ;
 	
-	for (i = 0; i < len; i++)
-		TxBuffer2[i] = buffer[i];
+        	for (i = 0; i < len; i++)
+	        	TxBuffer2[i] = buffer[i];
 	
-	ep2Bi.Cnt = len;
-	if(ep2Bi.Stat & DTS)
-		ep2Bi.Stat = UOWN | DTSEN;
-	else
-		ep2Bi.Stat = UOWN | DTS | DTSEN;
+        	ep2Bi.Cnt = len;
+	        if(ep2Bi.Stat & DTS)
+		        ep2Bi.Stat = UOWN | DTSEN;
+        	else
+	        	ep2Bi.Stat = UOWN | DTS | DTSEN;
 
-	return len;
-}
-/**
- * In case of error (ep_num != 1|2) return 0
- **/
-return 0;
+        	return len;
+        }
+        /**
+         * In case of error (ep_num != 1|2) return 0
+         **/
+        return 0;
 }
 
 /**
@@ -312,20 +309,20 @@ return 0;
  **/
 byte BulkOut(byte ep_num, byte *buffer, byte len) {
 RxLen = 0;
-/**
- * If selected EP1
- **/
-if (ep_num == 1) {
+        /**
+        * If selected EP1
+        **/
+        if (ep_num == 1) {
         /**
         * If the SIE doesn't own the output buffer descriptor, 
         * then it is safe to pull data from it
         **/
-	if(!(ep1Bo.Stat & UOWN)) {
+	        if(!(ep1Bo.Stat & UOWN)) {
         /**
          * See if the host sent fewer bytes that we asked for.
          **/
-		if(len > ep1Bo.Cnt)
-			len = ep1Bo.Cnt;
+		        if(len > ep1Bo.Cnt)
+			        len = ep1Bo.Cnt;
         /**
          * Copy data from dual-ram buffer to user's buffer
          **/
@@ -339,40 +336,37 @@ if (ep_num == 1) {
 			ep1Bo.Stat = UOWN | DTSEN;
 		else
 			ep1Bo.Stat = UOWN | DTS | DTSEN;
-        } 
-}
-/**
- * The same that above but for EP2. In this case the 'len'
- * is hardcoded to '1' because only 1 byte is needed for
- * instructions for the printer.
- **/
-else if (ep_num == 2) {
-	if (!(ep2Bo.Stat & UOWN)) {
-		if (len > ep2Bo.Cnt)
-			len = ep2Bo.Cnt;
+                } 
+        }
+        /**
+        * The same that above but for EP2. In this case the 'len'
+        * is hardcoded to '1' because only 1 byte is needed for
+        * instructions for the printer.
+        **/
+        else if (ep_num == 2) {
+	        if (!(ep2Bo.Stat & UOWN)) {
+		        if (len > ep2Bo.Cnt)
+			        len = ep2Bo.Cnt;
 
-		buffer[0] = RxBuffer2;
-                RxLen = 1;
-
-		ep2Bo.Cnt = 1;
-		if (ep2Bo.Stat & DTS)
-			ep2Bo.Stat = UOWN | DTSEN;
-		else
-			ep2Bo.Stat = UOWN | DTS | DTSEN;
-	}
-}
-/**
- * Retunrs the lenght of the data recived
- **/
-return RxLen;
+        		buffer[0] = RxBuffer2;
+                        RxLen = 1;
+        
+	        	ep2Bo.Cnt = 1;
+		        if (ep2Bo.Stat & DTS)
+			        ep2Bo.Stat = UOWN | DTSEN;
+	        	else
+		        	ep2Bo.Stat = UOWN | DTS | DTSEN;
+	        }       
+        }       
+        /**
+        * Retunrs the lenght of the data recived
+        **/
+        return RxLen;
 }
 
 /**
  * Start of code to process standard requests (USB spec chapter 9)
  **/
-
-// Solicitud GET_DESCRIPTOR (X) (los datos parecen estar contenidos el el paquete Setup)
-// (X) sera Device, Configuration o String segun se identifique al tipo de solicitud
 
 /**
  * GetDescriptor(void) - Process Descriptors requests
@@ -481,16 +475,17 @@ static void GetStatus(void)
                 byte endpointDir = SetupPacket.wIndex0 & 0x80;
                 requestHandled = 1;
         /**
-         * Endpoint descriptors are 8 bytes long, with each in and out taking 4 bytes
-         * within the endpoint (See PIC18F4550 'Buffer Descriptors and the
-         * Buffer Descriptor Table' chapter 17.4)
+         * Endpoint descriptors are 8 bytes long, with each in and out 
+         * taking 4 bytes within the endpoint 
+         * (See PIC18F4550 'Buffer Descriptors and the Buffer Descriptor 
+         * Table' chapter 17.4)
          **/
                 inPtr = (byte *)&ep0Bo + (endpointNum * 8); 
 
                 if (endpointDir) 
                         inPtr += 4;
 
-                if (*inPtr & BSTALL) // El valor al que apunta el puntero y el estado del bit D0
+                if (*inPtr & BSTALL)
                         controlTransferBuffer[0] = 0x01;
         }
         /**
@@ -511,7 +506,6 @@ static void SetFeature(void)
 {
         byte recipient = SetupPacket.bmRequestType & 0x1F;
         byte feature = SetupPacket.wValue0;
-
         /**
          * Requested for Device
          **/
@@ -569,10 +563,12 @@ void ProcessStandardRequest(void)
 	        return;
 
         if (request == SET_ADDRESS) {
-        // Establece la direccion del dispositivo.  Todas las solicitudes futuras
-        // vendran a esa direccion. En realidad, no se se puede establecer UADDR
-        // a la nueva direcciom aun porque el resto de la transaccion SET_ADDRESS
-        // utiliza la direccion 0.
+        /**
+         * Set the address of the device.  All future requests
+         * will come to that address.  Can't actually set UADDR
+         * to the new address yet because the rest of the SET_ADDRESS
+         * transaction uses address 0.
+         **/
                 requestHandled = 1;
                 deviceState = ADDRESS;
                 deviceAddress = SetupPacket.wValue0;
@@ -581,24 +577,26 @@ void ProcessStandardRequest(void)
         else if (request == GET_DESCRIPTOR) {
                 GetDescriptor();
         }
-  // SetConfiguration(Device)
+
         else if (request == SET_CONFIGURATION) {
                 requestHandled = 1;
                 currentConfiguration = SetupPacket.wValue0;
-            // TBD: ensure the new configuration value is one that
-            // exists in the descriptor.
+            /**
+             * TBD: ensure the new configuration value is one that  
+             * exists in the descriptor.
+             **/
                 if (currentConfiguration == 0)
-                // Si el valor de la configuracion es cero, el dispositivo se coloca
-		// en el estado direccionado (USB 2.0 - 9.4.7)
+                 /**
+                  * If configuration value is zero, device is put in
+                  * address state (USB 2.0 spec - 9.4.7) 
+                  **/
                         deviceState = ADDRESS;
                 else {
                         deviceState = CONFIGURED;
    		        InitEndpoint();
-                // TBD: Add initialization code here for any additional
-                // interfaces beyond the one used for the HID
                 }
         }
-  // GetConfiguration(Device)
+
         else if (request == GET_CONFIGURATION) {
                 requestHandled = 1;
                 outPtr = (byte*)&currentConfiguration;
@@ -614,8 +612,10 @@ void ProcessStandardRequest(void)
         }
 
         else if (request == GET_INTERFACE) {
-            // No se soporta interfaces alternadas. Se envia
-            // cero de regreso al host.
+            /**
+             * No support for alternate interfaces.  Send
+             * zero back to the host.
+             **/
                 requestHandled = 1;
                 controlTransferBuffer[0] = 0;
                 outPtr = (byte *) &controlTransferBuffer;
@@ -623,212 +623,268 @@ void ProcessStandardRequest(void)
         }
         
         else if (request == SET_INTERFACE) {
-	    // No se soporta interfaces alternadas - solo se ignora
+            /**
+             * No support for alternate interfaces - just ignore.
+             **/
                 requestHandled = 1;
         }
-    //else if (request == SET_DESCRIPTOR)
-    //else if (request == SYNCH_FRAME)
-    //else
+    /* else if (request == SET_DESCRIPTOR)      */
+    /* else if (request == SYNCH_FRAME)         */
+    /* else                                     */
 }
 
-// Etapa de datos de la transferencia de control que envia datos al host
+/**
+ * InDataStage(void) - Data stage for a Control Transfer.
+ *
+ * Data stage for a Control Transfer that sends data to the host.
+ **/
 void InDataStage(void)
 {
         byte i;
         word bufferSize;
-
-    // Determina cuantos bytes se envian al host, en caso de que la cantidad de datos supere
-    // el tamano del EP0, lo que va a llevar a multiples transacciones para completarse.
+        /* Determine how many bytes are going to the host */
         if (wCount < E0SZ)
                 bufferSize = wCount;
         else
                 bufferSize = E0SZ;
-
-    // Carga los dos bits altos del contador de bits en BC8:BC9
-        ep0Bi.Stat &= ~(BC8 | BC9); // Borra BC8 y BC9
+        /**
+        * Load the high two bits of the byte count into BC8:BC9
+        **/
+        ep0Bi.Stat &= ~(BC8 | BC9); /* Delete BC8 and BC9 */
         ep0Bi.Stat |= (byte) ((bufferSize & 0x0300) >> 8);
         ep0Bi.Cnt = (byte) (bufferSize & 0xFF);
         ep0Bi.ADDR = PTR16(&controlTransferBuffer);
-
-    // Actualiza la cantidad de bytes que todavia necesitan ser enviados. Tomando
-    // todo el dato de regreso al host puede llevar multiples transacciones, asi
-    // se calcula el nuevo valor que quedan todavia para una futura entrega
+        /**
+        * Update the number of bytes that still need to be sent.  Getting
+        * all the data back to the host can take multiple transactions, so
+        * we need to track how far along we are.
+        **/
         wCount = wCount - bufferSize;
-
-    // Mueve el dato al buffer de salida USB donde queda asentado
+        /**
+        * Move data to the USB output buffer from wherever it sits now.
+        **/
         inPtr = (byte *)&controlTransferBuffer;
 
         for (i=0;i<bufferSize;i++)
-                *inPtr++ = *outPtr++; //Copia los contenidos de los buffer bit a bit
+                *inPtr++ = *outPtr++; 
 }
 
-// Etapa de datos de la transferencia de control que lee datos provenientes del host
+/**
+ * OutDataStage(void) - Data stage for a Control Transfer 
+ *
+ * Data stage for a Control Transfer that reads data from the host
+ **/
 void OutDataStage(void)
 {
         word i, bufferSize;
 
         bufferSize = ((0x03 & ep0Bo.Stat) << 8) | ep0Bo.Cnt;
-
-    // Total acumulado de la cantidad de bytes leidos
+        /**
+        * Accumulate total number of bytes read
+        **/
         wCount = wCount + bufferSize;
 
         outPtr = (byte*)&controlTransferBuffer;
 
         for (i=0;i<bufferSize;i++)
-                *inPtr++ = *outPtr++; //Copia los contenidos de los buffer bit a bit
+                *inPtr++ = *outPtr++; 
 }
 
-// Proceso del la etapa de setup en una transferencia de control. Este codigo inicializa
-// las banderas que le permiten al firmware saber que hacer durante los estados subsecuentes 
-// de la transferencia
-
+/**
+ * SetupStage(void) - 
+ *
+ * Process the Setup stage of a control transfer.  This code initializes the
+ * flags that let the firmware know what to do during subsequent stages of
+ * the transfer.
+ **/
 void SetupStage(void)
 {
-    // Nota: Microchip establece desactivar el bit UOWN bit en la direccion IN tan pronto
-    // como sea posible después de detectar que el paquete SETUP ha sido recibido
+        /**
+        *  Note: Microchip says to turn off the UOWN bit on the IN direction as
+        * soon as possible after detecting that a SETUP has been received.
+        **/
         ep0Bi.Stat &= ~UOWN;
         ep0Bo.Stat &= ~UOWN;
 
-    // Inicializa el proceso de transferncia
+        /* Initialize the transfer process */
         ctrlTransferStage = SETUP_STAGE;
-        requestHandled = 0; // La solicitud no ha sido manejada todavia
-        wCount = 0;         // No hay bits transferidos todavia
-
-    // Se fija si la solicitud corresponde a una de tipo estandar (Segun lo definido en Cap 9 de USB)
+        requestHandled = 0; /* Default is that request hasn't been handled */
+        wCount = 0;         /* No bytes transferred */
+        /**
+        * See if this is a standard (as definded in USB chapter 9) request
+        **/
         ProcessStandardRequest();
-    // TBD: Add handlers for any other classes/interfaces in the device
 
         if (!requestHandled) {
-        // Si el servicio no fue manejado luego de procesar las solicitudes estadar
-	// entonces se detienen los EP0 (endpoints 0 = stalled)
+        /**
+         * If this service wasn't handled then stall endpoint 0
+         **/
                 ep0Bo.Cnt = E0SZ;
                 ep0Bo.ADDR = PTR16(&SetupPacket);
                 ep0Bo.Stat = UOWN | BSTALL;
                 ep0Bi.Stat = UOWN | BSTALL;
         }
-// Se identifica la direccion del flujo de datos para comenzar con el paquete
+
         else if (SetupPacket.bmRequestType & 0x80) {
-        // Dispositivo a host
+        /**
+         * Direction: Device --> Host
+         **/
                 if(SetupPacket.wLength < wCount)
                         wCount = SetupPacket.wLength;
 
                 InDataStage();
                 ctrlTransferStage = DATA_IN_STAGE;
-	
-        // Resetea el descriptor del buffer para el endpoint 0
+        /**
+         * Reset the out buffer descriptor for endpoint 0
+         **/
                 ep0Bo.Cnt = E0SZ;
                 ep0Bo.ADDR = PTR16(&SetupPacket);
                 ep0Bo.Stat = UOWN;
-
-        // Establece el descriptor del buffer del endpoint 0 para enviar el dato
-
+        /**
+         * Set the in buffer descriptor on endpoint 0 to send data
+         **/
                 ep0Bi.ADDR = PTR16(&controlTransferBuffer);
+         /**
+          * Give to SIE, DATA1 packet, enable data toggle checks
+          **/
                 ep0Bi.Stat = UOWN | DTS | DTSEN; 
         } else {
-        // Host a dispositivo
+        /**
+         * Direction: Host --> Device
+         **/
                 ctrlTransferStage = DATA_OUT_STAGE;
-
-        // Borra el descriptor del buffer de entrada
+        /**
+         * Clear the input buffer descriptor 
+         **/
                 ep0Bi.Cnt = 0;
                 ep0Bi.Stat = UOWN | DTS | DTSEN;
-
-        // Establece el descritptor del buffer en el endpoint 0 para recibir datos
-	// con la direccion y el estado correspondiente
+        /**
+         * Set the out buffer descriptor on endpoint 0 to receive data
+         **/
                 ep0Bo.Cnt = E0SZ;
                 ep0Bo.ADDR = PTR16(&controlTransferBuffer);
+        /**
+         * Give to SIE, DATA1 packet, enable data toggle checks
+         **/
                 ep0Bo.Stat = UOWN | DTS | DTSEN;
         }
-    // Habilita el proceso de muestra y paquete del SIE
-    UCONbits.PKTDIS = 0;
+        /**
+         * Enable SIE token and packet processing
+         **/
+        UCONbits.PKTDIS = 0;
 }
 
-// Configura el descriptor del buffer para el endpoint 0 asi queda esperando para
-// la etapa de estado de una transferencia de control
+/**
+ * WaitForSetupStage(void) - Configures the buffer descriptor for EP0
+ *
+ * Configures the buffer descriptor for endpoint 0 so that it is waiting for
+ * the status stage of a control transfer.
+ **/
 void WaitForSetupStage(void)
 {
         ctrlTransferStage = SETUP_STAGE;
         ep0Bo.Cnt = E0SZ;
         ep0Bo.ADDR = PTR16(&SetupPacket);
-        ep0Bo.Stat = UOWN | DTSEN; // Le al SIE, habilita el chequeo de toggle del dato
-        ep0Bi.Stat = 0x00;         // Da el control al CPU
+        ep0Bo.Stat = UOWN | DTSEN; /* Give to SIE, enable data toggle checks */
+        ep0Bi.Stat = 0x00;         /* Give control to CPU */
 }
 
-// Este es el punto inicial del proceso de la transferencia de control. El codigo directamente
-// sigue la secuencia de transacciones descriptas en el cap 5 del USB2.0. 
-// El unico flujo de control en este firmware es el Flujo de Control por defecto (endpoint 0).
-// Los mensajes de control que tiene diferente destino son descartados
+/**
+ * ProcessControlTransfer(void) -
+ *
+ * This is the starting point for processing a Control Transfer.  The code directly
+ * follows the sequence of transactions described in the USB spec chapter 5.  The
+ * only Control Pipe in this firmware is the Default Control Pipe (endpoint 0).
+ * Control messages that have a different destination will be discarded.
+ **/
 void ProcessControlTransfer(void)
 {
         if (USTAT == 0) {
-        // Endpoint 0: salida
-                byte PID = (ep0Bo.Stat & 0x3C) >> 2; // Extrae el PID del medio de BD0STAT
- // Se identifica la idenificacion del paquete para iniciar el la transaccion correspondiente
-	        if (PID == 0x0D)
-            // SETUP PID - comienzo de una transaccion
-                        SetupStage();
-                else if (ctrlTransferStage == DATA_OUT_STAGE) {
-            // Completa la etapa de datos asi todas la informacion ha
-            // pasado del host al dispositivo antes de atenderlo
-                        OutDataStage();
+        /* Endpoint 0:OUT                       */
+        /* Pull PID from middle of BD0STAT      */
+                byte PID = (ep0Bo.Stat & 0x3C) >> 2;
 
-            // Devuelve el control sobre el SIE y cambia el bit de dato
+	        if (PID == 0x0D)
+        /**
+         * SETUP PID - a transaction is starting
+         **/
+                        SetupStage();
+
+                else if (ctrlTransferStage == DATA_OUT_STAGE) {
+        /**
+        * Complete the data stage so that all information has
+        * passed from host to device before servicing it.
+        **/
+                        OutDataStage();
+        /**
+         * Turn control over to the SIE and toggle the data bit
+         **/
                 if(ep0Bo.Stat & DTS)
                         ep0Bo.Stat = UOWN | DTSEN;
                 else
                         ep0Bo.Stat = UOWN | DTS | DTSEN;
                 } else {
-            // Se prepara para la etapa de setup de una trasnferencia de control
+        /**
+        * Prepare for the Setup stage of a control transfer
+        **/
                         WaitForSetupStage();
                 }
         } 
 
         else if (USTAT == 0x04) {
-        // Endpoint 0: entrada
+        /**
+         * Endpoint 0:IN
+         **/
                 if ((UADDR == 0) && (deviceState == ADDRESS)) {
-            // TBD: ensure that the new address matches the value of
-            // "deviceAddress" (which came in through a SET_ADDRESS).
                         UADDR = SetupPacket.wValue0;
 
                         if(UADDR == 0)
-                // Si recibimos un reset despues de un SET_ADDRESS, entonces necesitamos
-                // regresar al estado Default
+        /**
+         * If we get a reset after a SET_ADDRESS, then we need
+         * to drop back to the Default state.
+         **/
                                 deviceState = DEFAULT;
                 }
 
         if (ctrlTransferStage == DATA_IN_STAGE) {
-            // Comienzo (o continuacion) de la transmision de dato
+        /**
+        * Start (or continue) transmitting data
+        **/
             InDataStage();
-
-            // Devuelve el control sobre el SIE y cambia el bit de dato
+        /**
+        * Turn control over to the SIE and toggle the data bit
+        **/
             if(ep0Bi.Stat & DTS)
                 ep0Bi.Stat = UOWN | DTSEN;
             else
                 ep0Bi.Stat = UOWN | DTS | DTSEN;
         } else {
-            // Prepara para la etapa de setup de una transferencia de control
+        /**
+        * Prepare for the Setup stage of a control transfer
+        **/     
             WaitForSetupStage();
         }
     }
-    //else
+        /* else */
 
 }
 
-// Habilitacion del modulo USB
-
+/**
+ * EnableUSBModule(void) -
+ *
+ **/
 void EnableUSBModule(void)
 {
-    // TBD: Check for voltage coming from the USB cable and use that
-    // as an indication we are attached.
-
         if (UCONbits.USBEN == 0) {
                 UCON = 0;
                 UIE = 0;
                 UCONbits.USBEN = 1;
                 deviceState = ATTACHED;
         }
-
-    // Si fue enchufado y no se detecto un single-ended zero, entonces 
-    // nos movemos al estado Powered
+        /**
+        * If we are attached and no single-ended zero is detected, then
+        * we can move to the Powered state.
+        **/
         if ((deviceState == ATTACHED) && !UCONbits.SE0) {
                 UIR = 0;
                 UIE = 0;
@@ -838,7 +894,10 @@ void EnableUSBModule(void)
         }
 }
 
-// Desuspender el dispositivo
+/**
+ * UnSuspend(void) -
+ *
+ **/
 void UnSuspend(void)
 {
         UCONbits.SUSPND = 0;
@@ -846,25 +905,42 @@ void UnSuspend(void)
         UIRbits.ACTVIF = 0;
 }
 
-// Los dispositivos Full speed toman un paquete Start Of Frame (SOF) cada 1 milisegundo
-// Con esta interrupcion, simplemente se enmascara y no se hace nada mas
+/**
+ * StartOfFrame(void) - 
+ *
+ * Full speed devices get a Start Of Frame (SOF) packet every 1 millisecond.
+ * Nothing is currently done with this interrupt (it is simply masked out).
+ **/
 void StartOfFrame(void)
 {
-    // TBD: Add a callback routine to do something
+        /** 
+        * TBD: Add a callback routine to do something
+        **/
         UIRbits.SOFIF = 0;
 }
 
-// Esta rutina es una llamada en respuesta al codigo deteniendo un endpoint.
+/**
+ * Stall(void) -
+ *
+ * This routine is called in response to the code stalling an endpoint.
+ **/
 void Stall(void)
 {
         if (UEP0bits.EPSTALL == 1) {
-        // Se prepara para la etapa de Setup de una trasferencia de control
+        /**
+         * Prepare for the Setup stage of a control transfer
+         **/
                 WaitForSetupStage();
                 UEP0bits.EPSTALL = 0;
         }
         UIRbits.STALLIF = 0;
 }
 
+
+/**
+ * BusReset(void) -
+ *
+ **/
 void BusReset()
 {
         UEIR  = 0x00;
@@ -872,69 +948,91 @@ void BusReset()
         UEIE  = 0x9f;
         UIE   = 0x7b;
         UADDR = 0x00;
-
-    // Establece el endpoint 0 como un flujo de control
+        /**
+        * Set endpoint 0 as a control pipe
+        **/
         UEP0 = 0x16;
-
-    // Hace fluir alguna transaccion pendiente
+       /**
+        * Flush any pending transactions
+        **/
         while (UIRbits.TRNIF == 1)
                 UIRbits.TRNIF = 0;
-
-    // Habilita el proceso del paquete
+        /**
+         *  Enable packet processing
+         **/
         UCONbits.PKTDIS = 0;
-
-    // Prepara para la etapa de Setup de una transferencia de control
+        /**
+         * Prepare for the Setup stage of a control transfer
+         **/
         WaitForSetupStage();
-        remoteWakeup = 0;         // Remote wakeup esta apagado por defecto
-        selfPowered = 0;          // Self powered esta apagado por defecto
-        currentConfiguration = 0; // Borra la configuracion activa
+        remoteWakeup = 0;               /* Remote wakeup is off by default */ 
+        selfPowered = 0;                /* Self powered is off by default  */
+        currentConfiguration = 0;       /* Clear active configuration      */
         deviceState = DEFAULT;
 }
 
-// Punto de entrada principal para las tareas de USB. Chequea interrupciones, luego chequea para
-// transacciones
-
+/**
+ * ProcessUSBTransactions(void) - 
+ *
+ * Main entry point for USB tasks.  
+ * Checks interrupts, then checks for transactions.
+ **/
 void ProcessUSBTransactions(void)
 {
-    // Ve si el dispositivo esta conectado todavia
+        /**
+         * See if the device is connected yet.
+         **/
         if (deviceState == DETACHED)
                 return;
-
-    // Si el USB activo entonces despierta de suspendido
+        /**
+         * If the USB became active then wake up from suspend
+        **/
         if (UIRbits.ACTVIF && UIEbits.ACTVIE)
                 UnSuspend();
-
-    // Se supone que esta suspendido, entonces no se trata de realizar ningun proceso
+        /**
+         * If we are supposed to be suspended, then don't try performing any
+         * processing.
+         **/
         if (UCONbits.SUSPND == 1)
                 return;
-
-     // Procesa un reset del bus
+        /**
+         * Process a bus reset
+         **/
         if (UIRbits.URSTIF && UIEbits.URSTIE)
                 BusReset();
-
+        /**
+         * Process a suspend
+         **/
         if (UIRbits.IDLEIF && UIEbits.IDLEIE)
-        // No hay actividad en el bus por un momento
-
+        /**
+         * Process a SOF
+         **/
         if (UIRbits.SOFIF && UIEbits.SOFIE)
                 StartOfFrame();
-
+        /**
+         * Process a Stall
+         **/
         if (UIRbits.STALLIF && UIEbits.STALLIE)
                 Stall();
-
+        /**
+         * Process error - Clear errors
+         * TBD: See where it came from.
+         **/
         if (UIRbits.UERRIF && UIEbits.UERRIE)
-	// Significa que hubo errores
-        // TBD: See where the error came from.
-        // Borra los errores
                 UIRbits.UERRIF = 0;
-
-    // Si no ha sido reseteado por el host, no hay necesidad de mantener procesando
+        /**
+         *  Unless we have been reset by the host, no need to keep processing
+         **/
         if (deviceState < DEFAULT)
                 return;
-
-    // Una transaccion ha terminado. Intenta procesar por defecto en el endpoint 0.
+        /**
+         * A transaction has finished. Try default processing on endpoint 0.
+         **/
         if (UIRbits.TRNIF && UIEbits.TRNIE) {
                 ProcessControlTransfer();
-        // Apaga las banderas de interrupcion
+        /**
+         *  Turn off interrupt
+         **/
                 UIRbits.TRNIF = 0;
         }
 }

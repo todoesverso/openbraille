@@ -20,7 +20,6 @@
 #ifndef USB_H
 #define USB_H
 
-// Modo DEBUG (no se usa)
 #define DEBUG_PRINT 0
 
 // Operador para conversión de formato a dirección de memoria dentro del PIC (ver Hoja de datos)
