@@ -1,0 +1,10 @@
+* simulation of motor
+.control
+  set filetype=ascii
+  tran 10ns 10us   
+
+write
+.endc
+.include /home/todoesverso/openbraille/trunk/simul/motor/bc337.mod
+.include /home/todoesverso/openbraille/trunk/simul/motor/tip122.sp3
+.include motor.net

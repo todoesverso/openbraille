@@ -1,0 +1,27 @@
+gEDA/gnetlist version 1.4.0.20080127
+gEDA/gnetlist comes with ABSOLUTELY NO WARRANTY; see COPYING for more details.
+This is free software, and you are welcome to redistribute it under certain
+conditions; please see the COPYING file for more details.
+
+Remember to check that your schematic has no errors using the drc2 backend.
+You can do it running 'gnetlist -g drc2 your_schematic.sch -o drc_output.txt'
+and seeing the contents of the file drc_output.txt.
+
+Read system-gafrc file [/etc/gEDA/system-gafrc]
+Did not find optional ~/.gEDA/gafrc file [/home/todoesverso/.gEDA/gafrc]
+
+In unknown file:
+   ?: 0* [primitive-load "/home/todoesverso/openbraille/trunk/simul/motor/gafrc"]
+In /home/todoesverso/openbraille/trunk/simul/motor/gafrc:
+   4: 1* (attribute-name "pinlabel")
+
+/home/todoesverso/openbraille/trunk/simul/motor/gafrc:3:0: Unbound variable: attribute-name
+Read local gafrc file [/home/todoesverso/openbraille/trunk/simul/motor/gafrc]
+Read system-gnetlistrc file [/etc/gEDA/system-gnetlistrc]
+Did not find optional ~/.gEDA/gnetlistrc file [/home/todoesverso/.gEDA/gnetlistrc]
+Read local gnetlistrc file [/home/todoesverso/openbraille/trunk/simul/motor/gnetlistrc]
+Loading schematic [/home/todoesverso/openbraille/trunk/simul/motor/motor.sch]
+RC file [/home/todoesverso/openbraille/trunk/simul/motor/gafrc] already read in.
+Read init scm file [/usr/share/gEDA/scheme/gnetlist.scm]
+Read spice-sdb scm file [/usr/share/gEDA/scheme/gnet-spice-sdb.scm]
+Read post traversal scm file [/usr/share/gEDA/scheme/gnetlist-post.scm]
