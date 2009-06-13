@@ -1,0 +1,15 @@
+gEDA/gschem version 1.4.0.20080127
+gEDA/gschem comes with ABSOLUTELY NO WARRANTY; see COPYING for more details.
+This is free software, and you are welcome to redistribute it under certain
+conditions; please see the COPYING file for more details.
+
+Read system-gafrc file [/etc/gEDA/system-gafrc]
+Did not find optional ~/.gEDA/gafrc file [/home/todoesverso/.gEDA/gafrc]
+Read local gafrc file [/home/todoesverso/openbraille/trunk/simul/motor/gafrc]
+Read system-gschemrc file [/etc/gEDA/system-gschemrc]
+Did not find optional ~/.gEDA/gschemrc file [/home/todoesverso/.gEDA/gschemrc]
+Read local gschemrc file [/home/todoesverso/openbraille/trunk/simul/motor/gschemrc]
+Read init scm file [/usr/share/gEDA/scheme/gschem.scm]
+Loading schematic [/home/todoesverso/openbraille/trunk/simul/motor/motor.sch]
+RC file [/home/todoesverso/openbraille/trunk/simul/motor/gafrc] already read in.
+Saved [/home/todoesverso/openbraille/trunk/simul/motor/motor.sch]

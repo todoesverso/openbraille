@@ -1,0 +1,12 @@
+plot the result
+
+.control
+
+load rawspice.raw
+
+
+*User defined vector and plot commands: 
+plot in out vbase vbasebc
+
+.endc 
+.end 
