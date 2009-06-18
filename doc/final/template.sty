@@ -21,6 +21,7 @@
 \setlength{\textwidth}{15.5cm}
 \setlength{\headwidth}{\textwidth}
 
+
 \pagestyle{fancy}
 
 % pone el nombre de los capitulos en el encabezado sin punto al final, y en minusculas.
@@ -47,8 +48,8 @@
    \vspace*{-0.25cm} \vbox to 0pt{\hbox to\headwidth{\hrulefill}}
 }
 
-% redefine cleardoublepage para que las paginas pares vacias al final de cada capitulo
-% queden realmente vacias:
+% redefine cleardoublepage para que las paginas pares vacias al final de 
+% cada capitulo queden realmente vacias:
 \makeatletter
 \def\cleardoublepage{
    \clearpage\if@twoside
@@ -60,25 +61,26 @@
 }
 \makeatother
 
+
+
 % otras definiciones
+\setlength{\textheight}{22.5cm}
+\setlength{\textwidth}{15.5cm}
+\setlength{\topmargin}{-0.8cm}
 
-%\setlength{\textheight}{22.5cm}
-%\setlength{\textwidth}{15.5cm}
-%\setlength{\topmargin}{-0.8cm}
-
-%\setlength{\evensidemargin}{0cm}
-%\setlength{\oddsidemargin}{1.02cm}
-%\setlength{\headsep}{0.5in}
-%\setlength{\floatsep}{12pt plus 2pt minus 4pt}
-%\setlength{\textfloatsep}{20pt plus 2pt minus 4pt}
-%\setlength{\intextsep}{10pt plus 2pt minus 3pt}
+\setlength{\evensidemargin}{0cm}
+\setlength{\oddsidemargin}{1.02cm}
+\setlength{\headsep}{0.5in}
+\setlength{\floatsep}{12pt plus 2pt minus 4pt}
+\setlength{\textfloatsep}{20pt plus 2pt minus 4pt}
+\setlength{\intextsep}{10pt plus 2pt minus 3pt}
 %\setlength{\subfigtopskip}{10pt}
 %\setlength{\subfigbottomskip}{10pt}
 %\setlength{\subfigcapskip}{10pt}
 %\setlength{\subfigcapmargin}{10pt}
 
 % espaciado entre linea y linea, mover si no gusta el espaciado por default.
-%\setlength{\baselineskip}{24pt}
+\setlength{\baselineskip}{24pt}
 
 
 % mas definiciones :-|

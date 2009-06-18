@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=prologo.tex
+lastDocument=portada.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -24,14 +24,23 @@ line=5
 open=false
 order=2
 
+[item:anexo.tex]
+archive=true
+column=15
+encoding=UTF-8
+highlight=LaTeX
+line=0
+open=true
+order=3
+
 [item:diagnostico.tex]
 archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
 line=0
-open=false
-order=1
+open=true
+order=5
 
 [item:el_dispositivo.tex]
 archive=true
@@ -39,7 +48,7 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=70
-open=false
+open=true
 order=6
 
 [item:final.kilepr]
@@ -53,21 +62,21 @@ order=-1
 
 [item:main.tex]
 archive=true
-column=0
+column=4
 encoding=UTF-8
 highlight=LaTeX
-line=97
+line=101
 open=true
 order=0
 
 [item:mercado_software.tex]
 archive=true
-column=2147483647
+column=16
 encoding=
-highlight=
-line=0
-open=false
-order=-1
+highlight=LaTeX
+line=132
+open=true
+order=4
 
 [item:portada.tex]
 archive=true
@@ -75,17 +84,17 @@ column=39
 encoding=UTF-8
 highlight=LaTeX
 line=38
-open=false
-order=5
+open=true
+order=2
 
 [item:prologo.tex]
 archive=true
-column=0
+column=44
 encoding=UTF-8
 highlight=LaTeX
-line=1
+line=0
 open=true
-order=2
+order=7
 
 [item:propuesta_tecnica.tex]
 archive=true
@@ -119,24 +128,24 @@ archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
-line=112
-open=false
-order=4
+line=103
+open=true
+order=1
 
 [item:template.sty]
 archive=true
-column=55
+column=1
 encoding=UTF-8
 highlight=LaTeX
-line=36
-open=false
-order=3
+line=15
+open=true
+order=8
 
 [item:usb.tex]
 archive=true
-column=45
+column=10
 encoding=UTF-8
 highlight=LaTeX
-line=858
+line=649
 open=true
-order=1
+order=9

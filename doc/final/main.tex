@@ -1,9 +1,9 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[12pt,twoside,a4paper]{report}
 %Encabezado segun reglas de trabajo final
 
 % Paquetes usados
-\usepackage[latin1]{inputenc}
 \usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
 \usepackage{fancyhdr}
 %\usepackage{fullpage}
 \usepackage{graphicx}
@@ -17,6 +17,18 @@
 \usepackage[centerlast,small,bf]{caption2}
 \usepackage{template}
 \usepackage{colortbl}
+\usepackage{url}
+
+
+% Style for URLs
+%% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leostyle}
+
 
 % Syntax hl C
 \usepackage{listings}
@@ -35,16 +47,17 @@
 }
 
 
+\hfuzz = .6pt % avoid black boxes
 
 
 
 % Formateador de  portada
-\newcommand{\THESISNAMEA}{Impresora Braille - Implementaci\'on libre }
+\newcommand{\THESISNAMEA}{T\'itulo }
 \newcommand{\THESISAUTHORA}{\hspace*{1in}Rosales Victor Hugo\hspace*{1.2in}787774}
-\newcommand{\THESISAUTHORB}{\hspace*{1in}German Horacio Sanguinetti\hspace*{1.2in}977969}
-\newcommand{\THESISDATE}{Diciembre de 2008}
+
+\newcommand{\THESISDATE}{Fecha}
 \newcommand{\THESISYEAR}{2009}
-\newcommand{\THESISSINODALA}{Ing. John Coppens}
+\newcommand{\THESISSINODALA}{Tutor}
 %-----------------------------------------------------------------------------------------
 
 \title{\THESISNAMEA}
@@ -54,6 +67,10 @@
 %\setcaptionwidth{13cm}
 
 \psfigurepath{./img/}
+
+
+% Servira de algo esto?
+%\usepackage[T1]{fontenc}  
 
 % ----------------------------------------------------------------------------
 \begin{document}
@@ -88,22 +105,34 @@
 %	- Prologo del capitulo sin ningun formato especial(?)
 %	- Secciones....
 %---------------------------------------------------------------------------
-\include{resumen}
-\include{propuestas_iniciales}
-\include{propuesta_tecnica}
-\include{el_dispositivo}
-\include{software_libre}
-\include{mercado_software}
-\include{usb}
-\include{diagnostico}
+% Notas: 
+% 
+% - Mencional la dependencia tecnologica que puede generar el software
+%   privativo. Poner un ejemplo sencillo de si se desarrolla un porgrama con
+%   librerias propietarias que corren sobre OS propietario y luego por
+%   diferentes motivos (policios?) el OS deja de ser soportado o peor aun no
+%   vende mas en el pais o algo por el estilo.
 
+%\include{resumen}
+%\include{propuestas_iniciales}
+%\include{propuesta_tecnica}
+%\include{el_dispositivo}
+\include{software_libre}
+%\include{mercado_software}
+\include{usb}
+%\include{diagnostico}
+\include{economia}
+
+% De esta forma armamos el anexo, incluyendo el codigo sin hardcoderar el path
+\include{anexo}
 % ----------------------------------------------------------------------------
 
+\include{fdl-1.3}
 \end{document}
 
 % Bibliografia
-\begin{thebibliography}{99}
+%\begin{thebibliography}{99}
  % Habra que ponerle el cosito  
- \bibitem{\picdatasheet}Microchip
-\end{thebibliography}
+ %\bibitem{\picdatasheet}Microchip
+%\end{thebibliography}
 
