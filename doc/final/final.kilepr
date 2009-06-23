@@ -30,7 +30,7 @@ column=15
 encoding=UTF-8
 highlight=LaTeX
 line=0
-open=true
+open=false
 order=3
 
 [item:diagnostico.tex]
@@ -39,17 +39,17 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=0
-open=true
+open=false
 order=5
 
 [item:economia.tex]
 archive=true
-column=0
+column=12
 encoding=UTF-8
 highlight=LaTeX
-line=27
+line=153
 open=true
-order=9
+order=1
 
 [item:el_dispositivo.tex]
 archive=true
@@ -57,7 +57,7 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=70
-open=true
+open=false
 order=6
 
 [item:final.kilepr]
@@ -71,10 +71,10 @@ order=-1
 
 [item:main.tex]
 archive=true
-column=70
+column=1
 encoding=UTF-8
 highlight=LaTeX
-line=23
+line=129
 open=true
 order=0
 
@@ -84,7 +84,7 @@ column=16
 encoding=UTF-8
 highlight=LaTeX
 line=132
-open=true
+open=false
 order=4
 
 [item:portada.tex]
@@ -93,7 +93,7 @@ column=39
 encoding=UTF-8
 highlight=LaTeX
 line=38
-open=true
+open=false
 order=2
 
 [item:prologo.tex]
@@ -138,7 +138,7 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=103
-open=true
+open=false
 order=1
 
 [item:template.sty]
@@ -147,14 +147,14 @@ column=1
 encoding=UTF-8
 highlight=LaTeX
 line=15
-open=true
+open=false
 order=7
 
 [item:usb.tex]
 archive=true
-column=10
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=649
-open=true
+line=647
+open=false
 order=8
