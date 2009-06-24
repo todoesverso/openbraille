@@ -1,5 +1,5 @@
-## Module report - date 21/3/2008-17:06:39
-## Created by PcbNew version PCBNEW (2007-05-25)
+## Module report - date 24/6/2009-01:20:21
+## Created by PcbNew version PCBNEW (2007-11-29-a)
 ## Unit = inches, Angle = deg.
 ##
 
@@ -7,55 +7,24 @@ $BeginDESCRIPTION
 
 $BOARD
 unit INCH
-upper_left_corner  0.844000  2.692500
-lower_right_corner  8.057600  6.757600
+upper_left_corner  1.742400  2.692500
+lower_right_corner  8.085000  5.357600
 $EndBOARD
-
-$MODULE "RV2_1"
-reference "RV2_1"
-value "10k"
-footprint "rcl-RTRIM3296W"
-attribut virtual
-position  3.450000  5.150000
-orientation  0.00
-layer component
-$PAD "1"
-position  0.000000  0.100000
-size  0.044000  0.044000
-drill  0.024000
-shape_offset  0.000000  0.000000
-orientation  0.00
-Shape  Circ
-Layer  all
-$EndPAD
-$PAD "2"
-position  0.000000  0.000000
-size  0.044000  0.044000
-drill  0.024000
-shape_offset  0.000000  0.000000
-orientation  0.00
-Shape  Circ
-Layer  all
-$EndPAD
-$PAD "3"
-position  0.000000 -0.100000
-size  0.044000  0.044000
-drill  0.024000
-shape_offset  0.000000  0.000000
-orientation  0.00
-Shape  Circ
-Layer  all
-$EndPAD
-$EndMODULE  R
 
 $MODULE "RV2_3"
 reference "RV2_3"
 value "10k"
 footprint "rcl-RTRIM3296W"
 attribut virtual
-position  6.800000  4.250000
-orientation  0.00
+position  6.550000  3.100000
+orientation  90.00
 layer component
+$SHAPE3D
+Na "pot_b64y.wrl"
+Sc 1.000000 1.000000 0.700000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 90.000000
+$EndSHAPE3D
 $PAD "1"
 position  0.000000  0.100000
 size  0.044000  0.044000
@@ -90,8 +59,8 @@ reference "D2_4"
 value "1n4148"
 footprint "D4"
 attribut none
-position  5.500000  4.600000
-orientation  0.00
+position  7.300000  4.300000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/diode.wrl"
@@ -124,8 +93,8 @@ reference "D2_3"
 value "1n4148"
 footprint "D4"
 attribut none
-position  5.600000  5.550000
-orientation  0.00
+position  6.550000  4.300000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/diode.wrl"
@@ -158,8 +127,8 @@ reference "D2_2"
 value "1n4148"
 footprint "D4"
 attribut none
-position  5.600000  5.150000
-orientation  0.00
+position  5.850000  4.250000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/diode.wrl"
@@ -192,8 +161,8 @@ reference "D2_1"
 value "1n4148"
 footprint "D4"
 attribut none
-position  4.550000  4.800000
-orientation  0.00
+position  5.150000  4.300000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/diode.wrl"
@@ -226,8 +195,8 @@ reference "D1_4"
 value "1n4148"
 footprint "D4"
 attribut none
-position  7.000000  6.050000
-orientation  0.00
+position  4.400000  4.300000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/diode.wrl"
@@ -260,8 +229,8 @@ reference "D1_3"
 value "1n4148"
 footprint "D4"
 attribut none
-position  6.450000  4.550000
-orientation  0.00
+position  3.700000  4.350000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/diode.wrl"
@@ -294,8 +263,8 @@ reference "D1_2"
 value "1n4148"
 footprint "D4"
 attribut none
-position  6.650000  5.500000
-orientation  0.00
+position  2.850000  4.300000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/diode.wrl"
@@ -328,8 +297,8 @@ reference "D1_1"
 value "1n4148"
 footprint "D4"
 attribut none
-position  5.050000  5.450000
-orientation  0.00
+position  2.150000  4.300000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/diode.wrl"
@@ -359,40 +328,16 @@ $EndMODULE  D
 
 $MODULE "Motor2"
 reference "Motor2"
-value "Conect_5"
+value ""
 footprint "PA_5x1"
 attribut none
-position  6.050000  3.300000
+position  6.800000  5.000000
 orientation  0.00
 layer component
 $SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.100000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.200000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
+Na "conec_trava_5pin.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.300000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.400000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.500000 -0.100000 0.000000
 Ro 0.000000 0.000000 0.000000
 $EndSHAPE3D
 $PAD "1"
@@ -444,40 +389,16 @@ $EndMODULE  M
 
 $MODULE "Motor1"
 reference "Motor1"
-value "Conect_5"
+value ""
 footprint "PA_5x1"
 attribut none
-position  3.000000  3.300000
+position  3.350000  5.000000
 orientation  0.00
 layer component
 $SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.100000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.200000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
+Na "conec_trava_5pin.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.300000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.400000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.500000 -0.100000 0.000000
 Ro 0.000000 0.000000 0.000000
 $EndSHAPE3D
 $PAD "1"
@@ -527,66 +448,18 @@ Layer  all
 $EndPAD
 $EndMODULE  M
 
-$MODULE "Salidas_"
-reference "Salidas_"
-value "Conector_9"
+$MODULE "Entradas"
+reference "Entradas"
+value ""
 footprint "PA_9x1"
 attribut none
-position  0.900000  4.550000
-orientation  90.00
+position  3.100000  5.150000
+orientation  180.00
 layer component
 $SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.100000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.200000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.300000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.400000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
+Na "conec_trava_9pin.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.500000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.600000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.700000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.800000 -0.100000 0.000000
-Ro 0.000000 0.000000 0.000000
-$EndSHAPE3D
-$SHAPE3D
-Na "pin_array/pin_array_1x1.wrl"
-Sc 1.000000 1.000000 1.000000
-Of 0.900000 -0.100000 0.000000
 Ro 0.000000 0.000000 0.000000
 $EndSHAPE3D
 $PAD "1"
@@ -670,18 +543,18 @@ orientation  0.00
 Shape  Circ
 Layer  all
 $EndPAD
-$EndMODULE  S
+$EndMODULE  E
 
-$MODULE "CON3"
-reference "CON3"
+$MODULE ""
+reference ""
 value "ALIM"
 footprint "PIN_ARRAY_3X1"
 attribut none
-position  6.900000  5.150000
-orientation  0.00
+position  6.850000  3.900000
+orientation  180.00
 layer component
 $SHAPE3D
-Na "pin_array/pins_array_3x1.wrl"
+Na "conec_trava_3pin.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
@@ -689,10 +562,10 @@ $EndSHAPE3D
 $PAD "1"
 position -0.100000  0.000000
 size  0.060000  0.060000
-drill  0.040000
+drill  0.032000
 shape_offset  0.000000  0.000000
 orientation  0.00
-Shape  Rect
+Shape  Circ
 Layer  all
 $EndPAD
 $PAD "2"
@@ -713,15 +586,15 @@ orientation  0.00
 Shape  Circ
 Layer  all
 $EndPAD
-$EndMODULE  C
+$EndMODULE  
 
 $MODULE "RP2_34"
 reference "RP2_34"
-value "1k"
+value ""
 footprint "R4"
 attribut none
-position  6.250000  5.700000
-orientation  0.00
+position  6.850000  3.300000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -754,8 +627,8 @@ reference "RP2_12"
 value "1k"
 footprint "R4"
 attribut none
-position  3.750000  6.200000
-orientation  0.00
+position  6.150000  3.300000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -785,11 +658,11 @@ $EndMODULE  R
 
 $MODULE "RP1_34"
 reference "RP1_34"
-value "1k"
+value ""
 footprint "R4"
 attribut none
-position  5.500000  5.800000
-orientation  0.00
+position  4.500000  3.600000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -819,11 +692,11 @@ $EndMODULE  R
 
 $MODULE "RP1_12"
 reference "RP1_12"
-value "1k"
+value ""
 footprint "R4"
 attribut none
-position  6.150000  4.900000
-orientation  0.00
+position  2.250000  3.800000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -853,11 +726,11 @@ $EndMODULE  R
 
 $MODULE "RB2_4"
 reference "RB2_4"
-value "47k"
+value ""
 footprint "R4"
 attribut none
-position  6.200000  6.100000
-orientation  0.00
+position  7.200000  3.900000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -887,11 +760,11 @@ $EndMODULE  R
 
 $MODULE "RB2_3"
 reference "RB2_3"
-value "47k"
+value ""
 footprint "R4"
 attribut none
-position  6.150000  5.200000
-orientation  0.00
+position  6.450000  3.900000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -921,11 +794,11 @@ $EndMODULE  R
 
 $MODULE "RB2_2"
 reference "RB2_2"
-value "47k"
+value ""
 footprint "R4"
 attribut none
-position  4.950000  4.950000
-orientation  0.00
+position  5.750000  3.850000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -955,11 +828,11 @@ $EndMODULE  R
 
 $MODULE "RB1_4"
 reference "RB1_4"
-value "47k"
+value ""
 footprint "R4"
 attribut none
-position  4.250000  6.150000
-orientation  0.00
+position  4.300000  3.900000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -989,11 +862,11 @@ $EndMODULE  R
 
 $MODULE "RB1_3"
 reference "RB1_3"
-value "47k"
+value ""
 footprint "R4"
 attribut none
-position  4.450000  5.700000
-orientation  0.00
+position  3.600000  3.950000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -1023,11 +896,11 @@ $EndMODULE  R
 
 $MODULE "RB1_2"
 reference "RB1_2"
-value "47k"
+value ""
 footprint "R4"
 attribut none
-position  4.900000  6.000000
-orientation  0.00
+position  2.750000  3.900000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -1057,11 +930,11 @@ $EndMODULE  R
 
 $MODULE "RB1_1"
 reference "RB1_1"
-value "47k"
+value ""
 footprint "R4"
 attribut none
-position  7.500000  5.500000
-orientation  0.00
+position  2.050000  3.900000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -1091,11 +964,11 @@ $EndMODULE  R
 
 $MODULE "R2_1"
 reference "R2_1"
-value "47k"
+value ""
 footprint "R4"
 attribut none
-position  3.900000  4.900000
-orientation  0.00
+position  5.050000  3.900000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -1125,11 +998,11 @@ $EndMODULE  R
 
 $MODULE "R2_34"
 reference "R2_34"
-value "1"
+value ""
 footprint "R6"
 attribut none
-position  5.200000  5.200000
-orientation  0.00
+position  7.750000  3.200000
+orientation  270.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -1162,8 +1035,8 @@ reference "R2_12"
 value "1"
 footprint "R6"
 attribut none
-position  4.250000  5.250000
-orientation  0.00
+position  4.600000  3.300000
+orientation  180.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -1193,11 +1066,11 @@ $EndMODULE  R
 
 $MODULE "R1_34"
 reference "R1_34"
-value "1"
+value ""
 footprint "R6"
 attribut none
-position  3.550000  5.700000
-orientation  0.00
+position  3.150000  3.400000
+orientation  180.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -1227,11 +1100,11 @@ $EndMODULE  R
 
 $MODULE "R1_12"
 reference "R1_12"
-value "1"
+value ""
 footprint "R6"
 attribut none
-position  5.700000  6.250000
-orientation  0.00
+position  2.350000  3.250000
+orientation  180.00
 layer component
 $SHAPE3D
 Na "discret/resistor.wrl"
@@ -1250,8 +1123,8 @@ Layer  all
 $EndPAD
 $PAD "2"
 position  0.300000  0.000000
-size  0.070000  0.070000
-drill  0.045000
+size  0.060000  0.060000
+drill  0.032000
 shape_offset  0.000000  0.000000
 orientation  0.00
 Shape  Circ
@@ -1261,49 +1134,18 @@ $EndMODULE  R
 
 $MODULE "RV2_4"
 reference "RV2_4"
-value "10k"
+value ""
 footprint "rcl-RTRIM3296W"
 attribut virtual
-position  7.400000  4.250000
-orientation  0.00
+position  7.300000  3.100000
+orientation  90.00
 layer component
-$PAD "1"
-position  0.000000  0.100000
-size  0.044000  0.044000
-drill  0.024000
-shape_offset  0.000000  0.000000
-orientation  0.00
-Shape  Circ
-Layer  all
-$EndPAD
-$PAD "2"
-position  0.000000  0.000000
-size  0.044000  0.044000
-drill  0.024000
-shape_offset  0.000000  0.000000
-orientation  0.00
-Shape  Circ
-Layer  all
-$EndPAD
-$PAD "3"
-position  0.000000 -0.100000
-size  0.044000  0.044000
-drill  0.024000
-shape_offset  0.000000  0.000000
-orientation  0.00
-Shape  Circ
-Layer  all
-$EndPAD
-$EndMODULE  R
-
-$MODULE "RV2_3"
-reference "RV2_3"
-value "10k"
-footprint "rcl-RTRIM3296W"
-attribut virtual
-position  7.150000  4.650000
-orientation  0.00
-layer component
+$SHAPE3D
+Na "pot_b64y.wrl"
+Sc 1.000000 1.000000 0.700000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 90.000000
+$EndSHAPE3D
 $PAD "1"
 position  0.000000  0.100000
 size  0.044000  0.044000
@@ -1338,9 +1180,15 @@ reference "RV2_2"
 value "10k"
 footprint "rcl-RTRIM3296W"
 attribut virtual
-position  5.850000  4.300000
-orientation  0.00
+position  5.850000  3.100000
+orientation  90.00
 layer component
+$SHAPE3D
+Na "pot_b64y.wrl"
+Sc 1.000000 1.000000 0.700000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 90.000000
+$EndSHAPE3D
 $PAD "1"
 position  0.000000  0.100000
 size  0.044000  0.044000
@@ -1375,9 +1223,15 @@ reference "RV2_1"
 value "10k"
 footprint "rcl-RTRIM3296W"
 attribut virtual
-position  5.250000  4.300000
-orientation  0.00
+position  5.150000  3.100000
+orientation  90.00
 layer component
+$SHAPE3D
+Na "pot_b64y.wrl"
+Sc 1.000000 1.000000 0.700000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 90.000000
+$EndSHAPE3D
 $PAD "1"
 position  0.000000  0.100000
 size  0.044000  0.044000
@@ -1412,9 +1266,15 @@ reference "RV1_4"
 value "10k"
 footprint "rcl-RTRIM3296W"
 attribut virtual
-position  4.500000  4.300000
-orientation  0.00
+position  4.400000  3.100000
+orientation  90.00
 layer component
+$SHAPE3D
+Na "pot_b64y.wrl"
+Sc 1.000000 1.000000 0.700000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 90.000000
+$EndSHAPE3D
 $PAD "1"
 position  0.000000  0.100000
 size  0.044000  0.044000
@@ -1449,9 +1309,15 @@ reference "RV1_3"
 value "10k"
 footprint "rcl-RTRIM3296W"
 attribut virtual
-position  3.850000  4.300000
-orientation  0.00
+position  3.700000  3.100000
+orientation  90.00
 layer component
+$SHAPE3D
+Na "pot_b64y.wrl"
+Sc 1.000000 1.000000 0.700000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 90.000000
+$EndSHAPE3D
 $PAD "1"
 position  0.000000  0.100000
 size  0.044000  0.044000
@@ -1483,12 +1349,18 @@ $EndMODULE  R
 
 $MODULE "RV1_2"
 reference "RV1_2"
-value "10k"
+value ""
 footprint "rcl-RTRIM3296W"
 attribut virtual
-position  2.650000  4.350000
-orientation  0.00
+position  2.900000  3.100000
+orientation  90.00
 layer component
+$SHAPE3D
+Na "pot_b64y.wrl"
+Sc 1.000000 1.000000 0.700000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 90.000000
+$EndSHAPE3D
 $PAD "1"
 position  0.000000  0.100000
 size  0.044000  0.044000
@@ -1520,12 +1392,18 @@ $EndMODULE  R
 
 $MODULE "RV1_1"
 reference "RV1_1"
-value "10k"
+value ""
 footprint "rcl-RTRIM3296W"
 attribut virtual
-position  2.150000  4.350000
-orientation  0.00
+position  2.150000  3.100000
+orientation  90.00
 layer component
+$SHAPE3D
+Na "pot_b64y.wrl"
+Sc 1.000000 1.000000 0.700000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 90.000000
+$EndSHAPE3D
 $PAD "1"
 position  0.000000  0.100000
 size  0.044000  0.044000
@@ -1564,10 +1442,22 @@ position  7.400000  2.900000
 orientation  90.00
 layer component
 $SHAPE3D
-Na "discret/to220_vert.wrl"
+Na "to220_vertical.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "dissip2.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "parafuso_philips.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 0.000000 0.650000
+Ro 0.000000 90.000000 0.000000
 $EndSHAPE3D
 $PAD "2"
 position  0.000000 -0.100000
@@ -1607,10 +1497,22 @@ position  6.650000  2.900000
 orientation  90.00
 layer component
 $SHAPE3D
-Na "discret/to220_vert.wrl"
+Na "to220_vertical.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "dissip2.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "parafuso_philips.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 0.000000 0.650000
+Ro 0.000000 90.000000 0.000000
 $EndSHAPE3D
 $PAD "2"
 position  0.000000 -0.100000
@@ -1650,10 +1552,22 @@ position  5.950000  2.900000
 orientation  90.00
 layer component
 $SHAPE3D
-Na "discret/to220_vert.wrl"
+Na "to220_vertical.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "dissip2.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "parafuso_philips.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 0.000000 0.650000
+Ro 0.000000 90.000000 0.000000
 $EndSHAPE3D
 $PAD "2"
 position  0.000000 -0.100000
@@ -1693,10 +1607,22 @@ position  5.250000  2.900000
 orientation  90.00
 layer component
 $SHAPE3D
-Na "discret/to220_vert.wrl"
+Na "to220_vertical.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "dissip2.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "parafuso_philips.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 0.000000 0.650000
+Ro 0.000000 90.000000 0.000000
 $EndSHAPE3D
 $PAD "2"
 position  0.000000 -0.100000
@@ -1736,10 +1662,22 @@ position  4.500000  2.900000
 orientation  90.00
 layer component
 $SHAPE3D
-Na "discret/to220_vert.wrl"
+Na "to220_vertical.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "dissip2.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "parafuso_philips.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 0.000000 0.650000
+Ro 0.000000 90.000000 0.000000
 $EndSHAPE3D
 $PAD "2"
 position  0.000000 -0.100000
@@ -1779,10 +1717,22 @@ position  3.750000  2.900000
 orientation  90.00
 layer component
 $SHAPE3D
-Na "discret/to220_vert.wrl"
+Na "to220_vertical.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "dissip2.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "parafuso_philips.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 0.000000 0.650000
+Ro 0.000000 90.000000 0.000000
 $EndSHAPE3D
 $PAD "2"
 position  0.000000 -0.100000
@@ -1822,10 +1772,22 @@ position  3.000000  2.900000
 orientation  90.00
 layer component
 $SHAPE3D
-Na "discret/to220_vert.wrl"
+Na "to220_vertical.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "dissip2.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "parafuso_philips.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 0.000000 0.650000
+Ro 0.000000 90.000000 0.000000
 $EndSHAPE3D
 $PAD "2"
 position  0.000000 -0.100000
@@ -1865,10 +1827,22 @@ position  2.250000  2.900000
 orientation  90.00
 layer component
 $SHAPE3D
-Na "discret/to220_vert.wrl"
+Na "to220_vertical.wrl"
 Sc 1.000000 1.000000 1.000000
 Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "dissip2.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.000000 0.000000 0.000000
+Ro 0.000000 0.000000 0.000000
+$EndSHAPE3D
+$SHAPE3D
+Na "parafuso_philips.wrl"
+Sc 1.000000 1.000000 1.000000
+Of 0.100000 0.000000 0.650000
+Ro 0.000000 90.000000 0.000000
 $EndSHAPE3D
 $PAD "2"
 position  0.000000 -0.100000
@@ -1904,8 +1878,8 @@ reference "Q2_4"
 value "BC337"
 footprint "TO92"
 attribut none
-position  7.450000  3.700000
-orientation  0.00
+position  7.250000  3.500000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/to98.wrl"
@@ -1947,8 +1921,8 @@ reference "Q2_3"
 value "BC337"
 footprint "TO92"
 attribut none
-position  6.800000  3.700000
-orientation  0.00
+position  6.500000  3.500000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/to98.wrl"
@@ -1990,8 +1964,8 @@ reference "Q2_2"
 value "BC337"
 footprint "TO92"
 attribut none
-position  5.850000  3.650000
-orientation  0.00
+position  5.800000  3.450000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/to98.wrl"
@@ -2033,8 +2007,8 @@ reference "Q2_1"
 value "BC337"
 footprint "TO92"
 attribut none
-position  5.300000  3.600000
-orientation  0.00
+position  5.100000  3.500000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/to98.wrl"
@@ -2076,8 +2050,8 @@ reference "Q1_4"
 value "BC337"
 footprint "TO92"
 attribut none
-position  4.550000  3.600000
-orientation  0.00
+position  4.350000  3.500000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/to98.wrl"
@@ -2119,8 +2093,8 @@ reference "Q1_3"
 value "BC337"
 footprint "TO92"
 attribut none
-position  3.900000  3.600000
-orientation  0.00
+position  3.650000  3.550000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/to98.wrl"
@@ -2162,8 +2136,8 @@ reference "Q1_2"
 value "BC337"
 footprint "TO92"
 attribut none
-position  2.800000  3.650000
-orientation  0.00
+position  2.900000  3.550000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/to98.wrl"
@@ -2205,8 +2179,8 @@ reference "Q1_1"
 value "BC337"
 footprint "TO92"
 attribut none
-position  2.100000  3.600000
-orientation  180.00
+position  2.100000  3.450000
+orientation  90.00
 layer component
 $SHAPE3D
 Na "discret/to98.wrl"
