@@ -1,0 +1,51 @@
+EESchema (2007-11-29-a)  >> Creation date: 26/6/2009-00:49:32
+
+#Componentes ( orden = Referencia )
+| .1u1       C           
+| 1000u1     CAPAPOL     
+| 10k1       R           
+| 10k2       R           
+| 10u1       CAPAPOL     
+| 12Vin1     CONN_2      
+| 1n4004     DIODE       
+| 22p1       C           
+| 22p2       C           
+| 4M1        CRYSTAL     
+| Carro1     CONN_2      
+| D1         BRIDGE      
+| ICSP1      CONN_4      
+| J1         USB         
+| MotorSignal1  CONN_9      
+| Papel1     CONN_2      
+| Percut1    CONN_2      
+| Rojo1      LED         
+| SW1        SPST        
+| U1         PIC18F4550  
+| U2         7805        
+#Fin Componentes
+
+#Componentes ( orden = Valor )
+| 7805         U2        
+| BRIDGE       D1        
+| C            .1u1      
+| C            22p1      
+| C            22p2      
+| CAPAPOL      1000u1    
+| CAPAPOL      10u1      
+| CONN_2       12Vin1    
+| CONN_2       Carro1    
+| CONN_2       Papel1    
+| CONN_2       Percut1   
+| CONN_4       ICSP1     
+| CONN_9       MotorSignal1 
+| CRYSTAL      4M1       
+| DIODE        1n4004    
+| LED          Rojo1     
+| PIC18F4550   U1        
+| R            10k1      
+| R            10k2      
+| SPST         SW1       
+| USB          J1        
+#Fin Componentes
+
+#Fin de Lista
