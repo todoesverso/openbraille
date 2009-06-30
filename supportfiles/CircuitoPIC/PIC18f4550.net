@@ -1,5 +1,15 @@
-# EESchema Netlist Version 1.1 created  29/6/2009-02:52:57
+# EESchema Netlist Version 1.1 created  30/6/2009-00:47:50
 (
+ ( 4A495F38 $noname  Q1 NPN {Lib=NPN}
+  (    1 GND )
+  (    2 N-000020 )
+  (    3 RD3_1 )
+ )
+ ( 4A495F21 $noname  Q2 NPN {Lib=NPN}
+  (    1 GND )
+  (    2 N-000001 )
+  (    3 RD2_1 )
+ )
  ( 4A48295B switch-tact-DTS-3  S1 DTS-3 {Lib=DTS-3}
   (    1 GND )
   (    2 Vpp_1 )
@@ -18,7 +28,7 @@
   (    3 GND )
  )
  ( 4A48009B $noname  D5 DIODE {Lib=DIODE}
-  (    1 N-000007 )
+  (    1 N-000006 )
   (    2 Vpp_1 )
  )
  ( 48063BF7 $noname  10u1 CAPAPOL {Lib=CAPAPOL}
@@ -27,7 +37,7 @@
  )
  ( 4A47C459 $noname  D1 BRIDGE {Lib=BRIDGE}
   (    1 GND )
-  (    2 N-000013 )
+  (    2 N-000012 )
   (    3 N-000022 )
   (    4 N-000004 )
  )
@@ -50,7 +60,7 @@
  )
  ( 4A47EF9D $noname  R1 1.5k {Lib=R}
   (    1 N-000030 )
-  (    2 N-000019 )
+  (    2 N-000017 )
  )
  ( 4A47DFE6 $noname  R5 330 {Lib=R}
   (    1 N-000032 )
@@ -65,31 +75,26 @@
   (    2 RD3_1 )
  )
  ( 4A47C74E $noname  R3 270 {Lib=R}
-  (    1 N-000016 )
+  (    1 N-000015 )
   (    2 N-000034 )
  )
- ( 4A47C74C transistor-TO92  T1 BC337 {Lib=BC337}
-  (    1 GND )
-  (    2 N-000017 )
-  (    3 RD3_1 )
- )
  ( 4A47C74B $noname  R6 4.7k {Lib=R}
-  (    1 N-000017 )
+  (    1 N-000020 )
   (    2 GND )
  )
  ( 4A47C74A $noname  R8 680 {Lib=R}
   (    1 N-000033 )
-  (    2 N-000018 )
+  (    2 N-000016 )
  )
  ( 4A47C748 optocoupler-DIL06  OC1 4N35 {Lib=4N35}
-  (    1 N-000018 )
+  (    1 N-000016 )
   (    2 GNDpow_1 )
-  (    4 N-000017 )
-  (    5 N-000016 )
+  (    4 N-000020 )
+  (    5 N-000015 )
   (    6  ? )
  )
  ( 4A47C240 $noname  C1 470n {Lib=C}
-  (    1 N-000015 )
+  (    1 N-000014 )
   (    2 GND )
  )
  ( 4A47BF79 $noname  D4 LED {Lib=LED}
@@ -100,30 +105,25 @@
   (    1 N-000005 )
   (    2 N-000035 )
  )
- ( 4A47BDE3 transistor-TO92  T2 BC337 {Lib=BC337}
-  (    1 GND )
-  (    2 N-000006 )
-  (    3 RD2_1 )
- )
  ( 4A47BA91 $noname  R7 4.7k {Lib=R}
-  (    1 N-000006 )
+  (    1 N-000001 )
   (    2 GND )
  )
  ( 4A47B9FF $noname  R9 680 {Lib=R}
   (    1 N-000036 )
-  (    2 N-000014 )
+  (    2 N-000013 )
  )
  ( 4A47A558 optocoupler-DIL06  OC2 4N35 {Lib=4N35}
   (    1 N-000032 )
   (    2 GND )
   (    4 GNDpow_1 )
-  (    5 N-000019 )
+  (    5 N-000017 )
   (    6  ? )
  )
  ( 4A47A553 optocoupler-DIL06  OC3 4N35 {Lib=4N35}
-  (    1 N-000014 )
+  (    1 N-000013 )
   (    2 GNDpow_1 )
-  (    4 N-000006 )
+  (    4 N-000001 )
   (    5 N-000005 )
   (    6  ? )
  )
@@ -136,8 +136,8 @@
   (    2 N-000066 )
  )
  ( 48063CB3 $noname  SW1 SPST {Lib=SPST}
-  (    1 N-000012 )
-  (    2 N-000013 )
+  (    1 N-000011 )
+  (    2 N-000012 )
  )
  ( 48063AD4 $noname  1000u1 CAPAPOL {Lib=CAPAPOL}
   (    1 N-000022 )
@@ -145,10 +145,10 @@
  )
  ( 480638C7 $noname  10k1 R {Lib=R}
   (    1 +5V )
-  (    2 N-000007 )
+  (    2 N-000006 )
  )
  ( 48062664 $noname  Percut1 CONN_2 {Lib=CONN_2}
-  (    1 N-000019 )
+  (    1 N-000017 )
   (    2 GNDpow_1 )
  )
  ( 48062654 $noname  Carro1 CONN_2 {Lib=CONN_2}
@@ -160,7 +160,7 @@
   (    2 GND )
  )
  ( 4803C8CC $noname  12Vin1 CONN_2 {Lib=CONN_2}
-  (    1 N-000012 )
+  (    1 N-000011 )
   (    2 N-000004 )
  )
  ( 4803C7AF $noname  ICSP1 CONN_4 {Lib=CONN_4}
@@ -201,12 +201,12 @@
   (   10  ? )
   (   11 +5V )
   (   12 GND )
-  (   13 N-000009 )
-  (   14 N-000008 )
+  (   13 N-000008 )
+  (   14 N-000007 )
   (   15  ? )
   (   16  ? )
   (   17  ? )
-  (   18 N-000015 )
+  (   18 N-000014 )
   (   19  ? )
   (   20 RD1_1 )
   (   21 RD2_1 )
@@ -231,16 +231,16 @@
   (   40 A1_1 )
  )
  ( 48037A5F $noname  22p2 C {Lib=C}
-  (    1 N-000008 )
+  (    1 N-000007 )
   (    2 GND )
  )
  ( 48037A41 $noname  22p1 C {Lib=C}
-  (    1 N-000009 )
+  (    1 N-000008 )
   (    2 GND )
  )
  ( 48037A2F $noname  4M1 CRYSTAL {Lib=CRYSTAL}
-  (    1 N-000008 )
-  (    2 N-000009 )
+  (    1 N-000007 )
+  (    2 N-000008 )
  )
 )
 *
@@ -349,23 +349,20 @@ $endlist
 $endfootprintlist
 }
 { Pin List by Nets
-Net 1 "+5V"
- R10 1
- K1 2
- 10k1 1
- .1u1 1
- U2 32
- U2 11
+Net 1 ""
+ Q2 2
+ R7 1
+ OC3 4
 Net 2 "GND"
+ Q1 1
+ Q2 1
  S1 1
  C2 2
  U1 3
  10u1 2
  D1 1
- T1 1
  R6 2
  C1 2
- T2 1
  R7 2
  OC2 2
  10k2 1
@@ -390,75 +387,78 @@ Net 5 ""
  R4 1
  OC3 5
 Net 6 ""
- T2 2
- R7 1
- OC3 4
-Net 7 ""
  D5 1
  10k1 2
-Net 8 ""
+Net 7 ""
  U2 14
  22p2 1
  4M1 1
-Net 9 ""
+Net 8 ""
  U2 13
  22p1 1
  4M1 2
-Net 10 "D-_1"
+Net 9 "D-_1"
  J1 2
  U2 23
-Net 11 "D+_1"
+Net 10 "D+_1"
  J1 3
  U2 24
-Net 12 ""
+Net 11 ""
  SW1 1
  12Vin1 1
-Net 13 ""
+Net 12 ""
  D1 2
  SW1 2
-Net 14 ""
+Net 13 ""
  R9 2
  OC3 1
-Net 15 ""
+Net 14 ""
  C1 1
  U2 18
-Net 16 ""
+Net 15 ""
  R3 1
  OC1 5
-Net 17 ""
- T1 2
- R6 1
- OC1 4
-Net 18 ""
+Net 16 ""
  R8 2
  OC1 1
-Net 19 ""
+Net 17 ""
  R1 2
  OC2 5
  Percut1 1
-Net 20 "Vpow_1"
+Net 18 "Vpow_1"
  Vpow1 2
  R2 1
  Papel1 1
  Carro1 1
-Net 21 "GNDpow_1"
+Net 19 "GNDpow_1"
  Vpow1 1
  OC1 2
  OC2 4
  OC3 2
  Percut1 2
+Net 20 ""
+ Q1 2
+ R6 1
+ OC1 4
+Net 21 "+5V"
+ R10 1
+ K1 2
+ 10k1 1
+ .1u1 1
+ U2 32
+ U2 11
 Net 22 ""
  U1 1
  D1 3
  Rojo1 1
  1000u1 1
 Net 23 "RD3_1"
+ Q1 3
  D2 2
- T1 3
  U2 22
 Net 24 "RD2_1"
+ Q2 3
  D4 2
- T2 3
  U2 21
 Net 29 "RD1_1"
  R5 2

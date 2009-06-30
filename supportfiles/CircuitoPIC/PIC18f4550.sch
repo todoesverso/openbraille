@@ -5,7 +5,7 @@ EELAYER END
 $Descr A4 11700 8267
 Sheet 1 1
 Title ""
-Date "29 jun 2009"
+Date "30 jun 2009"
 Rev ""
 Comp ""
 Comment1 ""
@@ -13,15 +13,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L +5V #PWR01
-U 1 1 4A482AAF
-P 3250 1150
-F 0 "#PWR01" H 3250 1240 20  0001 C C
-F 1 "+5V" H 3250 1240 30  0000 C C
-	1    3250 1150
-	1    0    0    -1  
-$EndComp
+Wire Wire Line
+	9300 3800 9500 3800
 Wire Wire Line
 	3050 2050 3250 2050
 Wire Wire Line
@@ -83,8 +76,6 @@ Wire Wire Line
 	9350 2700 9350 3600
 Wire Wire Line
 	9350 3600 9300 3600
-Wire Wire Line
-	9300 3800 9600 3800
 Wire Wire Line
 	5750 2350 6200 2350
 Wire Wire Line
@@ -218,8 +209,6 @@ Wire Wire Line
 Wire Wire Line
 	5500 5950 5450 5950
 Wire Wire Line
-	5450 6150 5750 6150
-Wire Wire Line
 	4750 5650 4750 5850
 Wire Wire Line
 	5450 6650 5950 6650
@@ -275,6 +264,35 @@ Connection ~ 3300 7600
 Wire Wire Line
 	3050 1650 3650 1650
 Connection ~ 3250 1650
+Wire Wire Line
+	5650 6150 5450 6150
+$Comp
+L NPN Q1
+U 1 1 4A495F38
+P 5850 6150
+F 0 "Q1" H 6000 6150 50  0000 C C
+F 1 "NPN" H 5752 6300 50  0000 C C
+	1    5850 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L NPN Q2
+U 1 1 4A495F21
+P 9700 3800
+F 0 "Q2" H 9850 3800 50  0000 C C
+F 1 "NPN" H 9602 3950 50  0000 C C
+	1    9700 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR01
+U 1 1 4A482AAF
+P 3250 1150
+F 0 "#PWR01" H 3250 1240 20  0001 C C
+F 1 "+5V" H 3250 1240 30  0000 C C
+	1    3250 1150
+	1    0    0    -1  
+$EndComp
 $Comp
 L DTS-3 S1
 U 1 1 4A48295B
@@ -653,16 +671,6 @@ F 1 "270" V 5950 5300 50  0000 C C
 	1    0    0    -1  
 $EndComp
 $Comp
-L BC337 T1
-U 1 1 4A47C74C
-P 5850 6150
-F 0 "T1" H 5450 6450 50  0000 L B
-F 1 "BC337" H 6050 6100 50  0000 L B
-F 2 "transistor-TO92" H 5850 6300 50  0001 C C
-	1    5850 6150
-	1    0    0    -1  
-$EndComp
-$Comp
 L R R6
 U 1 1 4A47C74B
 P 5450 6400
@@ -715,16 +723,6 @@ P 9800 2950
 F 0 "R4" V 9880 2950 50  0000 C C
 F 1 "270" V 9800 2950 50  0000 C C
 	1    9800 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L BC337 T2
-U 1 1 4A47BDE3
-P 9700 3800
-F 0 "T2" H 9300 4100 50  0000 L B
-F 1 "BC337" H 9900 3750 50  0000 L B
-F 2 "transistor-TO92" H 9700 3950 50  0001 C C
-	1    9700 3800
 	1    0    0    -1  
 $EndComp
 $Comp

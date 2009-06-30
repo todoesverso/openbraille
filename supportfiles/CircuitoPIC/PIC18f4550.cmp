@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by Cvpcb (2007-11-29-a) date = 29/6/2009-02:41:32
+Cmp-Mod V01 Created by Cvpcb (2007-11-29-a) date = 30/6/2009-00:46:55
 
 BeginCmp
 TimeStamp = 4803CAF6;
@@ -183,6 +183,20 @@ IdModule  = PIN_ARRAY_2X1;
 EndCmp
 
 BeginCmp
+TimeStamp = 4A495F38;
+Reference = Q1;
+ValeurCmp = NPN;
+IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = 4A495F21;
+Reference = Q2;
+ValeurCmp = NPN;
+IdModule  = TO92;
+EndCmp
+
+BeginCmp
 TimeStamp = 4A47EF9D;
 Reference = R1;
 ValeurCmp = 1.5k;
@@ -270,28 +284,14 @@ BeginCmp
 TimeStamp = 48063CB3;
 Reference = SW1;
 ValeurCmp = SPST;
-IdModule  = SW_SPDT;
-EndCmp
-
-BeginCmp
-TimeStamp = 4A47C74C;
-Reference = T1;
-ValeurCmp = BC337;
-IdModule  = transistor-TO92;
-EndCmp
-
-BeginCmp
-TimeStamp = 4A47BDE3;
-Reference = T2;
-ValeurCmp = BC337;
-IdModule  = transistor-TO92;
+IdModule  = SW_PUSH;
 EndCmp
 
 BeginCmp
 TimeStamp = 4A4816A6;
 Reference = U1;
 ValeurCmp = UA7805;
-IdModule  = TO220;
+IdModule  = TO220_VERT;
 EndCmp
 
 BeginCmp
