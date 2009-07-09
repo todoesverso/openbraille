@@ -1,6 +1,0 @@
-Warning: d1: breakdown current increased to 3.86635e-10 to resolve
-Warning: incompatibility with specified saturation current
-Warning: v2: no DC value, transient time 0 value used
-
-No. of Data Rows : 1226
-Note: No ".plot", ".print", or ".fourier" lines; no simulations run

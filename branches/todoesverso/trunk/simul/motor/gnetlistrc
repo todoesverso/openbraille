@@ -1,5 +1,0 @@
-(net-naming-priority "net")
-(hierarchy-netattrib-mangle "disabled")
-(hierarchy-uref-order "prepend")
-(hierarchy-uref-separator "_")
-(hierarchy-netname-separator "_")
