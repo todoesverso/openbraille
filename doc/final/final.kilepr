@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=../../../test/final/braille.tex
+lastDocument=braille.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -14,15 +14,6 @@ src_extensions=.tex .ltx .latex .dtx .ins
 [Tools]
 MakeIndex=
 QuickBuild=
-
-[item:../../../test/final/braille.tex]
-archive=true
-column=0
-encoding=UTF-8
-highlight=LaTeX
-line=3
-open=true
-order=2
 
 [item:agradecimientos.tex]
 archive=true
@@ -38,9 +29,18 @@ archive=true
 column=15
 encoding=UTF-8
 highlight=LaTeX
-line=0
+line=3
 open=false
 order=3
+
+[item:braille.tex]
+archive=true
+column=45
+encoding=UTF-8
+highlight=LaTeX
+line=312
+open=true
+order=1
 
 [item:diagnostico.tex]
 archive=true
@@ -53,21 +53,12 @@ order=5
 
 [item:economia.tex]
 archive=true
-column=0
+column=14
 encoding=UTF-8
 highlight=LaTeX
-line=146
-open=true
-order=1
-
-[item:el_dispositivo.tex]
-archive=true
-column=0
-encoding=UTF-8
-highlight=LaTeX
-line=70
+line=122
 open=false
-order=6
+order=1
 
 [item:final.kilepr]
 archive=true
@@ -80,10 +71,10 @@ order=-1
 
 [item:main.tex]
 archive=true
-column=1
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=129
+line=34
 open=true
 order=0
 
@@ -155,15 +146,15 @@ archive=true
 column=1
 encoding=UTF-8
 highlight=LaTeX
-line=15
+line=82
 open=false
 order=7
 
 [item:usb.tex]
 archive=true
-column=0
+column=19
 encoding=UTF-8
 highlight=LaTeX
-line=647
-open=false
-order=8
+line=778
+open=true
+order=2

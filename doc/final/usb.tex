@@ -87,7 +87,7 @@ Inverted (NRZI). En la figura \ref{fig:electric_usb} se muestra un diagrama de
 un cable
 USB.
 
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.5]{./img/electric_usb.png}
 \caption{Cable USB.}
@@ -105,7 +105,7 @@ una resistencia de 1.5K a 3.3 V, como se muestra en la figura
 Algunos fabricantes sulen integrar estas resistencias de \emph{pull-up} dentro
 de sus \emph{chips} para ser activadas mediante software.
 
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.5]{./img/electric_speed_usb.png}
 \caption{Velocidad USB.}
@@ -133,7 +133,7 @@ Debido a cuestiones de latencia, el n\'umero m\'aximo de niveles permitido es
 siete, incluida la ra\'iz. La figura \ref{fig:usb_topology} muestra un esquema
 de la topolog\'ia.
 
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.5]{./img/usb_topology.png}
 \caption{Topolog\'ia del bus USB.}
@@ -275,7 +275,7 @@ lleva a cabo mediante un campo de 4 bits permitiendo un m\'aximo de 16
 endpoints. Cada enpoint funciona como emisor o receptor de datos como se ve en
 la figura \ref{fig:usb_endpoints}.
 
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.5]{./img/usb_endpoints.png}
 \caption{Endpoints de USB.}
@@ -341,7 +341,7 @@ aseguran latencia alguna.\\
 Las transacciones bulk pueden ser de tipo \emph{IN} o \emph{OUT} como se ve en
 la figura \ref{fig:usb_bulk_transaction}.
 
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.5]{./img/usb_bulk_transaction.png}
 \caption{Transacci\'on Bulk.}
@@ -389,7 +389,7 @@ peden ser indexados por otros descriptores.
 Los desciptores pueden ser ordenados jer\'arquicamente segun se ve en la
 figura \ref{fig:usb_descriptors}
 
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.4]{./img/usb_descriptors.png}
 \caption{Descriptores USB.}
@@ -407,7 +407,7 @@ El diagrama de estados completo de un dispositivo USB puede verse en la figura
 
 
 % Spec 2,.0 pag 240
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.7]{./img/usb_states.png}
 \caption{Estados USB.}
@@ -530,7 +530,7 @@ En la figura \ref{fig:pic_usb_internal} se muestra un diagrama interno de
 la arquitectura USB de \'esta familia de microcontroladores.
 
 % Datasheet pag 163
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.5]{./img/pic_usb_internal.png}
 \caption{Arquitectura USB de la familia PIC18FX455/X550.}
@@ -602,7 +602,7 @@ el registro \emph{USTAT}, como se puede apreciar en la figura
 \ref{fig:ustat_fifo}.
 
 % Datasheet pag 168
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.6]{./img/ustat_fifo.png}
 \caption{Stack FIFO del registro USTAT.}
@@ -646,7 +646,7 @@ memoria de datos normal ubicada en el Banco 4 en la direcci\'on 7 (0x400 hasta
 0x7FF) por un total de 1Kb como se observa en la figura \ref{fig:usb_mem}.
 
 % Datasheet pag 170
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.6]{./img/usb_mem.png}
 \caption{Mapeo de memoria \emph{USB RAM}.}
@@ -683,7 +683,7 @@ componen de 4 registros:
 \'Esta disposicion sepuede apreciar mejor en la figura \ref{fig:pic_bdt.png}.
 
 % Datasheet pag 171
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.6]{./img/pic_bdt.png}
 \caption{Tabla de descriptores de Buffers\emph{BDT}.}
@@ -776,7 +776,7 @@ Linux interpone varias capas de abstracci\'on entre el usuario y el hardware
 USB, en la figura \ref{fig:usb_linux_layers} se puede apreciar una
 representacion de dichas capas.
 
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.5]{./img/usb_linux_layers.png}
 \caption{Soporte USB de linux.}
