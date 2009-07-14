@@ -245,10 +245,12 @@ mientras lo hace, ademas de que se obtienen muy pocos caracteres por minuto.
 
 \subsection{Maquina de escribir braille}
 %
-En 1892 Frank Haven Hall\footnote{V\'ease - \url{
-http://books.google.com/books?id=u4uzPlgcWpsC&pg=PA452&lpg=PA452&dq=Frank+Haven
-+Hall&source=bl&ots=Xf_e354ZC9&sig=2T51O8wSR92Vj1tWHBtySCBU0Bg&hl=es&ei=eClWSqy
-AAcuwlAeC5ujcAg&sa=X&oi=book_result&ct=result&resnum=9}} invent\'o una maquina
+En 1892 Frank Haven Hall
+%\footnote{V\'ease - \url{
+%http://books.google.com/books?id=u4uzPlgcWpsC&pg=PA452&lpg=PA452&dq=Frank+Have
+%n+Hall&source=bl&ots=Xf_e354ZC9&sig=2T51O8wSR92Vj1tWHBtySCBU0Bg&hl=es&ei=eClWS
+%qyAAcuwlAeC5ujcAg&sa=X&oi=book_result&ct=result&resnum=9}} 
+invent\'o una maquina
 compleja completamente mec\'anica pero de funcionamiento muy sencillo para la
 escritura braille.\\
 
@@ -271,7 +273,6 @@ inventada por Frank Haven Hall, y en la figura
 \ref{fig:ng_perkinsaph_brailler} se muestra un modelo nuevo que se puede
 encontrar actualemten en el mercado.
 
-
 % http://www.typewriter.be/hallbraille.htm
 \begin{figure}[htp]
 \centering
@@ -280,8 +281,6 @@ encontrar actualemten en el mercado.
 en 1892.}
 \label{fig:hallbraille-03}
 \end{figure}
-
-
 
 %https://secure2.convio.net/psb/site/Ecommerce/1079514097?VIEW_PRODUCT=true&pro
 %d uct_id=2041&store_id=1101
@@ -306,14 +305,108 @@ La primera\footnote{V\'ease - \url{http://www.duxburysystems.com/bthist.asp}}
 imresora braille\footnote{El t\'ermino correcto es \emph{impactadora} debido a
 que proviene del ingl\'es \emph{embosser}} para papel normal fue fabricada en
 el Instituto de Tecnologia de Masachusset (\emph{MIT - Massachusetts Institute
-of Technology})\footnote{\url{http://web.mit.edu/}} a finales de la decada de
-los 60 y se llam\'o \emph{BrailleEmboss} cuyo dise\~no estuvo a cargo de
-George Dalrymple\footnote{\url{
+of Technology})\footnote{V\'ease - \url{http://web.mit.edu/}} a finales de la
+decada de los 60 y se llam\'o \emph{BrailleEmboss} cuyo dise\~no estuvo a cargo
+de George Dalrymple\footnote{V\'ease - \url{
 http://www.ll.mit.edu/Retirees/Picnic05/index_04.html}}.\\
-%% SEGUIR HABLANDO DE LA MISMA IMPRESORA %%%%
 
-
+Esta impresora formaba parte de un proyecto m\'as grande llamado
+DOTSYS\footnote{V\'ease - \url{http://www.dpawson.co.uk/braille/braille.html}}
+cuyo objetivo era crear un programa para traducir texto en ingl\'es a braille
+ingl\'es estandar. 
+Ten\'ia la capacidad de producir una p\'agina braille de 38
+celdas de ancho por 25 de largo cada 1.6 a 2 minutos.
+Soportaba diversos m\'etodos de entrada de dato, entre ellos tarjetas
+perforadas, teclado o cintas de teletipo\footnote{V\'ease -
+\url{http://es.wikipedia.org/wiki/Teletipo}}. Debido al car\'acter mayormente
+investigativo de este proyecto solo se fabricaron una veintena de estas
+impresoras y su costo de producci\'on es desconocido.\\
 
 Existen actualmente en el mercado una amplia variedad de impresoras braille
 para cubrir la mayoria de las necesidades de los usuarios, desde impresoras
-personales hasta impresoras para grandes niveles de producci\'on.
+personales hasta impresoras para grandes niveles de producci\'on, con
+velocidades de impresi\'on desde 10 hasta 400 caracteres por segundo y
+precios desde 3200 hasta m\'as de 30000 dolares.\\
+
+Las impresoras braille comunmente se especifican seg\'un:
+
+\begin{itemize}
+ \item Velocidad medida en CPS (caracteres por segundo)
+ \item Tama\~no
+ \item Peso
+ \item Nivel de ruido en dB
+ \item Tipo de papel que soporta
+ \item Consumo de potencia el\'ectrica en estado incativo
+ \item Consumo de potencia el\'ectrica durante funcionamiento
+\end{itemize}
+
+Debido a su principio de funcionamiento de impresi\'on por impacto el nivel de
+ruido es una de las caracteristicas m\'as importantes al igual que su peso
+proveniente mayormente de la fuente y los mecanismos de impacto.\\
+
+La caracteristica m\'as atrayente de las impresoras braille es que pueden ser
+utilizadas por personas con muy poco conocimiento, ya que la patre t\'ecnica
+del braille es resuelta enteramente por software, entonces basta solo con
+escribir el texto que se desea imprimir en el idioma deseado y luego mediante
+software este es traducido y enviado a la impresora quien se encargara de
+imprimirlo.
+
+\subsubsection{Funcionamiento}
+%
+La mayoria de las impresoras braille del mercado tienen un funcionamiento
+similar. Se escribe el texto que se desea imprimir en un editor de texto, ya
+sea com\'un o bien uno provisto por el fabricante, una vez que se ha terminado
+el texto se necesita generar una especie de vista preliminar donde se pueden
+observar las modificaciones que agragar\'a el programa para cumplir con las
+limitaciones del braille usando una tipografia braille. Luego el documento se
+\emph{traduce} a un metalenguaje que contiene tanto el texto como caracteres
+adicionales inherentes al braille pero con una codificaci\'on particular que
+interpretar\'a la impresora. La informaci\'on codificada puede ser guardada
+para una posterior impresi\'on o directamente puede enviarse a imprimir.\\
+
+La forma en la que las impresoras marcan el papel depende, entre otras cosas,
+del fabricante, el mercado que cubre, la tecnologia usada, la presici\'on, y
+otros factores.  
+No obstante pueden direfenciarse dos grandes soluciones entre las m\'as
+usadas; punz\'on \'unico desplazante y multiples punzones desplazantes.\\
+
+En la actualidad la mayoria de las impresoras braille hacen uso del mecanismo
+de multiples punzones desplazantes, ya que \'este metodo permite una mayor
+velocidad de impresion (caracteres por segundo), pero como contrapartida esta
+tecnologia encarece enormemente el producto, ya que los punzones se fabrican a
+medida y son de alta presici\'on. En la figura
+\ref{fig:embosser_index_multiple_hammers} se puede observar un cabezal de trece
+punzones que es usado por las impresoras braille del fabricante \emph{Index
+Braille}\footnote{V\'ease - \url{http://www.indexbraille.com/}}.
+
+%http://www.cascade.fi/getmedia/642f2c5b-0882-4401-ab37-d3a305b33d0b/Embosser_h
+%ammer_adjustment_080512_640x360.mp4?preview=1&width=828&height=466
+\begin{figure}[htp]
+\centering
+\includegraphics[width=12cm]{./img/embosser_index_multiple_hammers.png}
+\caption{Multiples punzones desplazantes.}
+\label{fig:embosser_index_multiple_hammers}
+\end{figure}
+
+El cabezal solo necesita un peque\~no desplazamiento horizontal para cubrir el
+ancho completo de la hoja y generar una secuencia continua de tres filas de
+puntos.\'Este mecanismo tambien permite la impresi\'on de braille en ambos
+lados de la hoja, intercalando punzones c\'oncavos y convexos como se aprecia
+en la figura \ref{fig:embosser_index_cut_hammers}.
+
+% http://epubl.luth.se/1402-1617/2006/215/LTU-EX-06215-SE.pdf
+\begin{figure}[htp]
+\centering
+\includegraphics[width=13cm]{./img/embosser_index_cut_hammers.png}
+\caption{Corte cabezal IndexBraille. 1 - Alimentac\'on de papel, 2 - Yunque de
+goma, 3 - Punz\'on o martillo}
+\label{fig:embosser_index_cut_hammers}
+\end{figure}
+
+Los punzones grises poseen punta convexa, mientra que los marrones poseen
+punta c\'oncava. Fijos al yunque de goma se encuentra una matriz de punzones
+que encastran perfecamente con sus respectivos punzones moviles, y es entre
+\'estos que el papel es impactado generandose el relieve hacia un lado o hacia
+el otro. 
+
+%Existen varios mecanismos distintos que han ido evolucionando con

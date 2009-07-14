@@ -35,10 +35,10 @@ order=3
 
 [item:braille.tex]
 archive=true
-column=45
+column=11
 encoding=UTF-8
 highlight=LaTeX
-line=312
+line=349
 open=true
 order=1
 
