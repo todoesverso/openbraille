@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=braille.tex
+lastDocument=disenio_alto_nivel.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -35,10 +35,10 @@ order=3
 
 [item:braille.tex]
 archive=true
-column=11
+column=78
 encoding=UTF-8
 highlight=LaTeX
-line=349
+line=419
 open=true
 order=1
 
@@ -50,6 +50,15 @@ highlight=LaTeX
 line=0
 open=false
 order=5
+
+[item:disenio_alto_nivel.tex]
+archive=true
+column=0
+encoding=UTF-8
+highlight=LaTeX
+line=5
+open=true
+order=3
 
 [item:economia.tex]
 archive=true
@@ -71,10 +80,10 @@ order=-1
 
 [item:main.tex]
 archive=true
-column=0
+column=1
 encoding=UTF-8
 highlight=LaTeX
-line=34
+line=82
 open=true
 order=0
 
