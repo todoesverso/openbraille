@@ -3,3 +3,50 @@
 
 \section{Dise\~no de alto nivel}
 %
+Lo primero a considerar es la forma de comunicaci\'on entre la computadora y
+la impresora, y si bien el dise\~no debe centrarse en matener los costos de
+producci\'on y construcci\'on bajos de nada sirve un dispositivo basado en
+tecnolog\'ia a en desuso o pronta a desaparcer. Es por esto que en vez de
+elegir metodos convencionales como lo pueden ser el portocolo serial
+R232\footnote{V\'ease - \url{http://es.wikipedia.org/wiki/RS-232}} o
+paralelo\footnote{V\'ease - \url{http://es.wikipedia.org/wiki/Puerto_paralelo}}
+(t\'ipico de impresoras antiguas), se usar\'a el protocolo serie de
+comunicaci\'on \emph{USB}\footnote{El estandar se explica en detalle en
+\fullref{cap:usb}.} \'Este estandar se encuentra en la mayoria de los equipos
+actuales y provee una versatilidad y flexibilidad como pocos.\\
+
+Otro tema muy importante a considerar es el sistema operativo a usar en la
+computadora. Si bien puede pensarse como respuesta obvia el sistema operativo
+de Microsoft,
+Windows\footnote{V\'ease - \url{http://www.microsoft.com/spain/windows/}} (en
+su versi\'on m\'as comercializada \emph{XP}), este enfoque fuerza al potencial
+usuario a comprar una licencia\footnote{Dichas licencias rondan los 100 US\$}
+solo para poder utilizar la impresora.\
+Entonces en vez de optar por un sistema pago se usar\'a el sistema
+operativo \emph{GNU/Linux}
+% ###--->>> Poner referencia a la seccion donde hablo de gnu/linux
+del cual existen mas de mil versiones distintas, la mayoria de ellas gratuitas.
+De esta forma el usuario puede obtener una copia de este sistema operativo
+gratuito y usar la impresora sin mayores restricciones.\\
+
+En la figura \ref{fig:pc_usb_printer} se muestra un esquema basico de lo dicho
+anteriormente. El esquema en su m\'as alto nivel ser\'a usar una computadora
+con \emph{GNU/Linux} como sistema operativo y una conexi\'on mediante
+\emph{USB} al dispositivo.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=13cm]{./img/pc_usb_printer.png}
+\caption{S.O, conexi\'on e impresora}
+\label{fig:pc_usb_printer}
+\end{figure}
+
+\section{Dise\~no de nivel medio}
+%
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=13cm]{./img/pc_uc_motors.png}
+\caption{S.O, conexi\'on e impresora}
+\label{fig:pc_uc_motors}
+\end{figure}

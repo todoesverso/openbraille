@@ -19,46 +19,11 @@
 \usepackage{colortbl}
 \usepackage{url}
 \usepackage[puttinydots]{braille}
-\usepackage{./template}
-
-% Style for URLs
-%% Define a new 'leo' style for the package that will use a smaller font.
-\makeatletter
-\def\url@leostyle{%
-  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
-\makeatother
-%% Now actually use the newly defined style.
-\urlstyle{leostyle}
-
-
-% Syntax hl C
-\usepackage{listings}
- \definecolor{Brown}{cmyk}{0,0.81,1,0.60}
- \definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
- \definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
-\lstset{language=C,frame=ltrb,framesep=5pt,basicstyle=\scriptsize,
-  keywordstyle=\ttfamily\color{OliveGreen},
- identifierstyle=\ttfamily\color{CadetBlue}\bfseries, 
- commentstyle=\color{Brown},
- stringstyle=\ttfamily,
- showstringspaces=ture,fontadjust=true,breaklines=true}
-
-% Comandos abreviados
-\newcommand{\picurl}{http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf
-}
-
-
-%\hfuzz = .6pt % avoid black boxes
 
 
 
-% Formateador de  portada
-\newcommand{\THESISNAMEA}{T\'itulo }
-\newcommand{\THESISAUTHORA}{\hspace*{1in}Rosales Victor Hugo\hspace*{1.2in}787774}
 
-\newcommand{\THESISDATE}{Fecha}
-\newcommand{\THESISYEAR}{2009}
-\newcommand{\THESISSINODALA}{Tutor}
+
 %-----------------------------------------------------------------------------------------
 
 \title{\THESISNAMEA}
@@ -120,11 +85,13 @@
 %\include{el_dispositivo}
 %\include{software_libre}
 %\include{mercado_software}
-%\include{usb}
+\include{disenio_alto_nivel}
+\include{usb}
 %\include{diagnostico}
 %\include{economia}
 
-\include{braille}
+
+%\include{braille}
 % De esta forma armamos el anexo, incluyendo el codigo sin hardcoderar el path
 %\include{anexo}
 % ----------------------------------------------------------------------------

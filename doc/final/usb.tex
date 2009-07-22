@@ -1,4 +1,5 @@
-\chapter{USB}
+\chapter{USB}\label{cap:usb}
+
 El \emph{Universal Serial Bus}(USB\footnote{V\'ease - http://www.usb.org}) es
 un bus serial ent\'andar que hace de interfaz entre un dispositivo y una
 computadora.
@@ -50,7 +51,7 @@ Para la veri\'on 2.0 de la epecificaci\'on, el protocolo soporta tres
 velocidades de transimsi\'on como se muestra en la
 tabla \ref{tab:velocidad_usb}.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 % use packages: array,booktabs
 \begin{tabular}{|c|c|}        \hline
@@ -211,7 +212,7 @@ Un paquete \emph{token} esta formado por los siguientes campos mostrados en la
 tabla \ref{tab:usb_token_fields}
 
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 % use packages: array,booktabs
 \begin{tabular}{|c|c|c|c|c|c|} \hline
@@ -227,7 +228,7 @@ Sync & PID & ADDR & ENDP & CRC5 & EOP\\ \hline
 Un paquete \emph{data} esta formado por los siguientes campos mostrados en la
 tabla \ref{tab:usb_data_fields}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 % use packages: array,booktabs
 \begin{tabular}{|c|c|c|c|c|} \hline
@@ -252,7 +253,7 @@ transacci\'on. Existen tres tipos de paquetes \emph{status}:
 Un paquete \emph{status} esta formado por los siguientes campos mostrados en la
 tabla \ref{tab:usb_status_fields}.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 % use packages: array,booktabs
 \begin{tabular}{|c|c|c|} \hline
@@ -419,7 +420,7 @@ En la tabla \ref{tab:usb_states}, se puede apreciar una breve explicaci\'on de
 cada estado
 
 % Spec 2,.0 pag 241
-\begin{table}[h]
+\begin{table}[ht]
 \begin{scriptsize}
 \centering
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}|c|c|c|c|c|c|p{5cm}|} \hline
@@ -547,7 +548,9 @@ A continuaci\'on se describir\'an en brevedad cada registro implicado en
 \subsubsection{UCON}
 % Generar una ref para el apendice del datasheet del 18f4550
 El registro \emph{UCON} \footnote{Para m\'as detalles referirse al
-ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 164, o bien a
+ap\'endice - 
+%\ref{apen:18f4550_datasheet} 
+p\'agina 164, o bien a
 http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf}
 posee los bits necesarios para controlar el modulo USB
 durante las transferencias. De aqui se controlan:
@@ -565,7 +568,9 @@ durante las transferencias. De aqui se controlan:
 \subsubsection{UCFG}
 % Generar una ref para el apendice del datasheet del 18f4550
 El registro \emph{UCFG} \footnote{Para m\'as detalles referirse al
-ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 165, o bien a
+ap\'endice - 
+%\ref{apen:18f4550_datasheet} 
+p\'agina 165, o bien a
 http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf} contiene los bits
 necesarios para determinar el comportamiento del modulo USB. Dicho registro
 controla:
@@ -582,7 +587,9 @@ controla:
 
 \subsubsection{USTAT}
 El registro \emph{USTAT} \footnote{Para m\'as detalles referirse al
-ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 168, o bien a
+ap\'endice - 
+%\ref{apen:18f4550_datasheet} 
+p\'agina 168, o bien a
 http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf} contine la
 informaci\'ion espec\'ifica de la \'ultima transferencia recibida. De \'este
 registro se puede leer:
@@ -611,7 +618,9 @@ el registro \emph{USTAT}, como se puede apreciar en la figura
 
 \subsubsection{UEPn}
 Los registros \emph{UEPn} \footnote{Para m\'as detalles referirse al
-ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 169, o bien a
+ap\'endice - 
+%\ref{apen:18f4550_datasheet} 
+p\'agina 169, o bien a
 http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf} contiene la
 configuraci\'on de cada uno de los 16 enpoints. La letra 'n' representa el
 n\'umero del enpoint.
@@ -631,7 +640,9 @@ individualmente, los siguientes pa\'ametros:
 
 \subsubsection{UADDR}
 El registro \emph{UADDR} \footnote{Para m\'as detalles referirse al
-ap\'endice - \ref{apen:18f4550_datasheet} p\'agina 170, o bien a
+ap\'endice - 
+%\ref{apen:18f4550_datasheet} 
+p\'agina 170, o bien a
 http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf} contiene la
 direcci\'on \'unica que el perif\'erico decodificar\'a una vez activado. Es el
 microcontrolador quien debe encargarse de escribir la direcci\'on obtenida
@@ -680,7 +691,7 @@ componen de 4 registros:
  \item BDnADRL: Direcci\'on baja del BD
 \end{itemize}
 
-\'Esta disposicion sepuede apreciar mejor en la figura \ref{fig:pic_bdt.png}.
+\'Esta disposicion se puede apreciar mejor en la figura \ref{fig:pic_bdt}.
 
 % Datasheet pag 171
 \begin{figure}[htp]

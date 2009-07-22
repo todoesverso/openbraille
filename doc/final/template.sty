@@ -24,7 +24,8 @@
 
 \pagestyle{fancy}
 
-% pone el nombre de los capitulos en el encabezado sin punto al final, y en minusculas.
+% pone el nombre de los capitulos en el encabezado sin punto al final, 
+% y en minusculas.
 \renewcommand{\chaptermark}[1]{
    \markboth{\chaptername\ \thechapter\ \ #1}{}
 }
@@ -62,6 +63,11 @@
 \makeatother
 
 
+% Footnote stuff
+
+
+
+
 
 % otras definiciones
 \setlength{\textheight}{22.5cm}
@@ -89,3 +95,44 @@
 %\newtheorem{lema}{Lema}[chapter]
 %\newtheorem{teorema}{Teorema}[chapter]
 %\newtheorem{definicion}{Definici\'on}[chapter]
+
+% Style for URLs
+%% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leostyle}
+
+
+% Syntax hl C
+\usepackage{listings}
+ \definecolor{Brown}{cmyk}{0,0.81,1,0.60}
+ \definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+ \definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+\lstset{language=C,frame=ltrb,framesep=5pt,basicstyle=\scriptsize,
+  keywordstyle=\ttfamily\color{OliveGreen},
+ identifierstyle=\ttfamily\color{CadetBlue}\bfseries, 
+ commentstyle=\color{Brown},
+ stringstyle=\ttfamily,
+ showstringspaces=ture,fontadjust=true,breaklines=true}
+
+% Comandos abreviados
+\newcommand{\picurl}{http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf
+}
+
+% Referencias a capitulos
+\newcommand{\fullref}[1]{la p\'agina \pageref{#1} del cap\'itulo \ref{#1}}
+%\hfuzz = .6pt % avoid black boxes
+
+
+
+% Formateador de  portada
+\newcommand{\THESISNAMEA}{T\'itulo }
+\newcommand{\THESISAUTHORA}{\hspace*{1in}Rosales Victor
+Hugo\hspace*{1.2in}787774}
+
+\newcommand{\THESISDATE}{Fecha}
+\newcommand{\THESISYEAR}{2009}
+\newcommand{\THESISSINODALA}{Tutor}
