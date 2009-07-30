@@ -1,7 +1,9 @@
 \chapter{Dise\~no}
 %
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Dise\~no de alto nivel}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 Lo primero a considerar es la forma de comunicaci\'on entre la computadora y
 la impresora, y si bien el dise\~no debe centrarse en mantener los costos de
@@ -43,8 +45,12 @@ con \emph{GNU/Linux} como sistema operativo y una conexi\'on mediante
 \label{fig:pc_usb_printer}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Dise\~no de nivel medio}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Microcontrolador}
 Lo primero a analizar es el microcontrolador a usar. El mercado de
 desarrollo electr\'onico Argentino tiene una tendencia a usar las soluciones de
 Microchip\footnote{V\'ease - \url{http://www.microchip.com/}}, y es por ello
@@ -66,7 +72,7 @@ mercado local.} en el pa\'is son el \emph{18F2550} y el \emph{18F4550}. La
 tabla \ref{tab:table_12_14} muestra las principales caracter\'isticas de ambos
 microcontroladores.
 
-\begin{table}[ht]
+\begin{table}[htp]
 \begin{scriptsize}
 \centering
 % use packages: array,booktabs
@@ -98,9 +104,9 @@ microcontroladores.
 
 Se observa que no existe gran diferencia entre ambos MCU\footnote{Del ingles
 \emph{Micro Controller Unit}}, al igual que sus precios como se observa en la
-tabla\ref{tab:table_12_14_price}.
+tabla \ref{tab:table_12_14_price}.
 
-\begin{table}[ht]
+\begin{table}[htp]
 \centering
 \begin{tabular}{l|r}
  \toprule
@@ -112,17 +118,292 @@ tabla\ref{tab:table_12_14_price}.
 
 \begin{tiny} 
 \caption{Comparaci\'on de precios PIC18F2550 y PIC18F4550}\footnote{Los precios
-fueron extraidos de la p\'agina oficial de Microchip}
+unitarios fueron extraidos de la p\'agina oficial de Microchip}
 \end{tiny} 
 \label{tab:table_12_14_price}
 \end{table}
 
+Se puede concluir entonces que para \'este trabajo el PIC18F2550 satisface en
+grandes rasgos los requerimientos m\'inimos. No obstante, y por cuestiones de
+comodidad\footnote{Esto es disponibilidad a la hora de realizar el proyecto.}
+,se usar\'a el PIC18F4550, realizando el dise\~no con vistas a migrar el MCU
+al PIC18F2550 en el futuro.\\
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Entradas y salidas}
+%
+Si bien no se encuentra dentro del alcance de este trabajo proveer una
+soluci\'on para la parte mec\'anica de la impresora, es necesario determinar
+con que debe interactuar la parte electr\'onica, esto es; cuales ser\'an las
+entradas y cuales ser\'an las salidas.\\
+
+Como se determin\'o anteriormente el mecanismo a usar ser\'a de un \'unico
+punz\'on desplazante, esto implica que se debe generar moviemiento horizontal
+para el cabezal y movimiento vertical para el papel, es necesaria adem\'as una
+se\~nal para manejar el punz\'on. Quedan entonces definidas las salidas.\
+Por otra parte es necesario definir algun tipo de se\~nal de entrada. Para
+mantener un dise\~no simple solo se usar\'an entonces una se\~nal de presencia
+de papel y un fin de carrera para el cabezal.\\
+
+En la figura \ref{fig:pc_uc_motors} se ve el dise\~no general. \'Este posee la
+particularidad de ser el usado por la mayoria de las antiguas impresoras
+matriz de punto, siendo entonces posible usar un mecanismo fabricado a medida,
+o bien adaptar una impresora vieja.
 
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=13cm]{./img/pc_uc_motors.png}
-\caption{S.O, conexi\'on e impresora}
+\caption{Dise\~no de alto nivel.}
 \label{fig:pc_uc_motors}
 \end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dise\~no de bajo nivel}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+Para mantener los costos bajos, y teniendo en cuenta las limitaciones del
+microcontrolador elegido, la mayor parte del procesamiento se lleva a cabo
+en la computadora, logrando de esta manera economizar espacio en el firmware y
+evitar la neceidad de hardware extra.\\
+
+En su mayoria, las impresoras braille comerciales posen integrado un sistema
+sintetizador de voz, con mensajes pregrabados en varios idiomas que se
+reproducen por cada acci\'on que la impresora ejecuta. Esto, claro est\'a,
+implica la necesidad de grandes cantidades de memoria y quiz\'a un chip
+dedicado. Para evitar usar chips sintetizadores de voz y memeorias, y
+teniendo en cuenta que la mayoria de las computadoras actuales poseen sistemas
+de reproducc\'on de audio, \'este trabajo queda a cargo de \'estas.\
+Al igual que el audio, existe gran cantidad de prcesamiento a llevar a cabo
+para la conversi\'on del texto a braille, y varias decisiones que usualmente
+toman las impresoras. Todo esto se resuelve del lado de la computadora.\
+Entonces es posible ahora, hablar de driver (que ser\'a el programa
+ejecutandose en la computadora) y firmware (que ser\'a el programa ejecutandose
+en el microcontrolador) al referirnos a la computadora y a el dispositivo
+respectivamente.\
+Para lograr esto, el firmware solo es capaz de realizar tareas basicas y
+sencillas, respondiendo a instrucciones que el driver envia y reportando los
+resultados obtenidos. La figura \ref{fig:driver_firmware} muestra una
+representaci\'on de lo dicho anteriormente.\\
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[node distance = 10cm, auto]
+  \node [block] (driver) {Driver};
+  \node [block, right of=driver] (firmware) {Firmware};
+  \draw [line] (driver) to [bend right] node [midway] {Datos} (firmware);
+  \draw [line] (driver) to [bend left] (firmware) node [midway]
+{Instrucciones};
+  \draw [line] (firmware) -- node [midway] {Resultados} (driver);
+\end{tikzpicture}
+\caption{Canales de comunicaci\'on entre el driver y el firmware.}
+\label{fig:driver_firmware}
+\end{figure}
+
+
+Para instanciar el modelo anterior haciendo uso del m\'etodo de comunicaci\'on
+elegido\footnote{Esto es el estandar USB}, se definen dos
+endopoints\footnote{V\'ease \fullref{cap:usb_endpoints}} bidireccionales, uno
+dedicado exclusivamente al envio de datos (endpoint 1 o EP1) y otro para enviar
+instucciones y recibir resultados (endpoint 2 o EP2). La figura
+\ref{fig:driver_eps_firmware} muestra la comunicaci\'on mediante endpoints.
+
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[node distance = 10cm, auto]
+  \node [block] (driver) {Driver};
+  \node [block, right of=driver] (firmware) {Firmware};
+  \draw [line] (driver) (1.2,0.6) -- (8.8,0.6) node [midway] {Datos - EP1}
+(firmware);
+  \draw [line] (driver) (1.2,0) -- (8.8,0) node [midway] {Instrucciones - EP2
+Out} (firmware);
+  \draw [latex-] (firmware) (1.2,-0.6) -- (8.8,-0.6) node [midway]
+{Resultados - EP2 In} (driver);
+\end{tikzpicture}
+\caption{Canales de comunicaci\'on entre el driver y el firmware mediante
+endpoints.}
+\label{fig:driver_eps_firmware}
+\end{figure}
+
+Habiendo definido los canales de comunicaci\'on y sus respectiva funciones, es
+necesario determina el tipo y forma de los datos y las instrucciones a manejar.
+
+\subsection{Datos}
+%%%%%%%%%%%%%%%%%%
+%
+La cantidad de caracteres braille que entran en el ancho de una hoja A4, ronda
+los 30 dependiendo del tama\~no de las sangrias. Para dejar un margen se eligen
+28 caracteres. Teniendo en cuenta que los caracteres braille poseen dos
+columnas de puntos\footnote{V\'ease \fullref{cap:braille_cell}} y que el
+dato m\'inimo que se puede enviar por USB es de un byte\footnote{V\'ease
+\fullref{cap:usb_byte}}, para completar una linea a lo ancho de una p\'agina de
+una fila de puntos se necesitan:
+
+\begin{center}
+$28 caracteres * 2 puntos = 56 bits$\\
+$56 bits / 8  = 7 bytes$
+\end{center}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|} \hline
+\braille{c} \braille{c} \braille{c} \braille{c} &
+\braille{c} \braille{c} \braille{c} \braille{c} &
+... 												 \\ \hline
+byte 1 & byte 2 & ...\\ \hline
+\end{tabular}
+\caption{Bytes por puntos braille} 
+\label{tab:bytes_braille}
+\end{table}
+
+Entonces el m\'aximo numero de bytes a enviar para los datos es de 7 bytes. 
+
+\subsection{Instrucciones}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+Para limitar la capacidad de funcionalidades del dispositivo solo se
+definen ocho instrucciones b\'asicas descriptas en la tabla
+\ref{tab:instructions_set}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|c|l|} 												\hline
+\rowcolor[gray]{.9}
+Instrucci\'on & Byte & Descripci\'on 								\\ 	\hline
+RESET 		&	0x01	&	Resetea el cabezal	al punto de origen	\\	\hline
+PRINT 		&	0x02	&	Imprime los datos						\\	\hline
+MOV\_SHORT 	&  	0x03	&	Desplaza el cabezal entre puntos		\\	\hline
+MOV\_LONG  	&  	0x04	&	Desplaza el cabezal entre caracteres	\\	\hline
+ROT\_SHORT 	&	0x05	&	Rota el rodillo entre lineas			\\	\hline
+ROT\_LONG   &	0x06	&	Rota el rodillo entre caracteres		\\	\hline
+PULL\_PAPER	&	0x07	&	Rota el rodillo hasta sacar el papel	\\	\hline
+STATUS		&	0x08	&	Pide el estado de los sensores			\\	\hline
+\end{tabular}
+\caption{Instrucciones de impresi\'on} 
+\label{tab:instructions_set}
+\end{table}
+
+Este set de instrucciones proporcionan todas las funcionalidades necesarias
+para poder llevar a acabo un proceso de impresi\'on normal.
+
+\subsection{Resultados}
+%%%%%%%%%%%%%%%%%%%%%%%
+%
+Se definen dos tipos de resultados ditintos, uno que es devuelto cuando se
+envia la instruccion \emph{STATUS} y otro que se genera siempre luego de un
+envio de datos que consta en el dato recreado por la impresora, esto es solo a
+modo de verificaci\'on tipo \emph{echo}.\\
+
+Ante una instrucci\'on del tipo \emph{STATUS}, el dispositivo lee los estados
+de los dos sensores y genera un byte de reporte descripto en la tabla
+\ref{tab:report_byte}.
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}									\hline
+\multicolumn{8}{|c|}{Byte}										\\	\hline
+x & x & x & x & x & x & 1/0 & 1/0 								\\ 	\hline
+- & - & - & - & - & - & Sensor de cabezal & Sensor de papel		\\	\hline
+\end{tabular}
+\caption{Byte de reporte} 
+\label{tab:report_byte}
+\end{table}
+
+Entonces dependiendo del estado de los dos bits menos significativos del byte
+de reporte, el driver puede saber en que estado se encuentra la impresora.\\
+
+El segundo tipo de resultado definido es el \emph{echo}. Cuando el driver
+envia datos para imprimir, la impresora comienza el proceso de impresi\'on y
+va recreando los datos recibidos segun lo que hace, luego este dato recreado
+se envia de vuelta al driver quien comprar ambos datos y verifica que sean
+iguales.
+
+
+
+\begin{tikzpicture}
+  [auto,
+   decision/.style={diamond, draw=blue, thick, fill=blue!20,
+                    text width=4.5em, text badly centered,
+                    inner sep=1pt},
+   block/.style   ={rectangle, draw=blue, thick, fill=blue!20,
+                    text width=5em, text centered, rounded corners,
+                    minimum height=4em},
+   line/.style    ={draw, thick, -latex' ,shorten >=2pt},
+   cloud/.style   ={draw=red, thick, ellipse,fill=red!20,
+                    minimum height=2em}]
+  \matrix [column sep=5mm,row sep=7mm]
+  {
+    % row 1
+      \node [cloud] (expert)   {expert}; &
+      \node [block] (init)     {initialize model}; &
+      \node [cloud] (system)   {system}; \\
+    % row 2
+      & \node [block] (identify) {identify candidate model}; & \\
+    % row 3
+      \node [block] (update)   {update model}; &
+      \node [block] (evaluate) {evaluate candidate models}; & \\
+    % row 4
+      & \node [decision] (decide) {is best candidate}; & \\
+    % row 5
+      & \node [block] (stop)      {stop}; & \\
+  };
+  \begin{scope}[every path/.style={draw, -latex'}]
+    \path          (init)     -- (identify);
+    \path          (identify) -- (evaluate);
+    \path          (evaluate) -- (decide);
+    \path          (update)   |- (identify);
+    \path          (decide)   -| node [near start] {yes} (update);
+    \path          (decide)   -- node [midway] {no} (stop);
+    \path [dashed] (expert)   -- (init);
+    \path [dashed] (system)   -- (init);
+    \path [dashed] (system)   |- (evaluate);
+  \end{scope}
+\end{tikzpicture}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%##### WTF!!!!???? #########
+%\pgfmathsetseed{1}
+%\foreach \col in {black,red,green,blue}
+%{
+%  \begin{tikzpicture}[x=10pt,y=10pt,ultra thick,baseline,line cap=round]
+%    \coordinate (current point) at (0,0);
+%    \coordinate (old velocity) at (0,0);
+%    \coordinate (new velocity) at (rand,rand);
+%    \foreach \i in {0,1,...,100}
+%    {
+%      \draw[\col!\i] (current point)
+%     .. controls ++([scale=-1]old velocity) and
+%                   ++(new velocity) .. ++(rand,rand)
+%         coordinate (current point);
+%      \coordinate (old velocity) at (new velocity);
+%      \coordinate (new velocity) at (rand,rand);
+%    }
+%  \end{tikzpicture}
+%}
+%\begin{tikzpicture}[x=3.8cm/360]
+%  \pgfplothandlerlineto
+%  \pgfplotfunction{\x}{0,5,...,360}{\pgfpointxy{\x}{sin(\x)+sin(3*\x)}}
+%  \pgfusepath{stroke}
+%\end{tikzpicture}
+
+
+
+
+

@@ -267,7 +267,7 @@ Sync & PID & EOP\\ \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\section{Enpoints}
+\section{Enpoints}\label{cap:usb_endpoints}
 Un aspecto muy importante del estandar USB es la forma en la que se logra la
 comunicaci\'on entre el host y el dispositivo.
 Un \emph{endpoint} es un buffer \'unico que define la punta extrema de un
@@ -674,6 +674,7 @@ un sistema de semaforos, asegurando de \'esta manera que un solo dispositivo
 este accediendo al mismo segmento de memoria a la vez.
 
 \subsection{Desciptores de Buffer y Tabla de Descriptores de Buffers}
+\label{cap:usb_byte}
 Para proveerle cierta felxibilidad al usuario, el m\'odulo USB hace uso de
 una estructura particualr de datos donde se describen los \emph{endpoints} del
 USB denominada \emph{Buffer Descriptor Table (BDT)}. \\
