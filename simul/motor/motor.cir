@@ -1,7 +1,7 @@
 * simulation of motor
 .control
   set filetype=ascii
-  tran 10ns 10us   
+  tran 10ns 30us   
 
 write
 .endc

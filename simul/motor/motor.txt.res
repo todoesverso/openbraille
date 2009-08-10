@@ -72,12 +72,20 @@ Circuit: * simulation of motor
 
 Warning -- Level not specified on line "is=2.83372e-13 bf=255 nf=1.02154 vaf=10 ikf=1.49182 ise=2.38053e-11 ne=2.07043 br=2.35039 nr=1.06482 var=100 ikr=4.67427 isc=9.29191e-13 nc=3.99655 rb=4.8102 irb=0.1 rbm=0.1 re=0.0853195 rc=0.426598 xtb=0.770827 xti=1 eg=1.19761 cje=4.23873e-11 vje=0.4 mje=0.337119 tf=7.10643e-10 xtf=1.15136 vtf=1.55902 itf=0.169013 cjc=1.55039e-11 vjc=0.786451 mjc=0.23 xcjc=0.1 fc=0.8 cjs=0 vjs=0.75 mjs=0.5 tr=1e-07 ptf=0 kf=0 af=1"
 Using level 1.
-Warning -- Level not specified on line "is=2.83372e-13 bf=255 nf=1.02154 vaf=10 ikf=1.49182 ise=2.38053e-11 ne=2.07043 br=2.35039 nr=1.06482 var=100 ikr=4.67427 isc=9.29191e-13 nc=3.99655 rb=4.8102 irb=0.1 rbm=0.1 re=0.0853195 rc=0.426598 xtb=0.770827 xti=1 eg=1.19761 cje=4.23873e-11 vje=0.4 mje=0.337119 tf=7.10643e-10 xtf=1.15136 vtf=1.55902 itf=0.169013 cjc=1.55039e-11 vjc=0.786451 mjc=0.23 xcjc=0.1 fc=0.8 cjs=0 vjs=0.75 mjs=0.5 tr=1e-07 ptf=0 kf=0 af=1"
+Warning -- Level not specified on line "(is=1e-14 vaf=100    bf=200 ikf=0.3 xtb=1.5 br=3    cjc=8e-12 cje=25e-12 tr=100e-9 tf=400e-12    itf=1 vtf=2 xtf=3 rb=10 rc=3 re=1 vceo=30 icrating=800m  mfg=philips)"
 Using level 1.
-Warning -- Level not specified on line "is=1.15528e-13 bf=387.828 nf=0.937439 vaf=30 ikf=0.270029 ise=5.36359e-11 ne=1.54544 br=0.1 nr=1.5 var=134.979 ikr=0.109764 isc=1.00329e-13 nc=1.97549 rb=4.9473 irb=0.200762 rbm=4.9473 re=0.0964614 rc=0.482307 xtb=0.580269 xti=2.92642 eg=1.05 cje=2.08206e-10 vje=0.945586 mje=0.23 tf=1e-09 xtf=1 vtf=10 itf=0.01 cjc=1.67927e-10 vjc=0.754327 mjc=0.289398 xcjc=0.9 fc=0.5 tr=1e-07 ptf=0 kf=0 af=1"
-Using level 1.
-Warning -- Level not specified on line "is=1.15528e-13 bf=387.828 nf=0.937439 vaf=30 ikf=0.270029 ise=5.36359e-11 ne=1.54544 br=0.1 nr=1.5 var=134.979 ikr=0.109764 isc=1.00329e-13 nc=1.97549 rb=4.9473 irb=0.200762 rbm=4.9473 re=0.0964614 rc=0.482307 xtb=0.580269 xti=2.92642 eg=1.05 cje=2.08206e-10 vje=0.945586 mje=0.23 tf=1e-09 xtf=1 vtf=10 itf=0.01 cjc=0 vjc=0.754327 mjc=0.289398 xcjc=0.9 fc=0.5 tr=1e-07 ptf=0 kf=0 af=1"
-Using level 1.
+Error on line 61 : .model 2n2222 npn(is=1e-14 vaf=100    bf=200 ikf=0.3 xtb=1.5 br=3    cjc=8e-12 cje=25e-12 tr=100e-9 tf=400e-12    itf=1 vtf=2 xtf=3 rb=10 rc=3 re=1 vceo=30 icrating=800m  mfg=philips)
+	unrecognized parameter (vceo) - ignored
+	
+	unrecognized parameter (30) - ignored
+	
+	unrecognized parameter (icrating) - ignored
+	
+	unrecognized parameter (800m) - ignored
+	
+	unrecognized parameter (mfg) - ignored
+	
+	unrecognized parameter (philips) - ignored
 Doing analysis at TEMP = 300.150000 and TNOM = 300.150000
 
 Initial Transient Solution
@@ -86,14 +94,12 @@ Initial Transient Solution
 Node                                   Voltage
 ----                                   -------
 in                                           0
-vbasebc                            2.32761e-09
-3                                           12
-vbase                                  1.27851
-out                                    0.39095
-2                                           12
-t1:4                                  0.670067
-1                                    0.0121291
-v_motor#branch                        -0.11609
-v1#branch                          -0.00536074
-v2#branch                          2.32761e-12
+vbasebc                            1.08445e-08
+2                                      6.54056
+1                                           12
+out                                    0.64617
+vbase                                  1.08112
+3                                      0.11889
+v_motor#branch                       -0.118998
+v2#branch                          1.08445e-12
 
