@@ -1,6 +1,35 @@
 \chapter{Anexo}
 \section{USB firmware}
+
 \subsection{Cabecera}
 \lstinputlisting{../../trunk/firmware/usb.h}
+
 \subsection{Fuente}
 \lstinputlisting{../../trunk/firmware/usb.c}
+
+\section{Hardware}
+\subsection{Driver motores paso a paso}
+% ### REMOVE HEADER FROM THIS PAGE
+\newpage
+\clearpage
+\begin{textblock*}{297mm}(0mm,0mm)
+   \includegraphics[width=\paperwidth]{./img/driver.png}
+   \label{cap:driver_schema}
+\end{textblock*}
+\pagebreak
+\cleardoublepage
+
+\newpage
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm]{./img/driver_3d_1.png}
+  \label{fig:driver_3d_1}
+  \caption{Vista superior del driver de los motores paso a paso}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm]{./img/driver_3d_2.png}
+  \label{fig:driver_3d_2}
+  \caption{Vista en 3D del driver de los motores paso a paso}
+\end{figure}
