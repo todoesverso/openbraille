@@ -403,15 +403,80 @@ comodidad\footnote{Esto es disponibilidad a la hora de realizar el proyecto.}
 ,se usar\'a el PIC18F4550, realizando el dise\~no con vistas a migrar el MCU
 al PIC18F2550 en el futuro.\\
 
+Como se explica en \fullref{cap:motors_section}, se requieren dos motores, lo
+cual implica tener a disposici\'on ocho se\~nales de control. Para ello se hace
+uso del puerto B del microcontrolador, el cual posee la particularidad de estar
+provisto de resistencias de \emph{pull-up} programables. De esta manera los
+dos motores pueden controlarse mediante la escritura de un \'unico puerto.\
+La figura \ref{fig:uc_portb_motors} muestra la conexi\'on del puerto B del
+microcontrolador a la ficha de se\~nales de los motores.
+
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=13cm]{./img/uc_portb_motors.png}
+\caption{Puerto B del PIC18f4550 conectado a las se\~nales de control de
+los motores paso a paso.}
+\label{fig:uc_portb_motors}
+\end{figure}
+ 
+
+
+\clearpage
+\begin{lstlisting}
+/**
+ * move() -     Function to move both motors
+ * @loops:      Number of loops of a complete sequence
+ * @direction:  Direction to move (RIGHT/LEFT, UP/DOWN)
+ * @motor:		Which motor to move (CAR/ROLLER) 
+ *
+ * This function moves each motor in a defined direction and an specific
+ * amount of space depending on the parameters that are passed to it.
+ **/
+void move(byte loops, byte direction, byte motor) 
+{
+        byte stepsI[8] = {0x77, 0x33, 0xbb, 0x99, 0xdd, 0xcc, 0xee, 0x66};
+        byte stepsD[8] = {0x66, 0xee, 0xcc, 0xdd, 0x99, 0xbb, 0x33, 0x77}; 
+        byte val, i, loops_aux;
+
+        if (direction)
+                for (loops_aux = 0; loops_aux < loops; loops_aux++) {
+                        for (i = 0; i < 8; i++) {		
+                                val = stepsI[i];
+                                if (motor) {
+                                        PORTB = (PORTB & 0xf0) | (val & 0x0f);
+                                        delay(50);
+                                } else {
+                                        PORTB = (PORTB & 0x0f) | (val & 0xf0);
+                                        delay(50);
+                                }
+                        }
+                }
+        else
+                for (loops_aux = 0; loops_aux < loops; loops_aux++) {
+                        for (i = 0; i < 8; i++) {		
+                                val = stepsD[i];
+                                if (motor) {
+                                        PORTB = (PORTB & 0xf0) | (val & 0x0f);
+                                        delay(50);
+                                } else {
+                                        PORTB = (PORTB & 0x0f) | (val & 0xf0);
+                                        delay(50);
+                                }
+                        }
+                }
+}
+\end{lstlisting}
+
+
 
 
 \subsection{Potencia}
 %%%%%%%%%%%%%%%%%%%%%
 %
-El modulo de potencia se focaliza principalmente en el manejo de los motores y
-sensores de la impresora.
+El modulo de potencia se focaliza principalmente en el manejo de los motores.
 
-\subsubsection{Motores}
+\subsubsection{Motores}\label{cap:motors_section}
 %%%%%%%%%%%%%%%%%%%%%%%
 %
 Como muestra la figura \ref{fig:pc_uc_motors}, solo se controlan dos motores, y
@@ -491,51 +556,6 @@ El esquematico final se encuentra en el anexo en \fullref{cap:driver_schema}.
 
 
 
-
-
-
-\subsubsection{Sensores}
-%%%%%%%%%%%%%%%%%%%%%%%
-%
-El requerimiento de los sensores es bastante sencillo; como fue definido
-anteriormente, solo son necesarios dos sensores de tipo \emph{on/off}. \
-Existe en el mercado un vasta variedad de interruptores que cumplen con las
-condiciones necesarias y a su vez cubren un gran rango de precios.\\
-
-
-
-
-
-
-
-
-
-
-
-%##### WTF!!!!???? #########
-%\pgfmathsetseed{1}
-%\foreach \col in {black,red,green,blue}
-%{
-%  \begin{tikzpicture}[x=10pt,y=10pt,ultra thick,baseline,line cap=round]
-%    \coordinate (current point) at (0,0);
-%    \coordinate (old velocity) at (0,0);
-%    \coordinate (new velocity) at (rand,rand);
-%    \foreach \i in {0,1,...,100}
-%    {
-%      \draw[\col!\i] (current point)
-%     .. controls ++([scale=-1]old velocity) and
-%                   ++(new velocity) .. ++(rand,rand)
-%         coordinate (current point);
-%      \coordinate (old velocity) at (new velocity);
-%      \coordinate (new velocity) at (rand,rand);
-%    }
-%  \end{tikzpicture}
-%}
-%\begin{tikzpicture}[x=3.8cm/360]
-%  \pgfplothandlerlineto
-%  \pgfplotfunction{\x}{0,5,...,360}{\pgfpointxy{\x}{sin(\x)+sin(3*\x)}}
-%  \pgfusepath{stroke}
-%\end{tikzpicture}
 
 
 
