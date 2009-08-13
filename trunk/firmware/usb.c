@@ -1,7 +1,6 @@
 /*   usb.c - The main functions for usb handle.
  *
- *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
- *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *  Copyright (C) 2009  Rosales Victor (todoesverso@gmail.com)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -237,12 +236,13 @@ void InitEndpoint(void)
  * to the caller.  If the send failed (usually because a send was attempted while
  * the SIE was busy processing the last request), then 0 is returned.
  **/ 
-byte BulkIn(byte ep_num, byte *buffer, byte len){
+byte BulkIn(byte ep_num, byte *buffer, byte len)
+{
 	byte i;
         /**
          * If slelected EP1
          **/
-        if (ep_num == 1){        
+        if (ep_num == 1) {        
         /** 
          * If SIE owns the BD do not try to send anything and return 0. 
          **/
@@ -272,7 +272,7 @@ byte BulkIn(byte ep_num, byte *buffer, byte len){
         /**
         * If selected EP2 (same as above)
         **/
-        else if (ep_num == 2){
+        else if (ep_num == 2) {
 	        if (ep2Bi.Stat & UOWN)
 		        return 0;
 	
@@ -307,8 +307,9 @@ byte BulkIn(byte ep_num, byte *buffer, byte len){
  * bytes will be returned.  Any bytes in the buffer beyond len 
  * will be discarded.
  **/
-byte BulkOut(byte ep_num, byte *buffer, byte len) {
-RxLen = 0;
+byte BulkOut(byte ep_num, byte *buffer, byte len) 
+{
+        RxLen = 0;
         /**
         * If selected EP1
         **/

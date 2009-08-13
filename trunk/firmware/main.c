@@ -36,6 +36,11 @@
 #define SHORT_STEPS_OUT 4
 #define LONG_STEPS_OUT 7
 
+#define RIGHT   1
+#define LEFT    0
+
+#define UP      1
+#define DOWN    0
 
 // Nombres de lo que esta conectado al puerto del PIC, mirar esquemático del circuito y el pinout
 // En el puerto D están conectados dos entradas y la salida del percutor
@@ -45,6 +50,9 @@
 
 #define CARRO 1
 #define RODILLO 0
+
+#define CAR	1
+#define	ROLLER	0
 // visto desde el frente de la impresora
 #define IZQ 1
 #define DER 0
@@ -113,50 +121,58 @@ void apagar_motores(void){
  PORTB = 0x00;
 }
 
-void mover(byte loops, byte direccion, byte motor){
-byte pasosI[8] = {0x77, 0x33, 0xbb, 0x99, 0xdd, 0xcc, 0xee, 0x66};
-byte pasosD[8] = {0x66, 0xee, 0xcc, 0xdd, 0x99, 0xbb, 0x33, 0x77}; // <--- CAMBIAR!!!!
-byte valor,i;
-byte loops_aux ;
 
-if(direccion)
- for(loops_aux = 0; loops_aux < loops; loops_aux++){
-  for(i = 0; i < 8; i++){		
-   valor = pasosI[i];
-   if(motor){
-    PORTB = (PORTB & 0xf0) | (valor & 0x0f);
-    delay(50);
-    }
-   else{
-    PORTB = (PORTB & 0x0f) | (valor & 0xf0);
-    delay(50);
-    }       	
-  }
- }
-else
- for(loops_aux = 0; loops_aux < loops; loops_aux++){
-  for(i = 0; i < 8; i++){		
-   valor = pasosD[i];
-   if(motor){
-    PORTB = (PORTB & 0xf0) | (valor & 0x0f);
-    delay(50);
-    }
-   else{
-    PORTB = (PORTB & 0x0f) | (valor & 0xf0);
-    delay(50);
-    }
-  }
- }
+/**
+ * move() -     Function to move both motors
+ * @loops:      Number of loops of a complete sequence
+ * @direction:  Direction to move (RIGHT/LEFT, UP/DOWN)
+ * @motor:	Which motor to move (CAR/ROLLER)
+ *
+ * This function moves each motor in a defined direction and an specific
+ * amount of space depending on the parameters that are passed to it.
+ **/
+void move(byte loops, byte direction, byte motor) 
+{
+        byte stepsI[8] = {0x77, 0x33, 0xbb, 0x99, 0xdd, 0xcc, 0xee, 0x66};
+        byte stepsD[8] = {0x66, 0xee, 0xcc, 0xdd, 0x99, 0xbb, 0x33, 0x77}; 
+        byte val, i, loops_aux;
+
+        if (direction)
+                for (loops_aux = 0; loops_aux < loops; loops_aux++) {
+                        for (i = 0; i < 8; i++) {		
+                                val = stepsI[i];
+                                if (motor) {
+                                        PORTB = (PORTB & 0xf0) | (val & 0x0f);
+                                        delay(50);
+                                } else {
+                                        PORTB = (PORTB & 0x0f) | (val & 0xf0);
+                                        delay(50);
+                                }
+                        }
+                }
+        else
+                for (loops_aux = 0; loops_aux < loops; loops_aux++) {
+                        for (i = 0; i < 8; i++) {		
+                                val = stepsD[i];
+                                if (motor) {
+                                        PORTB = (PORTB & 0xf0) | (val & 0x0f);
+                                        delay(50);
+                                } else {
+                                        PORTB = (PORTB & 0x0f) | (val & 0xf0);
+                                        delay(50);
+                                }
+                        }
+                }
 }
 
 void mov_paper (byte steps) {
- mover(steps, ARR, RODILLO);
+ move(steps, ARR, RODILLO);
 }
 
 void reset_carro(void){
   while(SENS_CARRO)
-    mover(1, IZQ, CARRO);
- mover(8, DER, CARRO); // Esto es una sangria
+    move(1, IZQ, CARRO);
+ move(8, DER, CARRO); // Esto es una sangria
 
 }
 
@@ -204,9 +220,9 @@ byte print_byte(byte *p){
        a =(byte)i;
  // Movimiento del carro segun la posicion par-impar del braille dot
      if (!(a&1)) // Chequea la paridad (PAR = minima sep, IMPAR = Maxima sep)
-       mover(2, DER, CARRO); // Separacion horizontal mínima del caracter braille
+       move(2, DER, CARRO); // Separacion horizontal mínima del caracter braille
      else
-       mover(4, DER, CARRO); // Separacion horizontal máxima del caracter braille
+       move(4, DER, CARRO); // Separacion horizontal máxima del caracter braille
     }
    return byte_ctl;
 }

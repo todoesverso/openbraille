@@ -1,7 +1,6 @@
 /*   usb.h - The header file for usb.h.
  *
- *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
- *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *  Copyright (C) 2009  Rosales Victor (todoesverso@gmail.com)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -53,7 +52,7 @@ typedef unsigned int  word;
 #define SYNCH_FRAME       12
 
 /**
- * Devicriptor Types
+ * Descriptors Types
  **/
 #define DEVICE_DESCRIPTOR        0x01
 #define CONFIGURATION_DESCRIPTOR 0x02
