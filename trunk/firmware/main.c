@@ -129,7 +129,7 @@ void apagar_motores(void){
  * @motor:	Which motor to move (CAR/ROLLER)
  *
  * This function moves each motor in a defined direction and an specific
- * amount of space depending on the parameters that are passed to it.
+ * amount of turns depending on the parameters that are passed to it.
  **/
 void move(byte loops, byte direction, byte motor) 
 {
