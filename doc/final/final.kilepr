@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=disenio_alto_nivel.tex
+lastDocument=tecnologias_a_usar.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -26,19 +26,19 @@ order=2
 
 [item:anexo.tex]
 archive=true
-column=42
+column=41
 encoding=UTF-8
 highlight=LaTeX
-line=3
-open=true
+line=26
+open=false
 order=5
 
 [item:braille.tex]
 archive=true
-column=11
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=413
+line=401
 open=true
 order=1
 
@@ -53,10 +53,10 @@ order=5
 
 [item:disenio_alto_nivel.tex]
 archive=true
-column=23
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=477
+line=289
 open=true
 order=3
 
@@ -80,10 +80,10 @@ order=-1
 
 [item:main.tex]
 archive=true
-column=19
+column=28
 encoding=UTF-8
 highlight=LaTeX
-line=12
+line=92
 open=true
 order=0
 
@@ -94,6 +94,15 @@ encoding=UTF-8
 highlight=LaTeX
 line=132
 open=false
+order=4
+
+[item:panorama_general.tex]
+archive=true
+column=30
+encoding=UTF-8
+highlight=LaTeX
+line=2
+open=true
 order=4
 
 [item:portada.tex]
@@ -150,13 +159,22 @@ line=103
 open=false
 order=1
 
+[item:tecnologias_a_usar.tex]
+archive=true
+column=64
+encoding=UTF-8
+highlight=LaTeX
+line=279
+open=true
+order=5
+
 [item:template.sty]
 archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
 line=145
-open=true
+open=false
 order=4
 
 [item:usb.tex]
@@ -164,6 +182,6 @@ archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
-line=533
+line=865
 open=true
 order=2

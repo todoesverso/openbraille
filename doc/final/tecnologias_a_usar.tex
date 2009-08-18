@@ -1,0 +1,334 @@
+\chapter{Tecnologias a usar}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Para cumplimentar el objetivo de mantener los costos de producci\'on, y del
+dispositivo final bajos, las tecnologias a usar deben ser cuidadosamente
+elegidas entre aquellas disponibles en el mercado.\\ 
+
+En esta secci\'on se explican brevemente cada una de las tecnologias elegidas
+y se hace referencia a secciones m\'as detalladas en el caso de que sea
+necesario.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Comunicaci\'on} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Como se mencion\'o anteriormente es necesario hacer uso de algun m\'etodo de
+comunicaci\'ion entre la computadora y el dipositivo.\ Existen varias
+alternativas posibles para ello, a continuaci\'on se enumeran alguna de ellas.\
+
+\begin{itemize}
+  \item RS232\footnote{V\'ease - \url{http://es.wikipedia.org/wiki/RS232}}
+  \item Puerto paralelo (Centronics\footnote{V\'ease - \url
+{http://es.wikipedia.org/wiki/Centronics}})
+  \item I2C\footnote{V\'ease - \url{http://es.wikipedia.org/wiki/I2C}}
+  \item FireWire\footnote{V\'ease -
+\url{http://es.wikipedia.org/wiki/Firewire}}
+  \item USB\footnote{V\'ease - \url{http://es.wikipedia.org/wiki/USB}}
+  \item BlueTooth\footnote{V\'ease -
+\url{http://es.wikipedia.org/wiki/Bluetooth}}
+\end{itemize}
+
+Cada uno de los anteriores ``metodos'' de comunicaci\'on poseen diversas
+caracter\'isticas, pero es el estandar USB el \'unico que satisface las
+siguientes necesidades.
+
+\begin{itemize}
+  \item Velocidad de transmisi\'on
+  \item Tecnologia no pronta a desaparecer
+  \item Buena documentac\'ion t\'ecnica
+  \item Costos de implementaci\'on
+  \item Disponibilidad en el mercado
+  \item Flexibilidad a la hora de implementarla
+  \item Facilidad de uso
+  \item Familiarizaci\'on por parte del usuario
+\end{itemize}
+
+Justamente por ello es el usado en este trabajo.\ Ya habiendo elegido el
+estandar USB para lograr la comunicaci\'on entre la computadora y el
+dispositivo, es necesario luego elegir la forma de interactuar con el estandar
+desde el punto de vista del software.\ Se presentan dos opciones claras para
+encarar el problema, hacer uso de las funcionalidades m\'as bajas del sistema
+operativo, esto se\'ia escribir un ``diver'', o bien mediante algun tipo de
+\emph{API}\footnote{Del ingl\'es \emph{Application Programming Interface}}.\\
+
+Si bien linux provee todas las heramientas necesarias para escribir drivers (o
+m\'odulos) USB, este metodo quitar\'ia toda posibilidad de portar el c\'odigo
+a otros sistemas operativos. En cambio existe una API portada a varios sitemas
+operativos que satisface todas las necesidades para controlar la
+comunicaci\'on USB entre el dispositivo y el kernel.\\
+
+La API \emph{libusb}\footnote{V\'ease - \url{http://www.libusb.org/}} consiste
+en un set de librerias de codigo abierto licenciadas bajo LGPL\footnote{V\'ease
+- \url{http://www.gnu.org/copyleft/lesser.html}} (GNU Lesser General Public
+License). 
+Dichas librerias resuelven la comunicaci\'on USB pero a nivel de usuario.
+La API se encuentra en casi todoas las distribuciones de GNU/Linux, y se
+presenta en forma de libreria dinamica para usar con aplicaciones ya
+compiladas y un paquete extra para \emph{development}\footnote{Del ingles
+desarrollo}, con los archivos cabecera, programas para compilar, y
+la documentaci\'on completa de sus funcionalidades con algunos ejemplos
+extras. \\
+
+La libreria provee entre definiciones y estructuras, las siguientes funciones:
+
+\begin{lstlisting}
+/* usb.c */
+usb_dev_handle *usb_open(struct usb_device *dev);
+int usb_close(usb_dev_handle *dev);
+int usb_get_string(usb_dev_handle *dev, int index, int langid, char *buf,
+size_t buflen);
+int usb_get_string_simple(usb_dev_handle *dev, int index, char *buf,size_t
+buflen);
+
+/* descriptors.c */
+int usb_get_descriptor_by_endpoint(usb_dev_handle *udev, int ep, unsigned char
+type, unsigned char index, void *buf, int size);
+int usb_get_descriptor(usb_dev_handle *udev, unsigned char type, unsigned char
+index, void *buf, int size);
+
+/* <arch>.c */
+int usb_bulk_write(usb_dev_handle *dev, int ep, const char *bytes, int size,
+int timeout);
+int usb_bulk_read(usb_dev_handle *dev, int ep, char *bytes, int size, int
+timeout);
+int usb_interrupt_write(usb_dev_handle *dev, int ep, const char *bytes,
+int size, int timeout);
+int usb_interrupt_read(usb_dev_handle *dev, int ep, char *bytes, int size, int
+timeout);
+int usb_control_msg(usb_dev_handle *dev, int requesttype, int request, int
+value, int index, char *bytes, int size, int timeout);
+int usb_set_configuration(usb_dev_handle *dev, int configuration);
+int usb_claim_interface(usb_dev_handle *dev, int interface);
+int usb_release_interface(usb_dev_handle *dev, int interface);
+int usb_set_altinterface(usb_dev_handle *dev, int alternate);
+int usb_resetep(usb_dev_handle *dev, unsigned int ep);
+int usb_clear_halt(usb_dev_handle *dev, unsigned int ep);
+int usb_reset(usb_dev_handle *dev);
+\end{lstlisting}
+
+
+Una particularidad interesante de esta API, es que no solo ha sido portada a
+diversos varios sitemas operativos, sino que tambien ha sido portada a varios
+leguajes de programaci\'on como java, perl, python y otro.\\
+
+Todas las funciones de esta libreria (para la version estable 0.1) son
+s\'incronas, lo que significa que se debe esperar a que termine la operaci\'on
+para poder seguir. Por este motivo la mayoria de las funciones implemetan un
+\emph{timeout} en milisegundos.\\
+
+Esta API satisface tanto el estandar USB 1.0 como el 2.0, es por ello que si el
+dispositivo respeta el estandar, establecer una comunicaci\'on a USB requiere
+solo la adici\'on de algunas funciones al codigo fuente para;
+inicializar la comunicaci\'on, para buscar el dispositivo, para abrirlo y
+luego el programa en si.
+
+% Poner primero, antes del codigo, un diagrama de flujo del mismo
+
+Para comenzar una comunicaci\'on USB con esta libreria es preciso primero
+descubrir el dipositivo, esto se logra con:
+
+\begin{lstlisting}
+struct usb_bus *busses;
+    
+usb_init();
+usb_find_busses();
+usb_find_devices();
+    
+busses = usb_get_busses();
+\end{lstlisting}
+
+Luego de esto ya se poseen los \emph{busses} USB del sitema. Es preciso luego
+iterar sobre cada uno de ellos para encontrar el dispositivo especifico de la
+siguiente manera:
+
+\begin{lstlisting}
+struct usb_bus *bus;
+int c, i, a;
+    
+/* ... */
+    
+for (bus = busses; bus; bus = bus->next) {
+  struct usb_device *dev;
+    
+    for (dev = bus->devices; dev; dev = dev->next) {
+        /* Buscar el dispositivo por VendorID */
+        if (dev->descriptor.idVendor == MY_ID) {
+            /* Buscar el dispositivo por ProductID */
+            if (dev->descriptor.idProduct==USBPRINTER){
+            /* Abrir dispositivo */
+            udev = usb_open(dev);
+            /* Reclamar la interfaz */
+            ret = usb_claim_interface(udev,0); 
+
+            /* Programa */
+            }	...
+        }
+    }
+}
+\end{lstlisting}
+
+Una limitaci\'on intr\'inseca de la libreria es que se requiere abrir tantas
+instancias del dispositivo como interfaces se desee usar de \'el.\\
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Microcontrolador} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+El mercado de desarrollo electr\'onico Argentino tiene una tendencia a usar las
+soluciones de Microchip\footnote{V\'ease - \url{http://www.microchip.com/}}, y
+es por ello que existe mucha gente capacitada en los microcontroladores de esta
+empresa, y si bien sus productos no son los mejores del mercado internacional,
+sus precios son bastantes competitivos al igual que las funcionalidades que
+prestan y la amplia gama de variedades que poseen.\
+
+Como el objetivo de este trabajo se enfoca en el mercado local y el bajo costo
+de producci\'on, los productos de Microchip se presentan como la mejor
+alternativa.\\
+
+El requerimiento primario para elegir el microcontrolador a usar es que posea
+soporte USB. La familia \emph{18FXXXX}\footnote{V\'ease - \url{
+http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=2654}}
+satisface este requerimiento. De esta familia los dos microcontroladores m\'as
+comercializados\footnote{Esto implica facilidad a la hora de conseguir en el
+mercado local.} en el pa\'is son el \emph{18F2550} y el \emph{18F4550}. La
+tabla \ref{tab:table_12_14} muestra las principales caracter\'isticas de ambos
+microcontroladores.
+
+\begin{table}[htp]
+\begin{scriptsize}
+\centering
+% use packages: array,booktabs
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}|l|c|c|} \hline
+ \rowcolor[gray]{.9}
+ & 18F2550 & 18F4550 												\\ \hline 
+ Program Memory Type & Flash & Flash								\\ \hline
+ Program Memory (KB) & 32 & 32										\\ \hline
+ CPU Speed (MIPS) & 12 & 12											\\ \hline
+ RAM Bytes & 2048 & 2048											\\ \hline
+ Data EEPROM (bytes) & 256 & 256									\\ \hline
+ Digital Communication Peripherals & 1-A/E/USART, 1-MSSP(SPI/I2C) &
+1-A/E/USART, 1-MSSP(SPI/I2C) 										\\ \hline
+ Capture/Compare/PWM Peripherals & 2 CCP &  CCP, 1 ECCP 			\\ \hline
+ Timers & 1 x 8-bit, 3 x 16-bit & 1 x 8-bit, 3 x 16-bit 			\\ \hline
+ ADC & 10 ch, 10-bit & 13 ch, 10-bit								\\ \hline
+ Comparators & 2 & 2 												\\ \hline
+ USB (ch, speed, compliance) & 1, Full Speed, USB 2.0 & 1, Full Speed, USB 2.0
+																	\\ \hline
+ Temperature Range (C) & -40 to 85 & -40 to 85  					\\ \hline
+ Operating Voltage Range (V) & 2 to 5.5 & 2 to 5.5					\\ \hline
+ Pin Count & 28 & 40												\\ \hline
+\end{tabular*}
+\caption{Comparaci\'on PIC18F2550 y PIC18F4550} 
+\label{tab:table_12_14}
+\end{scriptsize}
+\end{table}
+
+
+Se observa que no existe gran diferencia entre ambos MCU\footnote{Del ingles
+\emph{Micro Controller Unit}}, al igual que sus precios como se observa en la
+tabla \ref{tab:table_12_14_price}.
+
+\begin{table}[htp]
+\centering
+\begin{tabular}{l|r}
+ \toprule
+  MCU & US\$		\\ \hline
+ 18F2550 & 2.39  	\\ 
+ 18F4550 & 3.65 	\\
+ \bottomrule
+\end{tabular}
+
+\begin{tiny} 
+\caption{Comparaci\'on de precios PIC18F2550 y PIC18F4550}\footnote{Los precios
+unitarios fueron extraidos de la p\'agina oficial de Microchip}
+\end{tiny} 
+\label{tab:table_12_14_price}
+\end{table}
+
+Se puede concluir entonces que para \'este trabajo el PIC18F2550 satisface en
+grandes rasgos los requerimientos m\'inimos. No obstante, y por cuestiones de
+comodidad\footnote{Esto es disponibilidad a la hora de realizar el proyecto.}
+,se usar\'a el PIC18F4550, realizando el dise\~no con vistas a migrar el MCU
+al PIC18F2550 en el futuro.\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sistema Operativo} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Como se mencion\'o anteriormente, el sitema operativo elegido es GNU/Linux,
+esto se debe principalmente a que de esta manera para poder hacer uso de la
+impresora, el usuario no se ver\'ia obligado a comprar ningun tipo de software,
+ya que la inmensa mayoria de las versios de GNU/Linux son completamente
+gratuitas.\\
+
+Adem\'as de lo anterior, las mayor\'ia de las distribuciones de GNU/Linux
+proveen una enorme cantidad de aplicaciones para desarrollo, tanto de software
+como de hardware, otorgando entonces, un ambiente amigable para el
+desarrollador.\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Compiladores} %
+%%%%%%%%%%%%%%%%%%%%%%%%
+Para el caso de los compiladores, son necesarios dos; uno para el driver y
+otro para el firmware.\\
+
+\subsection{Driver}
+%%%%%%%%%%%%%%%%%%%
+Debido a haber elegido GNU/Linux como sistema operativo, la opci\'on m\'as
+evidente es usar GCC\footnote{V\'ease - \url{http://gcc.gnu.org/}} (GNU
+Compiler Collection). GCC es una colecci\'on de compiladores (C, C++,
+Objective-C, Fortran, Java, y Ada) que se encuentra en todas las distribuciones
+de GNU/Linux. Para este trabajo en particular, solo se usa GCC como compilador
+de C que se integra facilmente con la API \emph{libusb}.
+
+\subsection{Firmware}
+%%%%%%%%%%%%%%%%%%%%%
+Para el caso del firmware (esto seria el programa alojado en el
+microcontrolador), el mismo fabricante del microcontrolador elegido provee una
+serie de compiladores para asembler y C. La desventaja de elegir esta
+soluci\'on es que solo soportan sitemas Windows\footnote{V\'ease -
+\url{
+http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1406&dDo
+cName=en010014&redirects=c18}}, y si bien es posible instalarlo en sistemas
+GNU/Linux, esto implica esfuezo extra e innecesario.\
+Debido a la complegidad requerida para implementar el protocolo USB, el usar
+asembler no es un opci\'on, y el compilador de C de Microchip luego del
+periodo de evaluaci\'on de 60 dias, deshabilita ciertas opciones de
+optimizaci\'on de codigo, generando programas mas grandes. Esto \'ultimo no es
+deseado debido al tama\~no limitado de memoria que posee el PIC18F4550, y una
+licensia de dicha programa ronda los 500 dolares\footnote{V\'ease -
+\url{http://www.microchipdirect.com/ProductSearch.aspx?Keywords=SW006011}}.\\
+
+SDCC\footnote{V\'ease - \url{http://sdcc.sourceforge.net/}} (Small Device C
+Compiler), es un compilador ANSI C libre, con soporte para una amplia variedad
+de microcontroladores, entre ellos se encuentra toda la familia PIC18 de
+Microchip. Este compilador se encuentra disponible en la mayoria de las
+distribuciones GNU/Linux, aunque tambien ha sido portado para sistemas
+Windows. Una caracteristica muy interesante de este compilador es el excelente
+soporte que sus creadores dan en linea mediante listas de correo.\\
+
+
+\section{Simulaci\'on y dise\~no}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Existen varios programas disponibles para realizar dise\~nos y simulaciones,
+en este caso, y aprovechando el haber elegido GNU/Linux como sistema
+operativo, se buscan alternativas ``nativas'' este.\\
+
+De los proyectos de simulaci\'on electr\'onica libres para GNU/Linux, la
+\emph{suite gEDA}\footnote{V\'ease - \url{http://www.gpleda.org/}}, es el mas
+importante. Entre los programas que vienen con esta suite, se descataca
+\emph{ngspice}\footnote{V\'ease - \url{http://ngspice.sourceforge.net/}}, un
+simulador de circuitos que satisface completamente el estandar
+Spice3\footnote{http://en.wikipedia.org/wiki/SPICE}.\\
+
+Si bien la suite gEDA posee programas para dise\~no de PCBs, se usa para este
+trabajo el programa de dise\~no libre KiCAD\footnote{V\'ease -
+\url{http://kicad.sourceforge.net/}}
+
+
+
+
+
+
