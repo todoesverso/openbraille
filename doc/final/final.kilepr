@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=tecnologias_a_usar.tex
+lastDocument=modulos.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -26,10 +26,10 @@ order=2
 
 [item:anexo.tex]
 archive=true
-column=41
+column=61
 encoding=UTF-8
 highlight=LaTeX
-line=26
+line=43
 open=false
 order=5
 
@@ -39,8 +39,17 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=401
-open=true
+open=false
 order=1
+
+[item:conclusion.tex]
+archive=true
+column=0
+encoding=UTF-8
+highlight=LaTeX
+line=0
+open=true
+order=4
 
 [item:diagnostico.tex]
 archive=true
@@ -51,23 +60,14 @@ line=0
 open=false
 order=5
 
-[item:disenio_alto_nivel.tex]
-archive=true
-column=0
-encoding=UTF-8
-highlight=LaTeX
-line=289
-open=true
-order=3
-
 [item:economia.tex]
 archive=true
 column=14
 encoding=UTF-8
 highlight=LaTeX
 line=122
-open=false
-order=1
+open=true
+order=3
 
 [item:final.kilepr]
 archive=true
@@ -80,10 +80,10 @@ order=-1
 
 [item:main.tex]
 archive=true
-column=28
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=92
+line=30
 open=true
 order=0
 
@@ -94,16 +94,25 @@ encoding=UTF-8
 highlight=LaTeX
 line=132
 open=false
-order=4
+order=7
+
+[item:modulos.tex]
+archive=true
+column=13
+encoding=UTF-8
+highlight=LaTeX
+line=36
+open=true
+order=1
 
 [item:panorama_general.tex]
 archive=true
-column=30
+column=12
 encoding=UTF-8
 highlight=LaTeX
-line=2
-open=true
-order=4
+line=41
+open=false
+order=2
 
 [item:portada.tex]
 archive=true
@@ -152,21 +161,21 @@ order=5
 
 [item:software_libre.tex]
 archive=true
-column=0
+column=32
 encoding=UTF-8
 highlight=LaTeX
-line=103
-open=false
-order=1
+line=100
+open=true
+order=2
 
 [item:tecnologias_a_usar.tex]
 archive=true
-column=34
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=327
-open=true
-order=5
+line=126
+open=false
+order=3
 
 [item:template.sty]
 archive=true
@@ -183,5 +192,5 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=865
-open=true
+open=false
 order=2

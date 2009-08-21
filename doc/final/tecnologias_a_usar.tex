@@ -124,53 +124,6 @@ solo la adici\'on de algunas funciones al codigo fuente para;
 inicializar la comunicaci\'on, para buscar el dispositivo, para abrirlo y
 luego el programa en si.
 
-% Poner primero, antes del codigo, un diagrama de flujo del mismo
-
-Para comenzar una comunicaci\'on USB con esta libreria es preciso primero
-descubrir el dipositivo, esto se logra con:
-
-\begin{lstlisting}
-struct usb_bus *busses;
-    
-usb_init();
-usb_find_busses();
-usb_find_devices();
-    
-busses = usb_get_busses();
-\end{lstlisting}
-
-Luego de esto ya se poseen los \emph{busses} USB del sitema. Es preciso luego
-iterar sobre cada uno de ellos para encontrar el dispositivo especifico de la
-siguiente manera:
-
-\begin{lstlisting}
-struct usb_bus *bus;
-int c, i, a;
-    
-/* ... */
-    
-for (bus = busses; bus; bus = bus->next) {
-  struct usb_device *dev;
-    
-    for (dev = bus->devices; dev; dev = dev->next) {
-        /* Buscar el dispositivo por VendorID */
-        if (dev->descriptor.idVendor == MY_ID) {
-            /* Buscar el dispositivo por ProductID */
-            if (dev->descriptor.idProduct==USBPRINTER){
-            /* Abrir dispositivo */
-            udev = usb_open(dev);
-            /* Reclamar la interfaz */
-            ret = usb_claim_interface(udev,0); 
-
-            /* Programa */
-            }	...
-        }
-    }
-}
-\end{lstlisting}
-
-Una limitaci\'on intr\'inseca de la libreria es que se requiere abrir tantas
-instancias del dispositivo como interfaces se desee usar de \'el.\\
 
 
 
