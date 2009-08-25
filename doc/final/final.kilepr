@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=modulos.tex
+lastDocument=prologo.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -60,6 +60,15 @@ line=0
 open=false
 order=5
 
+[item:driver.tex]
+archive=true
+column=8
+encoding=UTF-8
+highlight=LaTeX
+line=3
+open=true
+order=7
+
 [item:economia.tex]
 archive=true
 column=14
@@ -96,6 +105,24 @@ line=132
 open=false
 order=7
 
+[item:modulo_potencia.tex]
+archive=true
+column=79
+encoding=UTF-8
+highlight=LaTeX
+line=0
+open=true
+order=5
+
+[item:modulo_procesamiento.tex]
+archive=true
+column=14
+encoding=UTF-8
+highlight=LaTeX
+line=76
+open=true
+order=6
+
 [item:modulos.tex]
 archive=true
 column=13
@@ -125,12 +152,12 @@ order=2
 
 [item:prologo.tex]
 archive=true
-column=44
+column=51
 encoding=UTF-8
 highlight=LaTeX
-line=0
-open=false
-order=7
+line=6
+open=true
+order=8
 
 [item:propuesta_tecnica.tex]
 archive=true
