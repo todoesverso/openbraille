@@ -53,10 +53,10 @@ order=4
 
 [item:diagnostico.tex]
 archive=true
-column=20
+column=71
 encoding=UTF-8
 highlight=LaTeX
-line=15
+line=21
 open=true
 order=9
 
