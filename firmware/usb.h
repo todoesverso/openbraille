@@ -161,17 +161,24 @@ extern volatile byte RxBuffer[INPUT_BYTES];
 extern volatile byte TxBuffer2[OUTPUT_BYTES];
 extern volatile byte RxBuffer2;
 
-// Los punteros inPtr/OutPtr son usados para mover datos de los buffers  de la memoria de usario
-// (RAM/ROM/EEPROM) de/a los buffers de puerto dual
-extern byte *outPtr;        // Direccion del buffer para ser enviado hacia el host
-extern byte *inPtr;         // Direccion del buffer para recibir datos provenientes del host
-extern unsigned int wCount; // # Total de bytes a mover
+/**
+ * Pointers inPtr and outPtr are used to move data between buffers from user
+ * memory to dual port buffers of the USB module
+ **/
+extern byte *outPtr;        
+extern byte *inPtr;         
+extern unsigned int wCount; /* Total number of bytes to move */
 
 // Funciones para uso del USB
+/**
+ * User functions to process USB transactions
+ **/
 void EnableUSBModule(void);
 void ProcessUSBTransactions(void);
 
-// Funciones par la lectura/escritura de los Bulk endpoints
+/**
+ * Functions to read and write bulk endpoints
+ **/
 byte BulkOut(byte ep_num, byte *buffer, byte len);
 byte BulkIn(byte ep_num, byte *buffer, byte len);
 

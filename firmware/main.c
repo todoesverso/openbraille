@@ -407,18 +407,18 @@ void ProcessIO(void)
  **/
 void main(void)
 {
-        /**
+	/**
          * Inits the PIC
          **/
 	UserInit();
-        /**
+	/**
          * Inits the USB
          *
          * Full-speed mode and sets pull-up internal resistances of PORTB
          * Starts the USB DEATACHED, no wake ups, and no configured.
          * Configuring the USB is the job of the host.
          **/
-	UCFG = 0x14;	
+	UCFG = 0x14;
 	deviceState = DETACHED;
 	remoteWakeup = 0x00;
 	currentConfiguration = 0x00;
@@ -426,17 +426,17 @@ void main(void)
 	motors_off();
 
 	while (1) {
-                /** 
+		/** 
                  * Make sure the USB is available 
                  **/
 		EnableUSBModule();
-                /**
+		/**
                  * As soon as we get out of test mode (UTEYE)
                  * we process USB transactions
                  **/
 		if (UCFGbits.UTEYE != 1)
 			ProcessUSBTransactions();
-                /**
+		/**
                  * Now we can make our work
                  **/
 		ProcessIO();
