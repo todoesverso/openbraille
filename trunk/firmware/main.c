@@ -45,14 +45,14 @@
  **/
 /* Horizontal */
 #define SHORT_OUT 1
-#define LONG_OUT 2
+#define LONG_OUT  2
 
 #define LEFT    1
 #define RIGHT   0
 
 /* Vertical */
 #define SHORT_STEPS_OUT 4
-#define LONG_STEPS_OUT 7
+#define LONG_STEPS_OUT  7
 
 #define UP      1
 #define DOWN    0
@@ -67,7 +67,7 @@
 #define CAR	1
 #define	ROLLER	0
 
-/* 
+/** 
  * NOTA: 
  *     There are problems related with GET_FEATURE 
  *     when working under 48 MHZ
@@ -107,13 +107,11 @@ volatile byte echoVector[INPUT_BYTES];
  **/
 volatile byte instruction;
 
-// Punto de entrada de inicializacion de usuario
 /**
  * UserInit(void) - Initialize the PIC registers
  *
  * Here should be initialized all registers of the PIC. 
  * This would be the state needed at boot time.
- *
  **/
 void UserInit(void)
 {
@@ -134,7 +132,6 @@ void UserInit(void)
  *
  * This routine is not an accurate delay, it was implemented this way because
  * using the internal timer requiers more program space.
- *
  **/
 void delay(byte ms)
 {
@@ -147,7 +144,6 @@ void delay(byte ms)
  * motors_off(void) - Truns off both motors
  *
  * This function just turn off both motors by setting PORTB to 0
- *
  **/
 void motors_off(void)
 {
@@ -207,24 +203,22 @@ void move(byte loops, byte direction, byte motor)
  * @steps:              Amount of steps to move
  *
  * Moves the paper up according to the input 'steps'
- *
  **/
 void mov_paper(byte steps)
 {
-	move(steps, ARR, ROLLER);
+	move(steps, UP, ROLLER);
 }
 
 /**
  * reset_car(void) -    Resets the car to the start position
  *
  * Resets the car to the beginning and inserts a left indentation
- *
  **/
 void reset_car(void)
 {
 	while (SENS_CAR)
-		move(1, IZQ, CAR);
-	move(8, DER, CAR);	/* Indentation  */
+		move(1, LEFT, CAR);
+	move(8, RIGHT, CAR);	/* Indentation  */
 }
 
 /**
@@ -232,7 +226,6 @@ void reset_car(void)
  *
  * Generates an impact with delays in the middle.
  * This delays should be review when an actual hammer is in place.
- *
  **/
 void hit(void)
 {
@@ -269,7 +262,6 @@ byte check_bit(byte byte_in, byte pos)
  *
  * Used mainly to reconstruct the recived byte, this function accepts a pointer
  * to a byte and the particular bit that want to be setted.
- *
  **/
 void set_bit(byte * byte_in, byte pos)
 {
@@ -293,7 +285,6 @@ void set_bit(byte * byte_in, byte pos)
  * The function recives a pointer to a byte and prints it. 
  * It returns a control byte recreated in order to send it back to the host
  * to make controls.
- *
  **/
 byte print_byte(byte * p)
 {
@@ -310,9 +301,9 @@ byte print_byte(byte * p)
                  * braille dot.
                  **/
 		if (!(a & 1))	/* Checks parity (even = min, odd = max) */
-			move(2, DER, CAR);	/* Min separation */
+			move(2, RIGHT, CAR);	/* Min separation */
 		else
-			move(4, DER, CAR);	/* Max separation */
+			move(4, RIGHT, CAR);	/* Max separation */
 	}
 	return byte_ctl;	/* Return control byte */
 }
@@ -324,7 +315,6 @@ byte print_byte(byte * p)
  *
  * Prints a complete line while recreates it in another pointer 
  * to send back to the host.
- *
  **/
 void print_line(byte * p, byte * e)
 {
@@ -339,42 +329,51 @@ void print_line(byte * p, byte * e)
 	}
 }
 
+/**
+ * USB(void) -  Main function to process usb transactions      
+ *
+ * This is the main function that process all usb transactions, it decides what
+ * to do according to the instructions recived by the host.
+ **/
 static void USB(void)
 {
 	byte rxCnt;
-	/* The code should present a clear distiction between
+	/** 
+         * The code should present a clear distiction between
 	 * data direction
-	 */
-	// *** HOST --> DEVICE  ***
-	/* 
+	 **/
+	/** 
 	 * Find out if an output request has arrived to EP2
-	 */
+         * *** HOST --> DEVICE  ***
+	 **/
 	rxCnt = BulkOut(2, &instruction, 1);
 	if (rxCnt == 0)
 		return;
-	//Now rxBuffer[0] is actually the instruction that follow
 
-	// Interpret instructions recived from host
+	/** 
+         * Interpret instructions recived from host
+         **/
 	if (instruction == MOV_SHORT) {
 		mov_paper(SHORT_STEPS_OUT);
 	} else if (instruction == MOV_LONG) {
 		mov_paper(LONG_STEPS_OUT);
 	} else if (instruction == PRINT) {
 		do {
-			// *** HOST --> DEVICE  ***
-			rxCnt = BulkOut(1, rxBuffer, INPUT_BYTES);	// Shuld this be OUTP?
+			/* *** HOST --> DEVICE  *** */
+			rxCnt = BulkOut(1, rxBuffer, INPUT_BYTES);
 		} while (rxCnt == 0);
 		print_line(rxBuffer, echoVector);
 
 		while (ep1Bi.Stat & UOWN)
 			ProcessUSBTransactions();
-		/* We recived the order to PRINT, so we did it. 
+		/** 
+                 * We recived the order to PRINT, so we did it. 
 		 * Then we process usb transactions if any.
 		 * Now we are ready to send the data treated back
 		 * to the host so he can check if there where
 		 * any errors.
-		 */
-		// *** DEVICE --> HOST ***
+		 **/
+		/* *** DEVICE --> HOST *** */
 		do {
 			rxCnt = BulkIn(1, echoVector, INPUT_BYTES);
 		} while (rxCnt == 0);
@@ -388,36 +387,58 @@ static void USB(void)
 	motors_off();
 }
 
+/**
+ * ProcessIO(void) -    Process IO requests
+ *
+ * This function just checks if a IO has been requested and calls
+ * USB() if so.
+ **/
 void ProcessIO(void)
 {
-// Tareas de aplicacion de Usuario USB
 	if ((deviceState < CONFIGURED) || (UCONbits.SUSPND == 1))
 		return;
 	USB();
 }
 
-// Punto de entrada del Firmware
+/**
+ * main(void) - Main entry point of the firmware
+ *
+ * This is the main entrance of the firmware and it creates the mail loop.
+ **/
 void main(void)
 {
-	// LLamada a la funcion de inicializacion de usuario
+        /**
+         * Inits the PIC
+         **/
 	UserInit();
-	// Inicializar USB
-	UCFG = 0x14;		// Habilita las resistencias de pullup; modo full speed
-
-	// Condiciones iniciales del dispositivo
+        /**
+         * Inits the USB
+         *
+         * Full-speed mode and sets pull-up internal resistances of PORTB
+         * Starts the USB DEATACHED, no wake ups, and no configured.
+         * Configuring the USB is the job of the host.
+         **/
+	UCFG = 0x14;	
 	deviceState = DETACHED;
 	remoteWakeup = 0x00;
 	currentConfiguration = 0x00;
+
 	motors_off();
 
 	while (1) {
-		// Asegurar que el modulo USB esta disponible
+                /** 
+                 * Make sure the USB is available 
+                 **/
 		EnableUSBModule();
-		// En cuanto sale del modo de prueba (UTEYE), procesa
-		// las transactiones USB
+                /**
+                 * As soon as we get out of test mode (UTEYE)
+                 * we process USB transactions
+                 **/
 		if (UCFGbits.UTEYE != 1)
 			ProcessUSBTransactions();
-		// Tareas de apliacacion especifica
+                /**
+                 * Now we can make our work
+                 **/
 		ProcessIO();
 	}
 }
