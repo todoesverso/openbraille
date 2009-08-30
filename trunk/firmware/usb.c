@@ -141,10 +141,6 @@ code ConfigStruct configDescriptor = {
     } 
 };
 
-//
-// Descriptores String (cadenas de caracteres)
-//
-
 /**
  * According to USB spec, the 0 index has the lenguage code 
  **/
