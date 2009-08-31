@@ -1,7 +1,6 @@
 /*   function.c - The main functions used by the driver.
  *
- *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
- *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *  Copyright (C) 2008  Rosales Victor (todoesverso@gmail.com)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,12 +29,12 @@
 #define LONG 4*ANCHO
 #define SIZE 840
 
-//Tamaño de una pagina Braille impresa (630 bytes)
+//Tamano de una pagina Braille impresa (630 bytes)
 #define TAM 3*ANCHO
 
 //Especificacion del dispositivo
 #define LIBRE 0x04d8
-#define USBPRINTER 0x7531
+#define PRINTER 0x7531
 
 typedef unsigned char byte;
 
@@ -50,47 +49,45 @@ FILE *ascii, *braille;
 
 //Variables globales genericas
 int cnt = 0;
-//-----------------------------------------------------------------------------------------
 
+/*---------------------------------------------------------------------------*/
 byte brAsciiTabla[] = 
-{			//b7 b6 b5 b4 b3 b2 b1 b0  "Simbolo"		//b7 b6 b5 b4 b3 b2 b1 b0   "Simbolo"
-			//----------------------------------		-------------------------------------
-0x00,0x1b,		//(Espacio)	 			        //0  0  0  1  1  0  1  1       ! 
-0x04,0x17,		//0  0  0  0  0  1  0  0      "			//0  0  0  1  0  1  1  1       #
-0x49,0x41,		//0  0  1  1  1  0  0  1      $                 //0  0  1  1  0  0  0  1       %	
-0x4b,0x02,		//0  0  1  1  1  0  1  1      &			//0  0  0  0  0  0  1  0       '
-0x2f,0x1f,		//0  0  1  0  1  1  1  1      ( 		//0  0  0  1  1  1  1  1       )  
-0x21,0x00,		//0  0  1  0  0  0  0  1      *			//0  0  0  1  0  0  1  1       +
-0x01,0x00,		//0  0  0  0  0  0  0  1      ,			//0  0  0  0  0  0  1  1       -
-0x11,0x12,		//0  0  0  1  0  0  0  1      .  		//0  0  0  1  0  0  1  0       /
-0x07,0x08,		//0  0  0  0  0  1  1  1      0			//0  0  0  0  1  0  0  0       1
-0x0a,0x0c,		//0  0  0  0  1  0  1  0      2			//0  0  0  0  1  1  0  0       3
-0x0d,0x09,		//0  0  0  0  1  1  0  1      4			//0  0  0  0  1  0  0  1       5  	
-0x0e,0x0f,		//0  0  0  0  1  1  1  0      6			//0  0  0  0  1  1  1  1       7
-0x0b,0x06,		//0  0  0  0  1  0  1  1      8			//0  0  0  0  0  1  1  0       9	  
-0x25,0x05,		//0  0  1  0  0  1  0  1      :			//0  0  0  0  0  1  0  1       ; 	
-0x29,0x4f,		//0  0  1  0  1  0  0  1      <			//0  0  1  1  1  1  1  1       =	 
-0x16,0x45,		//0  0  0  1  0  1  1  0      >			//0  0  1  1  0  1  0  1       ? 	
-0x10,0x20,		//0  0  0  1  0  0  0  0      @			//0  0  1  0  0  0  0  0       A
-0x28,0x30,		//0  0  1  0  1  0  0  0      B			//0  0  1  1  0  0  0  0       C	
-0x34,0x24,		//0  0  1  1  0  1  0  0      D			//0  0  1  0  0  1  0  0       E
-0x38,0x3c,		//0  0  1  1  1  0  0  0      F			//0  0  1  1  1  1  0  0       G	
-0x2c,0x18,		//0  0  1  0  1  1  0  0      H			//0  0  0  1  1  0  0  0       I
-0x1c,0x22,		//0  0  0  1  1  1  0  0      J			//0  0  1  0  0  0  1  0       K 	
-0x2a,0x32,		//0  0  1  0  1  0  1  0      L			//0  0  1  1  0  0  1  0       M  
-0x36,0x26,		//0  0  1  1  0  1  1  0      N			//0  0  1  0  0  1  1  0       O
-0x3a,0x3e,		//0  0  1  1  1  0  1  0      P			//0  0  1  1  1  1  1  0       Q
-0x2e,0x1a,		//0  0  1  0  1  1  1  0      R			//0  0  0  1  1  0  1  0       S 
-0x1e,0x23,		//0  0  0  1  1  1  1  0      T			//0  0  1  0  0  0  1  1       U	
-0x2b,0x1d,		//0  0  1  0  1  0  1  1      V			//0  0  0  1  1  1  0  1       W 	
-0x33,0x37,		//0  0  1  1  0  0  1  1      X			//0  0  1  1  0  1  1  1       Y
-0x27,0x19,		//0  0  1  0  0  1  1  1      Z			//0  0  0  1  1  0  0  1       [
-0x2d,0x3d,		//0  0  1  0  1  1  0  1      \			//0  0  1  1  1  1  0  1       ]
-0x14,0x15		//0  0  0  1  0  1  0  0      ^		 	//0  0  0  1  0  1  0  1       _
+{  	  /*b7 b6 b5 b4 b3 b2 b1 b0  "Sim"	b7 b6 b5 b4 b3 b2 b1 b0 "Sim"*/
+	  /*-------------------------------	-----------------------------*/
+0x00,0x1b, /*(Espacio)	 		        0  0  0  1  1  0  1  1    !  */
+0x04,0x17, /*0  0  0  0  0  1  0  0    "        0  0  0  1  0  1  1  1    #  */
+0x49,0x41, /*0  0  1  1  1  0  0  1    $        0  0  1  1  0  0  0  1    %  */	
+0x4b,0x02, /*0  0  1  1  1  0  1  1    &	0  0  0  0  0  0  1  0    '  */
+0x2f,0x1f, /*0  0  1  0  1  1  1  1    ( 	0  0  0  1  1  1  1  1    )  */
+0x21,0x00, /*0  0  1  0  0  0  0  1    * 	0  0  0  1  0  0  1  1    +  */
+0x01,0x00, /*0  0  0  0  0  0  0  1    , 	0  0  0  0  0  0  1  1    -  */
+0x11,0x12, /*0  0  0  1  0  0  0  1    .        0  0  0  1  0  0  1  0    /  */
+0x07,0x08, /*0  0  0  0  0  1  1  1    0	0  0  0  0  1  0  0  0    1  */
+0x0a,0x0c, /*0  0  0  0  1  0  1  0    2	0  0  0  0  1  1  0  0    3  */
+0x0d,0x09, /*0  0  0  0  1  1  0  1    4	0  0  0  0  1  0  0  1    5  */	
+0x0e,0x0f, /*0  0  0  0  1  1  1  0    6	0  0  0  0  1  1  1  1    7  */
+0x0b,0x06, /*0  0  0  0  1  0  1  1    8	0  0  0  0  0  1  1  0    9  */	  
+0x25,0x05, /*0  0  1  0  0  1  0  1    :	0  0  0  0  0  1  0  1    ;  */	
+0x29,0x4f, /*0  0  1  0  1  0  0  1    <	0  0  1  1  1  1  1  1    =  */	 
+0x16,0x45, /*0  0  0  1  0  1  1  0    >	0  0  1  1  0  1  0  1    ?  */	
+0x10,0x20, /*0  0  0  1  0  0  0  0    @ 	0  0  1  0  0  0  0  0    A  */
+0x28,0x30, /*0  0  1  0  1  0  0  0    B 	0  0  1  1  0  0  0  0    C  */	
+0x34,0x24, /*0  0  1  1  0  1  0  0    D	0  0  1  0  0  1  0  0    E  */
+0x38,0x3c, /*0  0  1  1  1  0  0  0    F	0  0  1  1  1  1  0  0    G  */	
+0x2c,0x18, /*0  0  1  0  1  1  0  0    H	0  0  0  1  1  0  0  0    I  */
+0x1c,0x22, /*0  0  0  1  1  1  0  0    J	0  0  1  0  0  0  1  0    K  */	
+0x2a,0x32, /*0  0  1  0  1  0  1  0    L	0  0  1  1  0  0  1  0    M  */
+0x36,0x26, /*0  0  1  1  0  1  1  0    N	0  0  1  0  0  1  1  0    O  */
+0x3a,0x3e, /*0  0  1  1  1  0  1  0    P	0  0  1  1  1  1  1  0    Q  */
+0x2e,0x1a, /*0  0  1  0  1  1  1  0    R	0  0  0  1  1  0  1  0    S  */
+0x1e,0x23, /*0  0  0  1  1  1  1  0    T 	0  0  1  0  0  0  1  1    U  */	
+0x2b,0x1d, /*0  0  1  0  1  0  1  1    V 	0  0  0  1  1  1  0  1    W  */	
+0x33,0x37, /*0  0  1  1  0  0  1  1    X 	0  0  1  1  0  1  1  1    Y  */
+0x27,0x19, /*0  0  1  0  0  1  1  1    Z 	0  0  0  1  1  0  0  1    [  */
+0x2d,0x3d, /*0  0  1  0  1  1  0  1    \ 	0  0  1  1  1  1  0  1    ]  */
+0x14,0x15  /*0  0  0  1  0  1  0  0    ^        0  0  0  1  0  1  0  1    _  */
 };
-
-
-//-----------------------------------------------------------------------------------------
+/*----------------------------------------------------------------------------*/
 
 
 void bprint(byte x) {
@@ -147,57 +144,98 @@ void llenarrenglon(byte *ptrOut, byte *ptrIn, int ancho) {
 }
 
 
-		
-int iniciar_usb(void){
 
-int n,m,ret,sizein,sizeout,pts,valor,sizein2,sizeout2; 
+void _usb_get_string_simple_Manuf(void)
+{
+	int ret;
+	char s[256];
+
+	ret = usb_get_string_simple(udev, 
+				dev->descriptor.iManufacturer, 
+				s, 
+				sizeof(s));
+
+	if (ret > 0)
+		printf("- Fabricante : %s\n", s);
+	else 
+		printf("- No se pudo leer el fabricante\n"); 
+}
+
+void _usb_get_string_simple_Product(void)
+{
+	int ret;
+	char s[256];
+
+	ret = usb_get_string_simple(udev, 
+				dev->descriptor.iProduct, 
+				s, 
+				sizeof(s));
+
+	if (ret > 0)
+		printf("- Producto : %s\n", s);
+	else
+		printf("- No se pudo leer el producto\n");
+}
+
+void _usb_get_string_simple_SN(void)
+{ 
+	int ret;
+	char s[256];
+
+	ret = usb_get_string_simple(udev, 
+				dev->descriptor.iSerialNumber,
+				s, 
+				sizeof(s));
+
+	if (ret > 0) 
+		printf("- Numero de serie: %s\n", s);
+	else
+		printf("- No se pudo leer el numero de serie\n");
+}
+
+void _usb_claim_interface(void)
+{
+	int ret;
+
+	ret = usb_claim_interface(udev,0); 
+	if (ret>=0) 
+		printf("La interfaz respondio!\n"); 
+	else 
+	       printf("Error al abrir la interfaz (?))\n");
+}
+
+int usb_discover(void)
+{
+int n,
+    m,
+    ret,
+    sizein,
+    sizeout,
+    pts,
+    valor,
+    sizein2,
+    sizeout2; 
+
+
 char string[256];
-	
-usb_init();	
-	
-n = usb_find_busses(); 
-m = usb_find_devices();
 
+	printf("PIC encontrado dev-%s en el bus-%s\n",
+		dev->filename,
+		bus->dirname); 
 
-for (bus = usb_busses; bus; bus = bus->next){ 
-	for (dev = bus->devices; dev; dev = dev->next) {
-		if (dev->descriptor.idVendor==LIBRE){ 
-			if (dev->descriptor.idProduct==USBPRINTER){
-			udev = usb_open(dev);
-					
-			if (udev){ 
-			printf("PIC encontrado dev-%s en el bus-%s\n",dev->filename,bus->dirname); 
-			usb_detach_kernel_driver_np(udev, 0); 
-			usb_set_configuration(udev, 1);
+	usb_detach_kernel_driver_np(udev, 0); 
+	usb_set_configuration(udev, 1);
 			
-				if (dev->descriptor.iManufacturer){ 
-				usb_get_string_simple(udev, dev->descriptor.iManufacturer, string, sizeof(string));
-					if (ret > 0)
-					printf("- Fabricante : %s\n", string);
-					else 
-					printf("- No se pudo leer el fabricante\n"); 
-				}
+	if (dev->descriptor.iManufacturer) 
+		_usb_get_string_simple_Manuf();
 
-				if (dev->descriptor.iProduct){ 
-				ret = usb_get_string_simple(udev, dev->descriptor.iProduct, string, sizeof(string));
-					if (ret > 0)
-					printf("- Producto : %s\n", string);
-					else
-					printf("- No se pudo leer el producto\n");
-				}
-				if (dev->descriptor.iSerialNumber) 
-				{ 
-				ret = usb_get_string_simple(udev, dev->descriptor.iSerialNumber, string, sizeof(string));
-					if (ret > 0) 
-					printf("- Numero de serie: %s\n", string);
-					else
-					printf("- No se pudo leer el numero de serie\n");
-				}
-				ret = usb_claim_interface(udev,0); 
-					if 
-					(ret>=0) printf("La interfaz respondio!\n"); 
-					else 
-					printf("Error al abrir la interfaz (?))\n");
+	if (dev->descriptor.iProduct)  
+		_usb_get_string_simple_Product();
+
+	if (dev->descriptor.iSerialNumber)  
+		_usb_get_string_simple_SN();
+
+	_usb_claim_interface(); 
 						
 						
 WRITE = dev->config[0].interface[0].altsetting[0].endpoint[1].bEndpointAddress;
@@ -214,23 +252,52 @@ sizein2 = dev->config[0].interface[0].altsetting[0].endpoint[2].wMaxPacketSize;
 sizeout2 = dev->config[0].interface[0].altsetting[0].endpoint[2].wMaxPacketSize;
 printf("EP1 - WRITE TO %02xh READ FROM %02xh  SIZEIN %d SIZEOUT %d E_PTS %d\n\
 EP2 - WRITE TO %02xh READ FROM %02xh SIZEIN %d SIZEOUT %d\n",WRITE,READ,sizein,sizeout,pts,WRITE2,READ2,sizein2,sizeout2);
-					}
+					
+}
+
+
+
+		
+int iniciar_usb(void)
+{
+int n,
+    m,
+    sizein,
+    sizeout,
+    pts,
+    valor,
+    sizein2,
+    sizeout2; 
+	
+	int ret = 0;
+
+	usb_init();	
+	
+	n = usb_find_busses(); 
+	m = usb_find_devices();
+
+	for (bus = usb_busses; bus; bus = bus->next) { 
+		for (dev = bus->devices; dev; dev = dev->next) {
+			if (dev->descriptor.idVendor == LIBRE) { 
+				if (dev->descriptor.idProduct == PRINTER) {
+					udev = usb_open(dev);					
+					if (udev) 
+						usb_discover(); 				
+				} else {
+ 					continue;
 				}
 			}
-			else 
- 			continue;
 		}
 	}
 	
-if (udev){
-printf("Se ha inicializado correctamente el dispositivo!\n");
-valor = 1;
-}
-else{
-printf("No se ha podido inicializar el dispositivo!\n");
-valor = 0;
-}
-return valor;
+        if (udev) {
+                printf("Se ha inicializado correctamente el dispositivo!\n");
+                ret = 1;
+        } else {
+                printf("No se ha podido inicializar el dispositivo!\n");
+                ret = 0;
+	}
+	return ret;
 }
 
 void finalizar_usb(void){
