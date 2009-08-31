@@ -13,7 +13,7 @@ LIBXML= `xml2-config --cflags` `xml2-config --libs`
 # Destino (target) especial (inicia con .)
 
 all: main.c funciones.h funciones.o errorsdrv.h errorsdrv.o options.h options.o 
-	$(PROG) $(OPTUSB) $(LIBXML) main.c -o brailledriver 
+	\time -f %e $(PROG) $(OPTUSB) $(LIBXML) main.c -o brailledriver 
 
 funciones.o: funciones.h 
 	$(PROG) -c funciones.c

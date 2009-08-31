@@ -36,4 +36,12 @@ void codificar(FILE *ascii, FILE *braille);
 
 //De manejo de USB
 int iniciar_usb(void);
+int usb_discover(void);
+
+void _usb_get_string_simple_Manuf(void);
+void _usb_get_string_simple_Product(void);
+void _usb_get_string_simple_SN(void);
+void _usb_claim_interface(void);
+
+
 void finalizar_usb(void);
