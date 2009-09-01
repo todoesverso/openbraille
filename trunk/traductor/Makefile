@@ -3,7 +3,7 @@
 #
 FUENTES.c=traductor.c 
 INCLUDES=
-CFLAGS=
+CFLAGS=-O3
 SLIBS=
 PROG=gcc
 OPT=-Wall 
@@ -12,7 +12,7 @@ OPT=-Wall
 
 
 all: traductor.c 
-	$(PROG) $(OPT) traductor.c -o ctraductor 
+	$(PROG) $(OPT) $(CFLAGS) traductor.c -o ctraductor 
 
 clean:
 	rm ctraductor 
