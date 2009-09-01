@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "funciones.c"
+#include "functions.c"
 
 // Variables globales estaticas
 
@@ -26,22 +26,22 @@
 
 //De uso general
 void bprint(byte x);
-void llenarbuffer(FILE *braille, char *brailleIn);
+void fill_buffer(FILE *braille, char *brailleIn);
 
 //De codificacion
-byte llenarbyte(byte *ptr, byte mask);
-void llenarrenglon (byte *ptrOut, byte *ptrIn, int ancho);
-byte reempchar(byte caract);
-void codificar(FILE *ascii, FILE *braille);
+byte fill_byte(byte *ptr, byte mask);
+void fill_line(byte *ptrOut, byte *ptrIn, int ancho);
+byte rep_char(byte caract);
+void code(FILE *ascii, FILE *braille);
 
 //De manejo de USB
-int iniciar_usb(void);
-int usb_discover(void);
+int start_usb(void);
+void stop_usb(void);
 
+int usb_discover(void);
 void _usb_get_string_simple_Manuf(void);
 void _usb_get_string_simple_Product(void);
 void _usb_get_string_simple_SN(void);
 void _usb_claim_interface(void);
 
 
-void finalizar_usb(void);

@@ -22,33 +22,38 @@
 #include <time.h>
 #include <ctype.h>
 
-//Cantidad de bytes en la pagina de salida
-#define ANCHO 7
-
-// La cantidad de caracteres que contien la pagina de entrada (1 byte por ASCII )
-#define LONG 4*ANCHO
+/**
+ * Global definitions
+ **/
+#define WIDTH 7
+#define LONG 4*WIDTH
 #define SIZE 840
+#define TAM 3*WIDTH
 
-//Tamano de una pagina Braille impresa (630 bytes)
-#define TAM 3*ANCHO
+/**
+ * USB specific
+ **/
+#define LIBRE   0x04d8  /* vendorId */
+#define PRINTER 0x7531  /* deviceId */
 
-//Especificacion del dispositivo
-#define LIBRE 0x04d8
-#define PRINTER 0x7531
-
-typedef unsigned char byte;
-
-//Variables globales de USB
+/**
+ * Specific USB global variables
+ **/
 struct usb_bus *bus; 
 struct usb_device *dev;
 usb_dev_handle *udev;
-unsigned int WRITE,READ, WRITE2,READ2;
+unsigned int WRITE, READ, WRITE2, READ2;
 
-//Archivos de texto
+/**
+ * Text (ASCII) files
+ **/
 FILE *ascii, *braille;
 
-//Variables globales genericas
+/**
+ * Global varialbes
+ **/
 int cnt = 0;
+typedef unsigned char byte;
 
 /*---------------------------------------------------------------------------*/
 byte brAsciiTabla[] = 
@@ -89,62 +94,84 @@ byte brAsciiTabla[] =
 };
 /*----------------------------------------------------------------------------*/
 
+/**
+ * bprint() -   Prints a nice formatted byte
+ * @x:          Input byte
+ *
+ * Prints each bit of a byte to the STDOUT like
+ *   0xFF = 1111 1111 
+ **/
+void bprint(byte x)
+{
+        int n;
 
-void bprint(byte x) {
- int n;
- for(n=0; n<8; n++) {
-        if((x & 0x80) !=0){
-	        printf("1");
-		}
-	else {
-		printf("0");
-	     }
-	        if (n==3) {
-			printf(" "); /* Un espacio cada 4 bits */
+        for(n = 0; n < 8; n++) {
+                if((x & 0x80) != 0) {
+	                printf("1");
+		} else {
+		        printf("0");
+	        }
+
+	        if (n == 3) {
+			printf(" ");
 		}
 		x = x<<1;
 	}
- printf("  ");
+
+        printf("  ");
 }
 
-byte llenarbyte(byte *ptr, byte mask) {
- byte pkt = 0;
-   switch(mask)	{
-	case 0x30:
-		pkt = ((*ptr & mask) << 2)|(*(ptr+1) & mask)|((*(ptr+2) & mask) >> 2)|((*(ptr+3) & mask) >> 4);
-		break;
-	case 0x0c:
-		pkt = ((*ptr & mask) << 4)|((*(ptr+1) & mask) << 2)|(*(ptr+2) & mask)|((*(ptr+3) & mask) >> 2);
-		break;
-	case 0x03:
-		pkt = ((*ptr & mask) << 6)|((*(ptr+1) & mask) << 4)|((*(ptr+2) & mask) << 2)|(*(ptr+3) & mask);
-		break;
-	default: printf("Error de mascara");
+byte fill_byte(byte *ptr, byte mask) 
+{
+        byte pkt = 0;
+        switch(mask) {
+	        case 0x30:
+		        pkt = ((*ptr & mask) << 2) |
+                                (*(ptr + 1) & mask) |
+                                ((*(ptr + 2) & mask) >> 2) |
+                                ((*(ptr + 3) & mask) >> 4);
+		        break;
+	        case 0x0c:
+		        pkt = ((*ptr & mask) << 4) |
+                                ((*(ptr + 1) & mask) << 2) |
+                                (*(ptr + 2) & mask) |
+                                ((*(ptr + 3) & mask) >> 2);
+		        break;
+	        case 0x03:
+		        pkt = ((*ptr & mask) << 6) |
+                                ((*(ptr + 1) & mask) << 4) |
+                                ((*(ptr + 2) & mask) << 2) |
+                                (*(ptr + 3) & mask);
+		        break;
+	        default: printf("Mask error");
 	}
-//ptr +=4;
- return pkt;
+        /*ptr +=4;*/
+        return pkt;
 }
 
-void llenarrenglon(byte *ptrOut, byte *ptrIn, int ancho) {
- int i,j;
- byte *ptrInA, *ptrOutA;
- ptrInA = ptrIn;
- ptrOutA = ptrOut + 21*cnt;
- byte mascara[3] = {0x30, 0x0c, 0x03};
+void fill_line(byte *ptrOut, byte *ptrIn, int ancho) 
+{
+        int i,j;
+        byte *ptrInA, *ptrOutA;
+        ptrInA = ptrIn;
+        ptrOutA = ptrOut + 21*cnt;
+        byte mask[3] = { 0x30, 0x0c, 0x03 };
 
- for(i=0; i<3; i++) {
-	ptrInA = ptrIn;
-	// LLena la linea hasta el ancho correspondiente de pagina
-	for(j = 0; j < ancho; j++){
-		*ptrOutA = llenarbyte (ptrInA, mascara[i]);
-		ptrOutA ++;
-		ptrInA +=4;
-	}
- }
+        for (i = 0; i < 3; i++) {
+	        ptrInA = ptrIn;
+	        // LLena la linea hasta el ancho correspondiente de pagina
+	        for (j = 0; j < ancho; j++) {
+		        *ptrOutA = fill_byte(ptrInA, mask[i]);
+		        ptrOutA ++;
+		        ptrInA += 4;
+	        }
+        }
 }
 
 
-
+/**
+ * Unit function used in usb_discover()
+ **/
 void _usb_get_string_simple_Manuf(void)
 {
 	int ret;
@@ -156,11 +183,14 @@ void _usb_get_string_simple_Manuf(void)
 				sizeof(s));
 
 	if (ret > 0)
-		printf("- Fabricante : %s\n", s);
+		printf("Manufacturer: %s\n", s);
 	else 
-		printf("- No se pudo leer el fabricante\n"); 
+		printf("Could not read manufacturer\n"); 
 }
 
+/**
+ * Unit function used in usb_discover()
+ **/
 void _usb_get_string_simple_Product(void)
 {
 	int ret;
@@ -172,11 +202,14 @@ void _usb_get_string_simple_Product(void)
 				sizeof(s));
 
 	if (ret > 0)
-		printf("- Producto : %s\n", s);
+		printf("Product: %s\n", s);
 	else
-		printf("- No se pudo leer el producto\n");
+		printf("Could not read product\n");
 }
 
+/**
+ * Unit function used in usb_discover()
+ **/
 void _usb_get_string_simple_SN(void)
 { 
 	int ret;
@@ -188,38 +221,31 @@ void _usb_get_string_simple_SN(void)
 				sizeof(s));
 
 	if (ret > 0) 
-		printf("- Numero de serie: %s\n", s);
+		printf("Serial Number: %s\n", s);
 	else
-		printf("- No se pudo leer el numero de serie\n");
+		printf("Could not read Serial Number\n");
 }
 
+/**
+ * Unit function used in usb_discover()
+ **/
 void _usb_claim_interface(void)
 {
 	int ret;
 
 	ret = usb_claim_interface(udev,0); 
-	if (ret>=0) 
-		printf("La interfaz respondio!\n"); 
+	if (ret >= 0) 
+		printf("The interface responded.\n"); 
 	else 
-	       printf("Error al abrir la interfaz (?))\n");
+	       printf("Error opening interface.\n");
 }
 
 int usb_discover(void)
 {
-int n,
-    m,
-    ret,
-    sizein,
-    sizeout,
-    pts,
-    valor,
-    sizein2,
-    sizeout2; 
+        int sizein, sizeout, pts, sizein2, sizeout2; 
+        char string[256];
 
-
-char string[256];
-
-	printf("PIC encontrado dev-%s en el bus-%s\n",
+	printf("PIC found, dev-%s in the bus-%s\n",
 		dev->filename,
 		bus->dirname); 
 
@@ -238,39 +264,65 @@ char string[256];
 	_usb_claim_interface(); 
 						
 						
-WRITE = dev->config[0].interface[0].altsetting[0].endpoint[1].bEndpointAddress;
-READ = dev->config[0].interface[0].altsetting[0].endpoint[0].bEndpointAddress;
- 
-WRITE2 = dev->config[0].interface[0].altsetting[0].endpoint[3].bEndpointAddress;
-READ2 = dev->config[0].interface[0].altsetting[0].endpoint[2].bEndpointAddress;
- 
-sizein = dev->config[0].interface[0].altsetting[0].endpoint[1].wMaxPacketSize;
-sizeout = dev->config[0].interface[0].altsetting[0].endpoint[1].wMaxPacketSize;
-pts = dev->config[0].interface[0].altsetting[0].endpoint[0].bInterval;
+        WRITE = dev->config[0].interface[0].
+                altsetting[0].endpoint[1].
+                bEndpointAddress;
 
-sizein2 = dev->config[0].interface[0].altsetting[0].endpoint[2].wMaxPacketSize;
-sizeout2 = dev->config[0].interface[0].altsetting[0].endpoint[2].wMaxPacketSize;
-printf("EP1 - WRITE TO %02xh READ FROM %02xh  SIZEIN %d SIZEOUT %d E_PTS %d\n\
-EP2 - WRITE TO %02xh READ FROM %02xh SIZEIN %d SIZEOUT %d\n",WRITE,READ,sizein,sizeout,pts,WRITE2,READ2,sizein2,sizeout2);
+        READ = dev->config[0].interface[0].
+                altsetting[0].endpoint[0].
+                bEndpointAddress;
+ 
+        WRITE2 = dev->config[0].interface[0].
+                altsetting[0].endpoint[3].
+                bEndpointAddress;
+
+        READ2 = dev->config[0].interface[0].
+                altsetting[0].endpoint[2].
+                bEndpointAddress;
+ 
+        sizein = dev->config[0].interface[0].
+                altsetting[0].endpoint[1].
+                wMaxPacketSize;
+
+        sizeout = dev->config[0].interface[0].
+                altsetting[0].endpoint[1].
+                wMaxPacketSize;
+
+        pts = dev->config[0].interface[0].
+                altsetting[0].endpoint[0].
+                bInterval;
+
+        sizein2 = dev->config[0].interface[0].
+                altsetting[0].endpoint[2].
+                wMaxPacketSize;
+
+        sizeout2 = dev->config[0].interface[0].
+                altsetting[0].endpoint[2].
+                wMaxPacketSize;
+
+        printf("EP1\n");
+        printf("---\n");
+        printf("\tWRITE:\t%02xh\n", WRITE);
+        printf("\tREAD:\t%02xh\n", READ);
+        printf("\tSIZEIN:\t%d\n", sizein);
+        printf("\tSIZEOUT:\t%d\n", sizeout);
+        printf("\tE_PTS:\t%d\n\n", pts);
 					
+        printf("EP2\n");
+        printf("---\n");
+        printf("\tWRITE:\t%02xh\n", WRITE2);
+        printf("\tREAD:\t%02xh\n", READ2);
+        printf("\tSIZEIN:\t%d\n", sizein2);
+        printf("\tSIZEOUT:\t%d\n", sizeout2);
 }
 
 
 
 		
-int iniciar_usb(void)
+int start_usb(void)
 {
-int n,
-    m,
-    sizein,
-    sizeout,
-    pts,
-    valor,
-    sizein2,
-    sizeout2; 
+        int n, m, ret; 
 	
-	int ret = 0;
-
 	usb_init();	
 	
 	n = usb_find_busses(); 
@@ -291,22 +343,24 @@ int n,
 	}
 	
         if (udev) {
-                printf("Se ha inicializado correctamente el dispositivo!\n");
+                printf("Device Initialized\n");
                 ret = 1;
         } else {
-                printf("No se ha podido inicializar el dispositivo!\n");
+                printf("Device could not be initialized\n");
                 ret = 0;
 	}
 	return ret;
 }
 
-void finalizar_usb(void){
-	usb_release_interface(udev,0);
-	usb_close (udev);
+void stop_usb(void)
+{
+        usb_release_interface(udev,0);
+	usb_close(udev);
 }
 
 
-byte reempchar(byte caract){
+byte rep_char(byte caract)
+{
 	byte charCod,retorna;
 	
 	charCod = caract - 0x20;
@@ -316,22 +370,24 @@ byte reempchar(byte caract){
 }
 
 
-void codificar(FILE *ascii, FILE *braille){
-byte caract;	
-	while(!feof(ascii))
-	{
+void code(FILE *ascii, FILE *braille)
+{
+        byte caract;	
+
+	while(!feof(ascii)) {
 		caract = getc(ascii);
 
-		if(!feof(ascii))
-			putc(reempchar(caract), braille);
+		if (!feof(ascii))
+			putc(rep_char(caract), braille);
 	}
 }
 
-void llenarbuffer(FILE *braille, char *brailleIn){
-char caract;
-int i=0;	
-	while(!feof(braille))
-	{
+void fill_buffer(FILE *braille, char *brailleIn)
+{
+        char caract;
+        int i=0;
+
+	while(!feof(braille)) {
 		caract = getc(braille);
 
 		if(!feof(braille))
@@ -339,7 +395,3 @@ int i=0;
 		i++;
 	}
 }
-
-
-
-
