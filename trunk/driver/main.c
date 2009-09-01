@@ -17,11 +17,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "funciones.h"
+#include "functions.h"
 #include "errorsdrv.h"
 
 //Tamano de una pagina Braille impresa (630 bytes)
-#define TAM 3*ANCHO
+#define TAM 3*WIDTH
 
 int main(int argc, char *argv[])
 {
@@ -36,9 +36,11 @@ int main(int argc, char *argv[])
 	rec = 0x00;
 	rec2 = 0x00;
 
+
+
 //Codigos de inicializacion
 
-	inicializo = iniciar_usb();
+	inicializo = start_usb();
 
 
 	if (!inicializo) {
@@ -71,7 +73,7 @@ llenarbuffer(ascii, brailleIn);
 
 
 for(j=0; j<30; j++)
-	llenarrenglon(brailleOut,brailleIn, ANCHO);
+	llenarrenglon(brailleOut,brailleIn, WIDTH);
 */
 
 
@@ -104,7 +106,7 @@ for(j=0; j<30; j++)
 
 //Codigo de finalizacion
 	if (inicializo)
-		finalizar_usb();
+		stop_usb();
 //fclose(ascii);
 //fclose(braille);
 //system("rm /tmp/braille");
