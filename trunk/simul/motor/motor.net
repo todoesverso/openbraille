@@ -18,9 +18,9 @@ R5 in vbasebc 10K
 R4 2 1 1k  
 Q2 out vbase 3 2N2222 
 Q1 vbase vbasebc 0 2N2222 
-R3 0 vbase 10k  
+R3 0 vbase 1k  
 R_motor out 1 100  
 V_motor 1 0 12V
-R2 vbase 2 1k  
+R2 vbase 2 9k  
 R6 0 3 1  
 .end

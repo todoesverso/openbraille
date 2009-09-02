@@ -149,7 +149,7 @@ byte fill_byte(byte *ptr, byte mask)
         return pkt;
 }
 
-void fill_line(byte *ptrOut, byte *ptrIn, int ancho) 
+void fill_line(byte *ptrOut, byte *ptrIn, int width) 
 {
         int i,j;
         byte *ptrInA, *ptrOutA;
@@ -159,8 +159,10 @@ void fill_line(byte *ptrOut, byte *ptrIn, int ancho)
 
         for (i = 0; i < 3; i++) {
 	        ptrInA = ptrIn;
-	        // LLena la linea hasta el ancho correspondiente de pagina
-	        for (j = 0; j < ancho; j++) {
+                /**
+                 * Fill line until 'width'
+                 **/
+	        for (j = 0; j < width; j++) {
 		        *ptrOutA = fill_byte(ptrInA, mask[i]);
 		        ptrOutA ++;
 		        ptrInA += 4;
@@ -240,6 +242,9 @@ void _usb_claim_interface(void)
 	       printf("Error opening interface.\n");
 }
 
+/**
+ * Main usb discovery function
+ **/
 int usb_discover(void)
 {
         int sizein, sizeout, pts, sizein2, sizeout2; 
@@ -316,9 +321,9 @@ int usb_discover(void)
         printf("\tSIZEOUT:\t%d\n", sizeout2);
 }
 
-
-
-		
+/**
+ * Main function that starts the usb device.
+ **/
 int start_usb(void)
 {
         int n, m, ret; 
@@ -352,13 +357,22 @@ int start_usb(void)
 	return ret;
 }
 
+/**
+ * Function to stop usb device
+ **/
 void stop_usb(void)
 {
         usb_release_interface(udev,0);
 	usb_close(udev);
 }
 
-
+/**
+ * rep_char() - Replace a caracter with the braille table
+ * @caract:     byte to replace
+ *
+ * Accepts an ASCII byte character and returns a replaced
+ * byte according to the brAsciiTabla.
+ **/
 byte rep_char(byte caract)
 {
 	byte charCod,retorna;

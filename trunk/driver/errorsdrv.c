@@ -1,7 +1,6 @@
 /*   errorsdrv.c - The error message deliver.
  *
- *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
- *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *  Copyright (C) 2008  Rosales Victor (todoesverso@gmail.com)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,6 +18,18 @@
 
 #include "options.h"
 
+
+/**
+ * errors() -   'Says' an error 
+ * @number:     Number of the error to 'say'
+ *
+ * Recives a number that matches a line in the file of errors messages that is
+ * defined in the config file 'config.cfg' in the tag '<errors-msg>'. It also 
+ * gets the language from the config file in the tag '<errors-lang>'.
+ *
+ * It uses the program 'espeak', so it must be accessible through the PATH
+ * variable.
+ **/
 int errors(int number)
 {
 	FILE *filePtr;
@@ -31,15 +42,16 @@ int errors(int number)
 	getOpt("errors-msg", file_name);
 	defa = getOpt("errors-lang", lang);
 
+        /**
+         * If no lenguage defined use spanish (es) as default
+         **/
 	if (defa == 1)
-		strncpy(lang, "es", 2);	// If no language defined use spanish
-	// as default.
-
+		strncpy(lang, "es", 2);	
 
 	filePtr = fopen(file_name, "rt");
 
 	if (filePtr == NULL) {
-		printf("Error al abrir el archivo \n");
+		printf("Error opening the file '%s' \n", file_name);
 		return 1;
 	}
 
@@ -48,10 +60,15 @@ int errors(int number)
 
 	fclose(filePtr);
 
-	char *nlptr = strchr(line, '\n');	// Make sure to remove the newline char
+        /**
+         * Make sure to remove the newline character ...
+         **/
+	char *nlptr = strchr(line, '\n');
 	if (nlptr)
-		*nlptr = '\0';	// and add the NULL end of the string
-	// othewise a segfault will occur.
+		*nlptr = '\0';	/**
+                                 * ... and add the NULL end of the string 
+	                         * othewise a segfault will occur.
+                                 **/
 
 	strncat(command, lang, (strlen(lang) + 1));
 	strncat(command, " '", 2);
