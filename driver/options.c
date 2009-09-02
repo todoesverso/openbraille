@@ -1,7 +1,6 @@
 /*   options.c - The xml parser for options.
  *
- *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
- *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *  Copyright (C) 2008  Rosales Victor (todoesverso@gmail.com)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,6 +22,20 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 
+/**
+ * getOpt() -   Config file parser
+ * @option:     Pointer to a string with the tag to look for
+ * @value:      Pointer to a string with the value in the tag
+ *
+ * This function recives a pointer to a string with the tag namo on it and
+ * parse the 'config.cfg' file and returns the pointer to a string with the
+ * value of that tag.
+ * It has some error handlers, such as 'no file', 'empty file', or 'wrong file'
+ * this last one checks for a parent tag '<config>'. In any of those cases it
+ * returns a null pointer.
+ *
+ * It handles only one indentation level.
+ **/
 int getOpt(char *option, char *value)
 {
 	xmlDocPtr doc;

@@ -6,7 +6,7 @@ INCLUDES=funciones.h
 CFLAGS=
 SLIBS=
 PROG=gcc
-OPT=-Wall 
+OPT=-Wall -O2 
 OPTUSB= -L/usr/lib/ -lusb
 LIBXML= `xml2-config --cflags` `xml2-config --libs` 	
 
