@@ -143,7 +143,7 @@ Los valores aqu\'i presentados son aproximaciones muy %burdas
 Los precios usados son obtenidos de (en caso de ser posible) sus respectivos
 fabricantes, o de grandes distribuidores en su defecto, asumiendo compras
 mayores de 100 unidades, suponiendo as\'i que es una empresa en vista de
-producci\'on en serie quien usar\'a los datos aqui presentados.
+producci\'on en serie quien usar\'a los datos aqui presentados.\\
 
 % PIC18F4550 = 4.26 USD
 % http://www.microchipdirect.com/productsearch.aspx?Keywords=18f4550
@@ -153,3 +153,72 @@ producci\'on en serie quien usar\'a los datos aqui presentados.
 
 % TIP 122 = 0,33 € 
 %http://es.farnell.com/multicomp/tip122/transistor-darlington-to-220/dp/9294236
+
+% PCB ~= 2 o 3 USD
+% pcbcart.com
+
+% 3 USD extra
+% Diodos, transistores, resistencias, optoacopladores y conectores.
+
+Al ser un dise\~no sencillo, solo hay algunos elementos claves del mismo que
+poseen valor comparable al total.\ 
+La tabla \ref{tab:element_cost} muestra los precios unitaros de estos
+elementos.
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{r|l}
+Elemento    & Precio (USD) 	\\ \hline
+PIC18F4550  & 4.26			\\
+Ficha USB   & 0.52			\\
+TIP122      & 0.47			\\
+PCBs        & 2				\\
+Extras		& 3				\\
+\end{tabular}
+\caption{Precios unitarios por cien unidades} 
+\label{tab:element_cost}
+\end{table}
+
+
+Luego por unos diez dolares es posible armar ambas placas, y gracias a haber
+elegido todo sofware libre para el desarrollo, no es necesario comprar ninguna
+herramienta que agregue costo extra al dispositivo.\\
+
+\subsection{Modelos de negocio}
+
+Las caracteristicas particulares de este trabajo permite trabajar con varios
+modelos distintos.\\
+
+Es importante notar que este trabajo se encuentra completamente liberado, por
+lo que cualquier interesado puede usarlo sin pagar nada, y todas las
+especificaciones del mismo tambien pueden obtenerse gratis. \
+No obstante los siguientes modelos son perfectamente aplicables, y pueden ser
+transferidos durante todo la cadena del mercado.\\
+
+
+\begin{description}
+ \item[Venta de soporte] Quien posea el conocimiento t\'ecnico del desarrollo
+puede vender soporte, a algun potencial cliente que desee productizar el
+trabajo. 
+
+ \item[Venta de paquete de desarrollo] Es posible empaquetar todo el trabajo de
+tal manera de entregarle al cliente una distribuci\'ion de GNU/Linux con todas
+las herramientas necesariasinstalades para comenzar la productizaci\'on sin
+tener que preocuparse por configurar el ambiente. 
+
+ \item[Venta de desarrollo particular] Si el cliente desea alguna
+funcionalidad extra que actualmente no ese encuentra implementada o quiz\'a
+portar el codigo a otro sistema oepartivo, el trabajo de desarrollar e
+implemtar los requerimientos puede venderse.
+\end{description}
+
+Otro tema importante a notar es que la licencia usada (GPL v3) fuerza a que
+toda obra derivada de este trabajo mantenga la misma licencia y sea publicada,
+por lo que cualquier mejora hecha al mismo, ya sea pagada por un cliente
+privado o sencillamente implementada por un particular, siempre se hara
+p\'ublica.
+
+
+
+
