@@ -1,21 +1,21 @@
-\chapter{Tecnologias a usar}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Tecnolog\'ias a usar}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Para cumplimentar el objetivo de mantener los costos de producci\'on, y del
-dispositivo final bajos, las tecnologias a usar deben ser cuidadosamente
+dispositivo final bajos, las tecnolog\'ias a usar deben ser cuidadosamente
 elegidas entre aquellas disponibles en el mercado.\\ 
 
-En esta secci\'on se explican brevemente cada una de las tecnologias elegidas
-y se hace referencia a secciones m\'as detalladas en el caso de que sea
-necesario.
+En esta secci\'on se explican brevemente cada una de las tecnolog\'ias
+elegidas y se hace referencia a secciones m\'as detalladas en el caso de que
+sea necesario.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Comunicaci\'on} %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Como se mencion\'o anteriormente es necesario hacer uso de algun m\'etodo de
-comunicaci\'ion entre la computadora y el dipositivo.\ Existen varias
+Como se mencion\'o anteriormente es necesario hacer uso de alg\'un m\'etodo de
+comunicac\'ion entre la computadora y el dispositivo.\ Existen varias
 alternativas posibles para ello, a continuaci\'on se enumeran alguna de ellas.\
 
 \begin{itemize}
@@ -30,8 +30,8 @@ alternativas posibles para ello, a continuaci\'on se enumeran alguna de ellas.\
 \url{http://es.wikipedia.org/wiki/Bluetooth}}
 \end{itemize}
 
-Cada uno de los anteriores ``metodos'' de comunicaci\'on poseen diversas
-caracter\'isticas, pero es el estandar USB el \'unico que satisface las
+Cada uno de los anteriores ``m\'etodos'' de comunicaci\'on poseen diversas
+caracter\'isticas, pero es el est\'andar USB el \'unico que satisface las
 siguientes necesidades.
 
 \begin{itemize}
@@ -46,32 +46,34 @@ siguientes necesidades.
 \end{itemize}
 
 Justamente por ello es el usado en este trabajo.\ Ya habiendo elegido el
-estandar USB para lograr la comunicaci\'on entre la computadora y el
-dispositivo, es necesario luego elegir la forma de interactuar con el estandar
-desde el punto de vista del software.\ Se presentan dos opciones claras para
-encarar el problema, hacer uso de las funcionalidades m\'as bajas del sistema
-operativo, esto se\'ia escribir un ``diver'', o bien mediante algun tipo de
-\emph{API}\footnote{Del ingl\'es \emph{Application Programming Interface}}.\\
+est\'andar USB para lograr la comunicaci\'on entre la computadora y el
+dispositivo, es necesario luego elegir la forma de interactuar con el
+est\'andar desde el punto de vista del software.\ Se presentan dos opciones
+claras para encarar el problema, hacer uso de las funcionalidades m\'as bajas
+del sistema operativo, esto se\'ia escribir un ``driver'', o bien mediante
+alg\'un tipo de \emph{API}\footnote{Del ingl\'es \emph{Application Programming
+Interface}}.\\
 
-Si bien linux provee todas las heramientas necesarias para escribir drivers (o
-m\'odulos) USB, este metodo quitar\'ia toda posibilidad de portar el c\'odigo
-a otros sistemas operativos. En cambio existe una API portada a varios sitemas
+Si bien linux provee todas las herramientas necesarias para escribir drivers (o
+m\'odulos) USB, este m\'etodo quitar\'ia toda posibilidad de portar el c\'odigo
+a otros sistemas operativos. En cambio existe una API portada a varios sistemas
 operativos que satisface todas las necesidades para controlar la
 comunicaci\'on USB entre el dispositivo y el kernel.\\
 
 La API \emph{libusb}\footnote{V\'ease - \url{http://www.libusb.org/}} consiste
-en un set de librerias de codigo abierto licenciadas bajo LGPL\footnote{V\'ease
-- \url{http://www.gnu.org/copyleft/lesser.html}} (GNU Lesser General Public
-License). 
-Dichas librerias resuelven la comunicaci\'on USB pero a nivel de usuario.
-La API se encuentra en casi todoas las distribuciones de GNU/Linux, y se
-presenta en forma de libreria dinamica para usar con aplicaciones ya
+en un set de librer\'ias de c\'odigo abierto licenciadas bajo
+LGPL\footnote{V\'ease - \url{http://www.gnu.org/copyleft/lesser.html}} (GNU
+Lesser General Public License). 
+Dichas librer\'ias resuelven la comunicaci\'on USB pero a nivel de usuario.
+La API se encuentra en casi todas las distribuciones de GNU/Linux, y se
+presenta en forma de librer\'ia din\'amica para usar con aplicaciones ya
 compiladas y un paquete extra para \emph{development}\footnote{Del ingles
 desarrollo}, con los archivos cabecera, programas para compilar, y
 la documentaci\'on completa de sus funcionalidades con algunos ejemplos
-extras. \\
+extras.\\
 
-La libreria provee entre definiciones y estructuras, las siguientes funciones:
+La librer\'ia provee entre definiciones y estructuras, las siguientes
+funciones:
 
 \begin{lstlisting}
 /* usb.c */
@@ -110,17 +112,17 @@ int usb_reset(usb_dev_handle *dev);
 
 
 Una particularidad interesante de esta API, es que no solo ha sido portada a
-diversos varios sitemas operativos, sino que tambien ha sido portada a varios
-leguajes de programaci\'on como java, perl, python y otros.\\
+diversos varios sistemas operativos, sino que tambi\'en ha sido portada a
+varios lenguajes de programaci\'on como java, perl, python y otros.\\
 
-Todas las funciones de esta libreria (para la version estable 0.1) son
+Todas las funciones de esta librer\'ia (para la versi\'on estable 0.1) son
 s\'incronas, lo que significa que se debe esperar a que termine la operaci\'on
-para poder seguir. Por este motivo la mayoria de las funciones implemetan un
+para poder seguir. Por este motivo la mayor\'ia de las funciones implementan un
 \emph{timeout} en milisegundos.\\
 
-Esta API satisface tanto el estandar USB 1.0 como el 2.0, es por ello que si el
-dispositivo respeta el estandar, establecer una comunicaci\'on a USB requiere
-solo la adici\'on de algunas funciones al codigo fuente para;
+Esta API satisface tanto el est\'andar USB 1.0 como el 2.0, es por ello que si
+el dispositivo respeta el est\'andar, establecer una comunicaci\'on a USB
+requiere solo la adici\'on de algunas funciones al c\'odigo fuente para;
 inicializar la comunicaci\'on, para buscar el dispositivo, para abrirlo y
 luego el programa en si.
 
@@ -210,10 +212,11 @@ al PIC18F2550 en el futuro.\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sistema Operativo} %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Como se mencion\'o anteriormente, el sitema operativo elegido es GNU/Linux,
+Como se mencion\'o anteriormente, el sistema operativo elegido es GNU/Linux,
 esto se debe principalmente a que de esta manera para poder hacer uso de la
-impresora, el usuario no se ver\'ia obligado a comprar ningun tipo de software,
-ya que la inmensa mayoria de las versios de GNU/Linux son completamente
+impresora, el usuario no se ver\'ia obligado a comprar ning\'un tipo de
+software,
+ya que la inmensa mayor\'ia de las versiones de GNU/Linux son completamente
 gratuitas.\\
 
 Adem\'as de lo anterior, las mayor\'ia de las distribuciones de GNU/Linux
@@ -234,32 +237,34 @@ evidente es usar GCC\footnote{V\'ease - \url{http://gcc.gnu.org/}} (GNU
 Compiler Collection). GCC es una colecci\'on de compiladores (C, C++,
 Objective-C, Fortran, Java, y Ada) que se encuentra en todas las distribuciones
 de GNU/Linux. Para este trabajo en particular, solo se usa GCC como compilador
-de C que se integra facilmente con la API \emph{libusb}.
+de C que se integra f\'acilmente con la API \emph{libusb}.
 
 \subsection{Firmware}
 %%%%%%%%%%%%%%%%%%%%%
 Para el caso del firmware (esto seria el programa alojado en el
 microcontrolador), el mismo fabricante del microcontrolador elegido provee una
 serie de compiladores para asembler y C. La desventaja de elegir esta
-soluci\'on es que solo soportan sitemas Windows\footnote{V\'ease -
+soluci\'on es que solo soportan sistemas Windows\footnote{V\'ease -
 \url{
 http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1406&dDo
 cName=en010014&redirects=c18}}, y si bien es posible instalarlo en sistemas
-GNU/Linux, esto implica esfuezo extra e innecesario.\
-Debido a la complegidad requerida para implementar el protocolo USB, el usar
+GNU/Linux, esto implica esfuerzo extra e innecesario.\
+Debido a la complejidad requerida para implementar el protocolo USB, el usar
 asembler no es un opci\'on, y el compilador de C de Microchip luego del
-periodo de evaluaci\'on de 60 dias, deshabilita ciertas opciones de
-optimizaci\'on de codigo, generando programas mas grandes. Esto \'ultimo no es
+periodo de evaluaci\'on de 60 d\'ias, deshabilita ciertas opciones de
+optimizaci\'on de c\'odigo, generando programas mas grandes. Esto \'ultimo no
+es
 deseado debido al tama\~no limitado de memoria que posee el PIC18F4550, y una
-licensia de dicha programa ronda los 500 dolares\footnote{V\'ease -
+licencia de dicha programa ronda los 500 dolares\footnote{V\'ease -
 \url{http://www.microchipdirect.com/ProductSearch.aspx?Keywords=SW006011}}.\\
 
 SDCC\footnote{V\'ease - \url{http://sdcc.sourceforge.net/}} (Small Device C
 Compiler), es un compilador ANSI C libre, con soporte para una amplia variedad
 de microcontroladores, entre ellos se encuentra toda la familia PIC18 de
-Microchip. Este compilador se encuentra disponible en la mayoria de las
-distribuciones GNU/Linux, aunque tambien ha sido portado para sistemas
-Windows. Una caracteristica muy interesante de este compilador es el excelente
+Microchip. Este compilador se encuentra disponible en la mayor\'ia de las
+distribuciones GNU/Linux, aunque tambi\'en ha sido portado para sistemas
+Windows. Una caracter\'istica muy interesante de este compilador es el
+excelente
 soporte que sus creadores dan en linea mediante listas de correo.\\
 
 
@@ -271,9 +276,9 @@ operativo, se buscan alternativas ``nativas'' este.\\
 
 De los proyectos de simulaci\'on electr\'onica libres para GNU/Linux, la
 \emph{suite gEDA}\footnote{V\'ease - \url{http://www.gpleda.org/}}, es el mas
-importante. Entre los programas que vienen con esta suite, se descataca
+importante. Entre los programas que vienen con esta suite, se desataca
 \emph{ngspice}\footnote{V\'ease - \url{http://ngspice.sourceforge.net/}}, un
-simulador de circuitos que satisface completamente el estandar
+simulador de circuitos que satisface completamente el est\'andar
 Spice3\footnote{http://en.wikipedia.org/wiki/SPICE}.\\
 
 Si bien la suite gEDA posee programas para dise\~no de PCBs, se usa para este
