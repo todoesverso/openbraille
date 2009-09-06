@@ -1,7 +1,7 @@
 \chapter{USB}\label{cap:usb}
 
 El \emph{Universal Serial Bus}(USB\footnote{V\'ease - http://www.usb.org}) es
-un bus serial ent\'andar que hace de interfaz entre un dispositivo y una
+un bus serial est\'andar que hace de interfaz entre un dispositivo y una
 computadora.
 Dicha estandarizaci\'on es llevada acabo por el \emph{F\'orum de
 Implementadores de USB} (USB Implementers Forum, USB-IF\footnote{V\'ease -
@@ -20,14 +20,14 @@ implementaciones comerciales solo soportan el ent\'andar \emph{2.0}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \section{Decripci\'on}
-% Aca iria el funcionamiento del USB, difierenciado por \subsection{}
+% Aca iria el funcionamiento del USB, diferenciado por \subsection{}
 % Por ahora me estoy basando en la spec 2.0 oficial.
 La especificaci\'on USB provee una serie de atributos con los cuales se pueden
 implementar dispositivos seg\'un el precio/rendimiento deseado.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Caracter\'isticas}
-Del amplio rango de caracter\'isticas definidas en el ent\'andar, es posible
+Del amplio rango de caracter\'isticas definidas en el est\'andar, es posible
 agruparlas en ocho categor\'ias:
 % Reescribir lo de arriba y agregar mas
 
@@ -48,7 +48,7 @@ carga, versatilidad, eficiencia, precio, velocidad y dem\'as atributos que
 puedan inferir en un diese\~no.\\
 
 Para la veri\'on 2.0 de la epecificaci\'on, el protocolo soporta tres
-velocidades de transimsi\'on como se muestra en la
+velocidades de transmisi\'on como se muestra en la
 tabla \ref{tab:velocidad_usb}.
 
 \begin{table}[ht]
@@ -71,7 +71,7 @@ gran rango de perif\'ericos. Dicho \emph{bus} permite la conexi\'on,
 configuraci\'on, uso y desconexi\'on de un dispositivo mientras el \emph{host}
 y dem\'as perif\'ericos est\'an en funcionamiento. \\
 
-Un sistema USB se  define segun tres grandes \'areas:
+Un sistema USB se  define seg\'un tres grandes \'areas:
 
 \begin{itemize}
  \item Interconexi\'on USB
@@ -82,7 +82,8 @@ Un sistema USB se  define segun tres grandes \'areas:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Caracter\'isticas el\'ectricas}
 
-USB usa cuatro cables para alimentaci\'on y se\~nal. La se\~nal viaja a travez
+USB usa cuatro cables para alimentaci\'on y se\~nal. La se\~nal viaja a
+trav\'es
 de un par trenzado diferencial y se encuentra codificada con Non Return to Zero
 Inverted (NRZI). En la figura \ref{fig:electric_usb} se muestra un diagrama de
 un cable
@@ -95,7 +96,7 @@ USB.
 \label{fig:electric_usb}
 \end{figure}
 
-Al ser un par diferencial, el host iterpreta un \emph{1} diferencial cuando D+
+Al ser un par diferencial, el host interpreta un \emph{1} diferencial cuando D+
 es 200 mV mayor que D- y un \emph{0} diferencial cuando D- es 200 mV mayor que
 D+. 
 Los dispositivos USB indican su velocidad mediante una resistencia de
@@ -151,13 +152,13 @@ Controller}\footnote{Al igual que con \emph{host}, esta palabra se mantedr\'a
 en ingles.}. La implementaci\'on de un \emph{Host Controller} puede ser una
 combinaci\'on de hardware, firmware o software. El \emph{hub} ra\'iz esta
 integrado en el sistema \emph{host}, proveyendo puntos de acceso.
-En la versi\'on 1.1 de la especificaci\'on, exixtian dos tipod de
+En la versi\'on 1.1 de la especificaci\'on, exist\'ian dos tipo de
 controladores de \emph{hots}; \emph{Universal Host Controller Interface}
-(UHCI)\footnote{Desarrolada por Intel} y \emph{Open Host Controller Interface}
+(UHCI)\footnote{Desarrollada por Intel} y \emph{Open Host Controller Interface}
 (OHCI)\footnote{Desarrollada por Compaq, Microsoft y National Semiconductors}.
 Luego con para le versi\'on 2.0 de la especificaci\'on de defini\'o un tercer
 controlador; \emph{Enhanced Host Controller Interface} (EHCI)\footnote{Que
-luego pasaria a convertirse en el estandar mas usado.}
+luego pasar\'ia a convertirse en el est\'andar mas usado.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -165,7 +166,7 @@ luego pasaria a convertirse en el estandar mas usado.}
 
 Los dispositivos USB pueden ser dispositivos funcionales o bien \emph{hubs}.
 En ambos casos deben ser capaces de entender el protocolo USB y responder a
-peticiones estandares USB ademas de cumplir su funci\'on intr\'inseca. 
+peticiones est\'andares USB adem\'as de cumplir su funci\'on intr\'inseca. 
 
 % Explicar --- UHCI, OHCI, EHCI
 %\begin{Huge} TERMINAR!!! \end{Huge}
@@ -203,7 +204,7 @@ se realizar\'a. Existen tres tipos de paquetes \emph{token}:
 
 \begin{itemize}
  \item IN - Informa al dispositivo USB que el host desea leer informaci\'on
- \item OUT - Inrofma al dispositivo USB que el host desea escribir
+ \item OUT - Informa al dispositivo USB que el host desea escribir
 informaci\'on
  \item Setup - Es usado para comenzar transferencias de control
 \end{itemize}
@@ -247,7 +248,8 @@ transacci\'on. Existen tres tipos de paquetes \emph{status}:
 \begin{itemize}
  \item ACK - Reconocimiento de que el paquete fue recibido.
  \item NAK - Avisa de que el dispositivo no puede recibir ni enviar datos.
- \item STALL - Significa que el dispositivo necesita la intevenci\'on del host.
+ \item STALL - Significa que el dispositivo necesita la intervenci\'on del
+host.
 \end{itemize}
 
 Un paquete \emph{status} esta formado por los siguientes campos mostrados en la
@@ -268,7 +270,7 @@ Sync & PID & EOP\\ \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \section{Enpoints}\label{cap:usb_endpoints}
-Un aspecto muy importante del estandar USB es la forma en la que se logra la
+Un aspecto muy importante del est\'andar USB es la forma en la que se logra la
 comunicaci\'on entre el host y el dispositivo.
 Un \emph{endpoint} es un buffer \'unico que define la punta extrema de un
 canal de comunicaci\'on. La identificaci\'on de un endpoint en particular se
@@ -287,7 +289,7 @@ Entonces si por ejemplo el host emite un pedido de descripci\'on de dispositivo
 (\emph{device descriptor request}) el dispositivo va a determinar por medio de
 el campo \emph{ADDR} si el pedido esta dirigido hacia \'el, y luego copiar\'a
 el dato en el endpoint correspondiente al que indica el campo \emph{ENDP}, que
-luego podra ser leido por la aplicaci\'on embebida en el dispositivo.\\
+luego podr\'a ser le\'ido por la aplicaci\'on embebida en el dispositivo.\\
 
 El enpoint 0 debe existir en todos los dispositivos, ya cumple la funci\'on
 espec\'ifica de realizar el handshaking y todo el control en una
@@ -319,13 +321,13 @@ emisi\'on de ordenes. Este tipo de transferencia posee tres etapas distintas:
 
 \begin{itemize}
  \item Setup:
-		Durante esta estapa se realiza la petici\'on de datos.
+		Durante esta etapa se realiza la petici\'on de datos.
  \item Data:
 		En esta etapa se realiza el intercambio de datos y puede consistir de
-varias transferencias \emph{IN} o \emph{OUT} segun corresponda. 
+varias transferencias \emph{IN} o \emph{OUT} seg\'un corresponda. 
  \item Status:
-		Esta etapa se realiza al finalizar la transefrencia de control y
-determina el exito o no de la operaci\'on.
+		Esta etapa se realiza al finalizar la transferencia de control y
+determina el \'exito o no de la operaci\'on.
 \end{itemize}
 
 
@@ -334,7 +336,7 @@ determina el exito o no de la operaci\'on.
 Las transferencias tipo \emph{bulk}, son usadas para transmisi\'on de grandes
 pedazos de datos. \'Este tipo transferencias provee correcci\'on de datos
 con un campo \emph{CRC} de 16 bits y un mecanismo de detecci\'on y
-re-trasmision de errores para asegurar la integridad de los mismos.\\
+re-trasmisi\'on de errores para asegurar la integridad de los mismos.\\
 
 Las transferencias bulk no poseen un ancho de banda asignado, por lo cual no
 aseguran latencia alguna.\\
@@ -354,20 +356,20 @@ la figura \ref{fig:usb_bulk_transaction}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \section{Descriptores USB}
-% Revisar pagina 240 de la spec usb 2.0 grafico de estados para agregar
-% Agregar proceso de enumeracion de la spec pag 243	
+% Revisar pagina 240 de la spec usb 2.0 gr\'afico de estados para agregar
+% Agregar proceso de enumeraci\'on de la spec pag 243	
 Los descriptores USB son estructuras de datos con formatos especif\'icos, en
 los cuales se almacena todos los atributos del dispositivo.
 Cada descriptor comienza con un campo donde se almacena el tama\~no de dicho
 descriptor, seguido inmediatamente por un campo que identifica el tipo de
 descriptor.\\
-Entre los descriptotes mas comunes se enucentran:
+Entre los descriptores mas comunes se encuentran:
 
 \begin{itemize}
  \item Device: Cada dispositivo tiene un solo descriptor \emph{device}, y
 \'estos poseen informaci\'on b\'asica sobre \'el. Entre otras cosas este
 descriptor tiene un n\'umero identificador del vendedor y el dispositivo en
-si. Tiene ademas un campo con la informacion de cuantas configuraciones
+si. Tiene adem\'as un campo con la informaci\'on de cuantas configuraciones
 soporta el dispositivo.
 
  \item Configuration: Este descriptor posee entre otras cosas el tipo de
@@ -376,18 +378,18 @@ alimentaci\'on y el n\'umero de interfaces configuradas del dispositivo.
  \item Interface: Este descriptor puede ser visto como una cabecera con
 informaci\'on sobre un grupo de endpoints.
 
- \item Enpoint: Este descriptor posee toda la informaci\'on necesaria para car
-acterizar cada endpoint. Entre otras cosas aqui se define el tipo de
-transefrencia que usa el endpoint (bulk, interrupt, isochronous, control), el
-tama\~no de los paquetes, etc. El endpoint 0 siempre es cosiderado de control
+ \item Enpoint: Este descriptor posee toda la informaci\'on necesaria para
+caracterizar cada endpoint. Entre otras cosas aqu\'i se define el tipo de
+transferencia que usa el endpoint (bulk, interrupt, isochronous, control), el
+tama\~no de los paquetes, etc. El endpoint 0 siempre es considerado de control
 y debe estar configurado.
 
  \item String: Estos descriptores poseen informaci\'on legible por humanos que
-peden ser indexados por otros descriptores. 
+pueden ser indexados por otros descriptores. 
 
 \end{itemize}
 
-Los desciptores pueden ser ordenados jer\'arquicamente segun se ve en la
+Los descriptores pueden ser ordenados jer\'arquicamente seg\'un se ve en la
 figura \ref{fig:usb_descriptors}
 
 \begin{figure}[htp]
@@ -433,7 +435,7 @@ Attached & Powered & Default & Address & Configured & Suspended
 % Table fill
 % 1 %
 No & -- & -- & -- & -- & -- & 
-El dispositio no est\'a enchufado\\
+El dispositivo no est\'a enchufado\\
 \hline
 % 2 %
 Si & No & -- & -- & -- & -- & 
@@ -446,7 +448,7 @@ reseteado.\\
 \hline
 % 4 %
 Si & Si & Si & No & -- & -- &
-El dispositico se encuentra enchufado, alimentado y ha sido reseteado, pero no
+El dispositivo se encuentra enchufado, alimentado y ha sido reseteado, pero no
 se le ha asignado una direcci\'on \'unica.\\
 \hline
 % 5 %
@@ -462,8 +464,8 @@ host puede hacer uso del dispositivo ahora.\\
 \hline
 % 7 &
 Si & Si & -- & -- & -- & Si &
-El dispositivo se encuentra como minimo enchufado y alimentado, pero no ha
-presentado actividad alguna en los ultimos 3 ms, por lo que el dipositivo se
+El dispositivo se encuentra como m\'inimo enchufado y alimentado, pero no ha
+presentado actividad alguna en los \'ultimos 3 ms, por lo que el dispositivo se
 encuentra suspendido y no puede ser usado por el host.\\
 \hline 
 
@@ -478,7 +480,7 @@ encuentra suspendido y no puede ser usado por el host.\\
 \clearpage
 \section{Enumeraci\'on del bus USB}
 El proceso de enumeraci\'on determina si un dispositivo se ha conectado al
-bus, a que puerto, sus configuraciones, intefaces, etc.
+bus, a que puerto, sus configuraciones, interfaces, etc.
 A continuaci\'on se listan los acciones que se llevan a cabo durante el
 proceso de enumeraci\'on.
 
@@ -489,28 +491,28 @@ proceso de enumeraci\'on.
 evento. En este paso el dispositivo se encuentra \emph{POWERED} y el puerto al
 cual esta enchufado se encuentra deshabilitado.
  % 2 %
- \item El host determina la naturaleza del cambio consultandole al hub.
+ \item El host determina la naturaleza del cambio consult\'andole al hub.
  % 3 %
  \item El host conoce ahora el puerto al cual se ha conectado el dispositivo y
 espera 100 ms para que se normalice su alimentaci\'on. El host habilita el
-puerto y envia una petici\'on de \emph{reset}.
+puerto y env\'ia una petici\'on de \emph{reset}.
  % 4 %
  \item El hub ejecuta el pedido de \emph{reset} para ese puerto y luego el
 puerto queda habilitado. El dispositivo pasa a el estado \emph{DEFAULT} y no
 puede consumir mas de 100 mA. Todos sus registros han sidos reseteados y
 responde a la direcci\'on por defecto.
  % 5 %
- \item El host asigna una direcci\'on \'unica al dispositiv y esta pasa al
+ \item El host asigna una direcci\'on \'unica al dispositivo y esta pasa al
 estado \emph{ADDRESS}.
  % 6 %
  \item El host lee del dispositivo el tama\~no de datos que puede recibir antes
 de que \'este reciba la direcci\'on.
  % 7 %
- \item El host lee toda la configuracion de dispositivo.
+ \item El host lee toda la configuraci\'on de dispositivo.
  % 8 %
  \item Basado en la configuraci\'on obtenida, el host asigna un valor de
-configuraci\'on al dipositivo y \'este pasa a el estado de \emph{CONFIGURED}.
-Desde el puento de vista del dipositivo \'este se encuentra listo para ser
+configuraci\'on al dispositivo y \'este pasa a el estado de \emph{CONFIGURED}.
+Desde el punto de vista del dispositivo \'este se encuentra listo para ser
 usado.
 \end{enumerate}
 
@@ -524,7 +526,7 @@ conexi\'on USB de tipo \emph{full} y \emph{high-speed}. Dicha comunicaci\'on
 se lleva acabo mediante lo que Microchip denomina \emph{USB Serial Interface
 Engine} (\emph{USB SIE}) o simplemente \emph{SIE}. 
 El \emph{SIE} es capaz de interactuar con un transceptor tanto externo como
-interno. Y se provee tambien un regulador de voltaje de 3.3V interno
+interno. Y se provee tambi\'en un regulador de voltaje de 3.3V interno
 completamente integrado para alimentar el tranceptor.
 
 En la figura \ref{fig:pic_usb_internal} se muestra un diagrama interno de
@@ -540,8 +542,8 @@ la arquitectura USB de \'esta familia de microcontroladores.
 
 
 \subsection{Registros}
-El modulo USB es controlado mediante 22 registros diponibles en el
-microcontrolador, la mayoria de los cuales son de lectura y escritura.
+El modulo USB es controlado mediante 22 registros disponibles en el
+microcontrolador, la mayor\'ia de los cuales son de lectura y escritura.
 A continuaci\'on se describir\'an en brevedad cada registro implicado en
 \'este trabajo.
 
@@ -549,7 +551,7 @@ A continuaci\'on se describir\'an en brevedad cada registro implicado en
 % Generar una ref para el apendice del datasheet del 18f4550
 El registro \emph{UCON} \footnote{Para m\'as detalles referirse a la hoja de
 datos del dispositivo p\'agina 164} posee los bits necesarios para controlar el
-modulo USB durante las transferencias. De aqui se controlan:
+modulo USB durante las transferencias. De aqu\'i se controlan:
 
 \begin{itemize}
  \item Activar o desactivar el perif\'erico USB
@@ -580,7 +582,7 @@ controla:
 
 \subsubsection{USTAT}
 El registro \emph{USTAT} \footnote{Para m\'as detalles referirse a la hoja de
-datos del dispositivo p\'agina 168} contine la
+datos del dispositivo p\'agina 168} contiene la
 informaci\'ion espec\'ifica de la \'ultima transferencia recibida. De \'este
 registro se puede leer:
 
@@ -594,7 +596,7 @@ registro se puede leer:
 
 \'Este registro posee un stack del tipo \emph{FIFO} de cuatro niveles que
 permite al \emph{SIE} procesar otras transacciones en otros enpoints mientras
-el microcontrolador procesa la informaci\'on que se encuentra actualemten en
+el microcontrolador procesa la informaci\'on que se encuentra actualmente en
 el registro \emph{USTAT}, como se puede apreciar en la figura
 \ref{fig:ustat_fifo}.
 
@@ -612,7 +614,7 @@ datos del dispositivo p\'agina 169} contiene la
 configuraci\'on de cada uno de los 16 enpoints. La letra 'n' representa el
 n\'umero del enpoint.
 Mediante estos registros se puede configurar, para cada endpoint
-individualmente, los siguientes pa\'ametros:
+individualmente, los siguientes par\'ametros:
 
 \begin{itemize}
  \item Activar o desactivar el \emph{handshaking}
@@ -654,13 +656,13 @@ USB la parte no usada del Banco 4 hasta el Banco 7.\\
 
 Por estar mapeada en memoria de datos y siendo accesible tanto por el
 microcontrolador como por el \emph{SIE}, la \emph{USB RAM}, se maneja mediante
-un sistema de semaforos, asegurando de \'esta manera que un solo dispositivo
+un sistema de sem\'aforos, asegurando de \'esta manera que un solo dispositivo
 este accediendo al mismo segmento de memoria a la vez.
 
-\subsection{Desciptores de Buffer y Tabla de Descriptores de Buffers}
+\subsection{Descriptores de Buffer y Tabla de Descriptores de Buffers}
 \label{cap:usb_byte}
-Para proveerle cierta felxibilidad al usuario, el m\'odulo USB hace uso de
-una estructura particualr de datos donde se describen los \emph{endpoints} del
+Para proveerle cierta flexibilidad al usuario, el m\'odulo USB hace uso de
+una estructura particular de datos donde se describen los \emph{endpoints} del
 USB denominada \emph{Buffer Descriptor Table (BDT)}. \\
 
 La BDT se compone de \emph{Buffer Descriptors (BDs)} los cuales, a su vez, se
@@ -676,7 +678,7 @@ componen de 4 registros:
  \item BDnADRL: Direcci\'on baja del BD
 \end{itemize}
 
-\'Esta disposicion se puede apreciar mejor en la figura \ref{fig:pic_bdt}.
+\'Esta disposici\'on se puede apreciar mejor en la figura \ref{fig:pic_bdt}.
 
 % Datasheet pag 171
 \begin{figure}[htp]
@@ -691,7 +693,7 @@ Los \emph{BDs} se componen de 4 registros (o bytes) por lo que cada
 \emph{BDnSTAT} se encuentra siempre siempre a 4n-1 bytes de distancia de la
 direcci\'on 400h.\\
 
-\'Este registro tiene la particularidad de poseer un comportameinto que
+\'Este registro tiene la particularidad de poseer un comportamiento que
 depende de su contexto.
 
 \subsubsection{Modo CPU}
@@ -709,19 +711,19 @@ al microcontrolador
 contador, quien determina el tama\~no del los datos \emph{IN} o \emph{OUT}.
 \end{itemize}
 
-El registro \emph{BDnCNT} contine los bits 7:0 que determinan el tama\~no del
-buffer. De esta manera los buffers se limitan a un tam\~no espec\'ifico que
+El registro \emph{BDnCNT} contiene los bits 7:0 que determinan el tama\~no del
+buffer. De esta manera los buffers se limitan a un tama\~no espec\'ifico que
 ser\'a el que se puede recibir en una transferencia \emph{OUT}. Mientras que
 en una transferencia \emph{IN} se fija el tama\~no del dato que se
 transmitir\'a al host.\\
 
 En cuanto a los registros \emph{BDnADRL} y \emph{BDnADRH} poseen la
-direcci\'on de USB RAM de los enpoints. El microcontrolador no posee ningun
-mecanismo intr\'inseco que valide dicha direcc\'ion, lo cual deberia hacerse
+direcci\'on de USB RAM de los endpoints. El microcontrolador no posee ning\'un
+mecanismo intr\'inseco que valide dicha direcc\'ion, lo cual deber\'ia hacerse
 mediante software.\\
 
 \subsubsection{Modo SIE}
-Cuando \emph{UOWN} = 1 (\emph{BDnSTAT$<7>$}), el \emph{BD} se encuetra bajo
+Cuando \emph{UOWN} = 1 (\emph{BDnSTAT$<7>$}), el \emph{BD} se encuentra bajo
 el control del \emph{SIE}. Luego los bits de \'este registro adquieren otro
 significado:
 
@@ -736,115 +738,14 @@ al \emph{SIE}
 contador, quien determina el tama\~no del los datos \emph{IN} o \emph{OUT}.
 \end{itemize}
 
-El registro \emph{BDnCNT} contine los bits 7:0 que determinan el tama\~no del
-buffer. Es el \emph{SIE} quien actualiza estos valores segun la ultima
+El registro \emph{BDnCNT} contiene los bits 7:0 que determinan el tama\~no del
+buffer. Es el \emph{SIE} quien actualiza estos valores seg\'un la ultima
 transacci\'on efectuada. En una transacci\'on del tipo \emph{OUT}, el
 \emph{SIE} compara el tama\~no del dato recibido si supera el que esta
 definido en este registro autom\'aticamente se emite una se\~nal del tipo
-\emph{NAK}. Cuendo se hace un \emph{IN}, el \emph{SIE} actualiza este registro
+\emph{NAK}. Cuando se hace un \emph{IN}, el \emph{SIE} actualiza este registro
 con la cantidad de datos enviados.\
 Con este m\'etodo es posible luego hacer chequeos del resultado verdadero de
 las transacci\'ones USB. 
 
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\clearpage
-\section{USB en linux}
-
-Linux comenz\'o a soportar el protocolo USB desde la versi\'on 2.2.7
-(\emph{principio de 1999}), con codigo aportado por el mismo \emph{Linus
-Torvalds\footnote{Codigo fuente
-en: ftp://ftp.kernel.org/pub/linux/kernel/testing/old/usb/}
-\footnote{V\'ease:
-http://marc.info/?l=linux-usb\&m=92282561930486\&w=2}
-}.\\
-
-Con el paso del tiempo el soporte de linux para el protoco USB ha aumentado
-considerablemente, y actualmente existen drivers para una enorme cantidad de
-dispositivos.\\
-
-Linux interpone varias capas de abstracci\'on entre el usuario y el hardware
-USB, en la figura \ref{fig:usb_linux_layers} se puede apreciar una
-representacion de dichas capas.
-
-\begin{figure}[htp]
-\centering
-\includegraphics[scale=0.5]{./img/usb_linux_layers.png}
-\caption{Soporte USB de linux.}
-\label{fig:usb_linux_layers}
-\end{figure}
-
-
-En los cap\'itulos siguientes se describir\'a como es manejado el protocolo a
-nivel del kernel y una \emph{API} libre de m\'as alto nivel.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Manejo USB de bajo nivel}
-
-El kernel linux posee documentaci\'on embebida, la cual puede ser generada en
-formato \emph{postscipt} \footnote{V\'ease -
-http://es.wikipedia.org/wiki/PostScript}, pdf, o html. Para lograr esto basta
-con bajar el codigo del kernel y compilar la documentaci\'on de la siguiente
-manera:
-
-\begin{scriptsize}
-	\begin{verbatim}
-	$ wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-x.y.z.tar.bz2
-	$ tar -xjf linux-x.y.z.tar.bz2
-	$ cd  linux-x.y.z/
-	$ make pdfdocs
-	\end{verbatim}
-\end{scriptsize}
-
-En la documentaci\'on generada se encuentra una secci\'on espec\'ifica sobre
-USB.\\
-
-Basicamente linux posee en su nivel m\'as bajo drivers para el controlador
-host (ya sean UHCI, OHCI o EHCI), el cual se comunica con el
-\emph{usbcore}\footnote{Tambi\'en llamado API, pero aqui nos referiremos como
-\emph{usbcore} o \emph{core} por cuestiones pr\'acticas.} quien interactua
-directamente con los drivers espec\'ificos de cada dispositivo (Ver figura
-\ref{fig:usb_linux_layers}).
-
-
-%% Esto ya no es tan bajo nivel, deberi tener otra seccion
-En el c\'odigo fuente del kernel existe un \emph{esquelto}\footnote{V\'ease
-- http://lxr.linux.no/linux+v2.6.28/drivers/usb/usb-skeleton.c} de un driver
-gen\'erico, con varias variables definidas, funciones y macros \'utiles.
-Este \emph{esqueleto} fue escrito por Greg Kroah-Hartman\footnote{Mail - 
-greg@kroah.com} y basado en \emph{pci-skeleton.c}\footnote{V\'ease -
-http://lxr.linux.no/linux+v2.6.28/drivers/net/pci-skeleton.c}.
-Este \emph{driver gen\'erico} posee todo lo necesario para , con
-modificaciones suficientes, escribir un driver espec\'ifico de un dispositivo.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{URBs (API de bajo nivel)}
-
-El kernel maneja\footnote{Si bien es la forma mas recomendada, puede evitarse
-el uso de esta API} el acceso de los distintos drivers al sistema USB mediante
-mensajes de \emph{pedidos de bloques USB} (\emph{URB - USB Request
-Block}\footnote{El acronimo \emph{URB} se usar\'a en el documento por
-cuestiones pr\'acticas}).\\
-
-El concepto b\'asico de \emph{URBs} es el paso de mensajes de forma
-asincr\'onica. 
-Un \emph{URB} contine toda la informacion necesaria para hacer una
-transacci\'on USB y provee ademas un \emph{manejador}\footnote{\emph{Handler}
-en ingles.} con toda la informaci\'on de la transacci\'on.
-Por la naturaleza as\'incrona de los URBs, ni bien se env\'ian, estos son
-encolados y la funci\'on vuelve inmediatamente. 
-
-% FAAAAKKKKK como mierda me las arreglo para explicar todo esto, que
-% quilombo!!!!
-% Seguir...
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

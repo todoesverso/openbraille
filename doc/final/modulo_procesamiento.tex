@@ -2,7 +2,7 @@ El microcontrolador PIC18F4550 posee un m\'etodo de grabaci\'on en
 circuito\footnote{V\'ease -
 \url{http://ww1.microchip.com/downloads/en/DeviceDoc/30277d.pdf}} (In-Circuit
 Serial Programming). Esta prestaci\'on es implementada, no solo para dinamizar
-el desarrollo, sino tambien para permitir futuras actulizaciones de firmware
+el desarrollo, sino tambi\'en para permitir futuras actualizaciones de firmware
 en las placas de producci\'on. Como se ve en la figura \ref{fig:icsp}, la
 implementaci\'on de esta funcionalidad es bastante sencilla.\\
 
@@ -15,7 +15,7 @@ implementaci\'on de esta funcionalidad es bastante sencilla.\\
 
 En cuanto a la velocidad de procesamiento, si bien el microcontrolador soporta
 cristales externos de hasta 20 MHz, se usa uno de 4 MHz, ya que son los m\'as
-comunmente usados y en algunos casos mas baratos.\\
+com\'unmente usados y en algunos casos mas baratos.\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 El microcontrolador posee varios registros de configuraci\'on que deben ser
@@ -57,12 +57,12 @@ Como se determin\'o anteriormente el mecanismo a usar ser\'a de un \'unico
 punz\'on desplazante, esto implica que se debe generar movimiento horizontal
 para el cabezal y movimiento vertical para el papel, es necesaria adem\'as una
 se\~nal para manejar el punz\'on. Quedan entonces definidas las salidas.\
-Por otra parte es necesario definir algun tipo de se\~nal de entrada. Para
+Por otra parte es necesario definir alg\'un tipo de se\~nal de entrada. Para
 mantener un dise\~no simple solo se usar\'an entonces una se\~nal de presencia
 de papel y un fin de carrera para el cabezal.\\
 
 En la figura \ref{fig:pc_uc_motors} se ve el dise\~no general. \'Este posee la
-particularidad de ser el usado por la mayoria de las antiguas impresoras
+particularidad de ser el usado por la mayor\'ia de las antiguas impresoras
 matriz de punto, siendo entonces posible usar un mecanismo fabricado a medida,
 o bien adaptar una impresora vieja.
 
@@ -99,24 +99,26 @@ casos se ha agregado un LED para ayuda visual.\\
 Para mantener los costos bajos, y teniendo en cuenta las limitaciones del
 microcontrolador elegido, la mayor parte del procesamiento se lleva a cabo
 en la computadora, logrando de esta manera economizar espacio en el firmware y
-evitar la neceidad de hardware extra.\\
+evitar la necesidad de hardware extra.\\
 
-En su mayoria, las impresoras braille comerciales posen integrado un sistema
+En su mayor\'ia, las impresoras braille comerciales posen integrado un sistema
 sintetizador de voz, con mensajes pregrabados en varios idiomas que se
 reproducen por cada acci\'on que la impresora ejecuta. Esto, claro est\'a,
 implica la necesidad de grandes cantidades de memoria y quiz\'a un chip
-dedicado. Para evitar usar chips sintetizadores de voz y memeorias, y
-teniendo en cuenta que la mayoria de las computadoras actuales poseen sistemas
+dedicado. Para evitar usar chips sintetizadores de voz y memorias, y
+teniendo en cuenta que la mayor\'ia de las computadoras actuales poseen
+sistemas
 de reproducc\'on de audio, \'este trabajo queda a cargo de \'estas.\
-Al igual que el audio, existe gran cantidad de prcesamiento a llevar a cabo
+Al igual que el audio, existe gran cantidad de procesamiento a llevar a cabo
 para la conversi\'on del texto a braille, y varias decisiones que usualmente
 toman las impresoras. Todo esto se resuelve del lado de la computadora.\
 Entonces es posible ahora, hablar de driver (que ser\'a el programa
-ejecutandose en la computadora) y firmware (que ser\'a el programa ejecutandose
+ejecut\'andose en la computadora) y firmware (que ser\'a el programa
+ejecut\'andose
 en el microcontrolador) al referirnos a la computadora y a el dispositivo
 respectivamente.\
-Para lograr esto, el firmware solo es capaz de realizar tareas basicas y
-sencillas, respondiendo a instrucciones que el driver envia y reportando los
+Para lograr esto, el firmware solo es capaz de realizar tareas b\'asicas y
+sencillas, respondiendo a instrucciones que el driver env\'ia y reportando los
 resultados obtenidos. La figura \ref{fig:driver_firmware} muestra una
 representaci\'on de lo dicho anteriormente.\\
 
@@ -136,10 +138,11 @@ representaci\'on de lo dicho anteriormente.\\
 
 
 Para instanciar el modelo anterior haciendo uso del m\'etodo de comunicaci\'on
-elegido\footnote{Esto es el estandar USB}, se definen dos
+elegido\footnote{Esto es el est\'andar USB}, se definen dos
 endopoints\footnote{V\'ease \fullref{cap:usb_endpoints}} bidireccionales, uno
-dedicado exclusivamente al envio de datos (endpoint 1 o EP1) y otro para enviar
-instucciones y recibir resultados (endpoint 2 o EP2). La figura
+dedicado exclusivamente al env\'io de datos (endpoint 1 o EP1) y otro para
+enviar
+instrucciones y recibir resultados (endpoint 2 o EP2). La figura
 \ref{fig:driver_eps_firmware} muestra la comunicaci\'on mediante endpoints.
 
 
@@ -167,7 +170,8 @@ necesario determina el tipo y forma de los datos y las instrucciones a manejar.
 %%%%%%%%%%%%%%%%%%
 %
 La cantidad de caracteres braille que entran en el ancho de una hoja A4, ronda
-los 30 dependiendo del tama\~no de las sangrias. Para dejar un margen se eligen
+los 30 dependiendo del tama\~no de las sangr\'ias. Para dejar un margen se
+eligen
 28 caracteres. Teniendo en cuenta que los caracteres braille poseen dos
 columnas de puntos\footnote{V\'ease \fullref{cap:braille_cell}} y que el
 dato m\'inimo que se puede enviar por USB es de un byte\footnote{V\'ease
@@ -194,7 +198,7 @@ byte 1 & byte 2 & ...\\ \hline
 Entonces el m\'aximo numero de bytes a enviar por linea es de 7 bytes.\
 
 Para formar una fila completa de caracteres, es necesario realizar tres
-envios, ya que los caracteres braille poseen tres filas de
+env\'ios, ya que los caracteres braille poseen tres filas de
 puntos\footnote{V\'ease \fullref{cap:braille_cell}}, lo cual genera 21 bytes
 ($7bytes*3$) por fila, y un total de 588 ($21bytes * 28filas$) bytes por
 p\'agina ya que en una hoja A4 se suelen imprimir 28 filas de caracteres. 
@@ -231,8 +235,9 @@ para poder llevar a acabo un proceso de impresi\'on normal.
 %%%%%%%%%%%%%%%%%%%%%%%
 %
 Se definen dos tipos de resultados distintos, uno que es devuelto cuando se
-envia la instruccion \emph{STATUS} y otro que se genera siempre luego de un
-envio de datos que consta en el dato recreado por la impresora, esto es solo a
+env\'ia la instrucci\'on \emph{STATUS} y otro que se genera siempre luego de un
+env\'io de datos que consta en el dato recreado por la impresora, esto es solo
+a
 modo de verificaci\'on tipo \emph{echo}.\\
 
 Ante una instrucci\'on del tipo \emph{STATUS}, el dispositivo lee los estados
@@ -255,9 +260,9 @@ Entonces dependiendo del estado de los dos bits menos significativos del byte
 de reporte, el driver puede saber en que estado se encuentra la impresora.\\
 
 El segundo tipo de resultado definido es el \emph{echo}. Cuando el driver
-envia datos para imprimir, la impresora comienza el proceso de impresi\'on y
-recrea los datos recibidos segun lo que hace, luego este dato recreado
-se envia de vuelta al driver quien comprar ambos datos y verifica que sean
+env\'ia datos para imprimir, la impresora comienza el proceso de impresi\'on y
+recrea los datos recibidos seg\'un lo que hace, luego este dato recreado
+se env\'ia de vuelta al driver quien comprar ambos datos y verifica que sean
 iguales, la figura \ref{fig:rec_dat} muestra un diagrama simplificado de este
 proceso.
 
@@ -282,7 +287,8 @@ proceso.
 		&
       \node [cloud] (firmware) 		{Firmware}; \\
     % row 2
-	  \node [block] (dat_send_d)	{Envio del dato a imprimir \(\$dat_d\)}; &
+	  \node [block] (dat_send_d)	{Env\'io del dato a imprimir \(\$dat_d\)};
+&
 		&
       \node [block] (dat_resv_f)	{Recepci\'on del dato \(\$dat_d\)}; \\
     % row 3
@@ -293,7 +299,8 @@ reconstrucci\'on del dato \(\$dat_d -> \$dat_f\)};  \\
 	\node	[block]	(dat_resv_d)	{Recepci\'on del dato reconstruido
 	\(\$dat_f\)};
 		& &
-	  \node [block] (dat_send_f)	{Envio del dato reconstruido \(\$dat_f\)};
+	  \node [block] (dat_send_f)	{Env\'io del dato reconstruido
+\(\$dat_f\)};
 \\
   };
   \begin{scope}[every path/.style={draw, -latex'}]
@@ -330,7 +337,8 @@ paso a paso.}
 
 Teniendo en cuenta la figura \ref{fig:stepper_motor_5_wire}, y tomando el
 valor '1' como ``energizado'', las secuencias de la tabla
-\ref{tab:seq_motors_1}, indistintamente, efectuan la rotaci\'on de el motor en
+\ref{tab:seq_motors_1}, indistintamente, efect\'uan la rotaci\'on de el motor
+en
 un paso completo.
 
 \begin{table}[htp]

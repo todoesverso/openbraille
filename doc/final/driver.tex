@@ -1,7 +1,7 @@
-% Poner primero, antes del codigo, un diagrama de flujo del mismo
+% Poner primero, antes del c\'odigo, un diagrama de flujo del mismo
 
 Para comenzar una comunicaci\'on USB con la API \emph{libusb} es preciso
-primero descubrir el dipositivo, esto se logra con:
+primero descubrir el dispositivo, esto se logra con:
 
 \begin{lstlisting}
 struct usb_bus *busses;
@@ -13,7 +13,7 @@ usb_find_devices();
 busses = usb_get_busses();
 \end{lstlisting}
 
-Luego de esto ya se poseen los \emph{busses} USB del sitema. Es preciso luego
+Luego de esto ya se poseen los \emph{busses} USB del sistema. Es preciso luego
 iterar sobre cada uno de ellos para encontrar el dispositivo especifico de la
 siguiente manera:
 
@@ -43,5 +43,5 @@ for (bus = busses; bus; bus = bus->next) {
 }
 \end{lstlisting}
 
-Una limitaci\'on intr\'inseca de la libreria es que se requiere abrir tantas
+Una limitaci\'on intr\'inseca de la librer\'ia es que se requiere abrir tantas
 instancias del dispositivo como interfaces se desee usar de \'el.\\

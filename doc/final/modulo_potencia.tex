@@ -19,7 +19,7 @@ Claramente la desventaja que presentan los motores \emph{bipolares} frente a
 los \emph{unipolares} es que necesitan invertir el sentido de la corriente en
 sus bobinados, esto implica mayor complejidad en el circuito controlador.\
 Y en contra partida la mayor ventaja de los motores \emph{unipolares} radica
-(mas alla de la simpleza del circuito controlador) en que eran los mas
+(mas all\'a de la simpleza del circuito controlador) en que eran los mas
 usados\footnote{Y son mas faciles de encontrar en el mercado local} en la
 antiguas impresoras matriz de punto, lo cual es un beneficio mas que importante
 para este trabajo.\\
@@ -28,7 +28,7 @@ Para satisfacer los dos movimientos mec\'anicos necesarios (rotaci\'on del
 rodillo de papel y desplazamiento horizontal del cabezal) el dise\~no requiere
 controlar dos motores paso a paso unipolares individuales.\
 Entre los motores paso a paso \emph{unipolares}, los mas usados son los de
-cuatro fases, mas comunmente denominados \emph{motor de cinco cables}. La
+cuatro fases, mas com\'unmente denominados \emph{motor de cinco cables}. La
 figura \ref{fig:stepper_motor_5_wire} muestra simb\'olicamente la distribucion
 interna de los devanados de este tipo de motores.
 
@@ -41,8 +41,8 @@ interna de los devanados de este tipo de motores.
 \end{figure}
 
 Para lograr la rotaci\'on, cada bobina debe ser energizada de forma
-independiente y siguiendo una secuancia particular. El circuito de la figura
-\ref{fig:cir_single_coil} satisface los requisitos minimos para energizar una
+independiente y siguiendo una secuencia particular. El circuito de la figura
+\ref{fig:cir_single_coil} satisface los requisitos m\'inimos para energizar una
 \'unica bobina.
 
 \begin{figure}[htp]
@@ -60,7 +60,7 @@ conecta directamente a la bobina del motor, y esta puede ser de muy baja
 impedancia, el transistor de salida debe ser capaz de manejar corrientes altas,
 en este caso se hace uso de un \emph{TIP122}.\
 La figura \ref{fig:cir_single_coil_plot} muestra las diferentes tensiones que
-actuan en el circuito. 
+act\'uan en el circuito. 
 
 \begin{figure}[htp]
 \centering
@@ -72,5 +72,6 @@ paso unipolar.}
 
 Un motor paso a paso unipolar de cuatro fases tiene cuatro bobinas, para
 manejar los dos motores es necesario luego replicar ocho veces este circuito.
-El esquematico final se encuentra en el anexo en \fullref{cap:driver_schema}.\\
+El esquem\'atico final se encuentra en el anexo en
+\fullref{cap:driver_schema}.\\
 
