@@ -30,7 +30,7 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=42
-open=true
+open=false
 order=10
 
 [item:braille.tex]
@@ -39,7 +39,7 @@ column=42
 encoding=UTF-8
 highlight=LaTeX
 line=437
-open=true
+open=false
 order=13
 
 [item:conclusion.tex]
@@ -49,7 +49,7 @@ encoding=UTF-8
 highlight=LaTeX
 line=0
 open=true
-order=4
+order=1
 
 [item:diagnostico.tex]
 archive=true
@@ -57,26 +57,26 @@ column=35
 encoding=UTF-8
 highlight=LaTeX
 line=48
-open=true
+open=false
 order=9
 
 [item:driver.tex]
 archive=true
-column=46
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=45
+line=22
 open=true
-order=7
+order=2
 
 [item:economia.tex]
 archive=true
-column=3
+column=18
 encoding=UTF-8
 highlight=LaTeX
-line=220
+line=141
 open=true
-order=3
+order=5
 
 [item:final.kilepr]
 archive=true
@@ -93,7 +93,7 @@ column=23
 encoding=UTF-8
 highlight=LaTeX
 line=19
-open=true
+open=false
 order=11
 
 [item:impacto_social.tex]
@@ -102,7 +102,7 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=44
-open=true
+open=false
 order=12
 
 [item:main.tex]
@@ -110,7 +110,7 @@ archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
-line=49
+line=46
 open=true
 order=0
 
@@ -125,11 +125,11 @@ order=7
 
 [item:modulo_potencia.tex]
 archive=true
-column=20
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=75
-open=true
+line=64
+open=false
 order=5
 
 [item:modulo_procesamiento.tex]
@@ -138,7 +138,7 @@ column=46
 encoding=UTF-8
 highlight=LaTeX
 line=398
-open=true
+open=false
 order=6
 
 [item:modulos.tex]
@@ -147,7 +147,7 @@ column=12
 encoding=UTF-8
 highlight=LaTeX
 line=22
-open=true
+open=false
 order=1
 
 [item:panorama_general.tex]
@@ -156,17 +156,17 @@ column=23
 encoding=UTF-8
 highlight=LaTeX
 line=45
-open=true
+open=false
 order=16
 
 [item:portada.tex]
 archive=true
-column=39
+column=1
 encoding=UTF-8
 highlight=LaTeX
-line=38
-open=false
-order=2
+line=41
+open=true
+order=4
 
 [item:prologo.tex]
 archive=true
@@ -174,7 +174,7 @@ column=8
 encoding=UTF-8
 highlight=LaTeX
 line=17
-open=true
+open=false
 order=8
 
 [item:propuesta_tecnica.tex]
@@ -210,17 +210,17 @@ column=32
 encoding=UTF-8
 highlight=LaTeX
 line=100
-open=true
+open=false
 order=2
 
 [item:tecnologias_a_usar.tex]
 archive=true
-column=38
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=284
+line=114
 open=true
-order=17
+order=6
 
 [item:template.sty]
 archive=true
@@ -229,7 +229,7 @@ encoding=UTF-8
 highlight=LaTeX
 line=113
 open=true
-order=14
+order=3
 
 [item:usb.tex]
 archive=true
@@ -237,5 +237,5 @@ column=15
 encoding=UTF-8
 highlight=LaTeX
 line=748
-open=true
+open=false
 order=15
