@@ -20,7 +20,6 @@
 #include "errorsdrv.h"
 #include <assert.h>
 
-//Tamano de una pagina Braille impresa (630 bytes)
 #define TAM 3*WIDTH
 
 #if 1
@@ -33,7 +32,7 @@
 
 int main(int argc, char *argv[])
 {
-	int inicializo, j = 0, i, j1 = 0, j2 = 0;
+	int init, j = 0, i, j1 = 0, j2 = 0;
 	FILE *ascii;
 	char *brailleOut, brailleIn[64], car;
 	char file_name[512];
@@ -43,14 +42,13 @@ int main(int argc, char *argv[])
 	rec = 0x00;
 	rec2 = 0x00;
 
-//Codigos de inicializacion
+        /* Init USB */
+        init = start_usb();
 
-//      inicializo = start_usb();
-
-//      if (!inicializo) {
-//              errors(1);
-//              exit(EXIT_FAILURE);
-//      }
+        if (!init) {
+                 errors(1);
+                 exit(EXIT_FAILURE);
+        }
 
 	if (argc != 2)
 		if (getOpt("file-name", file_name)) {
@@ -63,47 +61,20 @@ int main(int argc, char *argv[])
 	else
 		ascii = fopen(file_name, "r");
 
-//        fclose(ascii);
 	braille = fopen("/tmp/braille", "w");
 
-//Codigo de programa
-	printf("Se escribieron \n");
 
-	code(ascii, braille);
+        /**
+         * Main loop sending and receving data
+         * by using
+         * j = usb_bulk_write(udev, WRITE2, &buff[0], 1, 500);      
+         * j1 = usb_bulk_read(udev, READ  , &rec2, 1, 500);
+         *
+         **/
 
-	//fill_buffer(ascii, brailleIn);
-
-	//for(j = 0; j < 30; j++)
-	//        fill_line(brailleOut, brailleIn, WIDTH);
-
-//j=usb_bulk_write(udev,WRITE2 ,&buff[0],1,500);      
-//j=usb_bulk_write(udev,WRITE2 ,&buff[1],1,500);      
-//j2= usb_clear_halt(udev,WRITE2);
-//do{
-//j= usb_bulk_write(udev,WRITE ,&buff[3],1,500);   
-//} while (j<0); 
-//j2= usb_clear_halt(udev,WRITE);
-//j1=usb_bulk_read(udev, READ  , &rec2, 1, 500);
-//j=  usb_bulk_write(udev,WRITE2 ,&buff[1],1,500);      
-//j= usb_bulk_write(udev,WRITE ,&buff[4],1,500);   
-//j2= usb_clear_halt(udev,WRITE);
-//j1= usb_bulk_read(udev, READ  , &rec2, 1, 500);
-
-	/*printf("Se escribieron %d %d\n", j, j1);
-
-	   printf("Se recibio en 1 = %02x \n", rec);
-	   printf("Se recibio en 2 = %02x\n", rec2);
-	   printf("Se recibio %d \n", j); */
-
-	//      while(rec[0] != sizeof(braille))
-//              leer_usb(udev,READ,rec,j,500);
-
-//      for( i=0; i<j; i++)
-//              printf("A  finalizado la impresion  --CODIGO %x \n",rec[i]);
-
-//Codigo de finalizacion
-//      if (inicializo)
-//              stop_usb();
+        /* Stop USB only if it was initializaed */
+        if (init)
+                stop_usb();
 
 	fclose(ascii);
 	fclose(braille);

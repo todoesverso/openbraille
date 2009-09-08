@@ -1,7 +1,6 @@
 /*   functions.h - The header for functions.c.
  *
- *  Copyright (C) 2008  Rosales Victor and German Sanguinetti.
- *  (todoesverso@gmail.com , german.sanguinetti@gmail.com)
+ *  Copyright (C) 2008  Rosales Victor (todoesverso@gmail.com)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
