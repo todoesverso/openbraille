@@ -46,3 +46,22 @@ for (bus = busses; bus; bus = bus->next) {
 Una limitaci\'on intr\'inseca de la librer\'ia es que se requiere abrir tantas
 instancias del dispositivo como interfaces se desee usar de \'el.\\
 
+Luego de esto, ya se ha inicializado la comunicaci\'on con el dispositivo USB,
+resta solo hacer uso de las funciones que la API provee para comunicarse con
+el mismo; estas son:
+
+\begin{lstlisting}
+int usb_bulk_write(usb_dev_handle *dev, int ep, const char *bytes, int size,
+int timeout);
+int usb_bulk_read(usb_dev_handle *dev, int ep, char *bytes, int size, int
+timeout);
+\end{lstlisting}
+
+Estas dos funciones son la \'unicas necesarias para llevar a cabo las tareas
+especificas que debe cumplir el driver.\\
+
+Tambi\'en como parte del trabajo se desarroll\'o un modulo para manejo de
+errores que hace uso de un peque\~no sintetizador de voz\footnote{V\'ease -
+\url{http://espeak.sourceforge.net/}} para decir los mensajes por los parlantes
+de la computadora. Este modulo es capaz de manejar varios idiomas. El c\'odigo
+del mismo se encuentra en el ap\'endice en \fullref{cap:errors}.
