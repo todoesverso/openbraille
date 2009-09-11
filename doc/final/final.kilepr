@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=conclusion.tex
+lastDocument=portada.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -26,10 +26,10 @@ order=2
 
 [item:anexo.tex]
 archive=true
-column=43
+column=8
 encoding=UTF-8
 highlight=LaTeX
-line=37
+line=44
 open=true
 order=10
 
@@ -44,10 +44,10 @@ order=13
 
 [item:conclusion.tex]
 archive=true
-column=22
+column=72
 encoding=UTF-8
 highlight=LaTeX
-line=15
+line=14
 open=true
 order=1
 
@@ -161,10 +161,10 @@ order=16
 
 [item:portada.tex]
 archive=true
-column=1
+column=16
 encoding=UTF-8
 highlight=LaTeX
-line=41
+line=39
 open=true
 order=4
 
