@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=portada.tex
+lastDocument=conclusion.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -33,6 +33,15 @@ line=44
 open=true
 order=10
 
+[item:bibliografia.tex]
+archive=true
+column=78
+encoding=UTF-8
+highlight=LaTeX
+line=28
+open=true
+order=11
+
 [item:braille.tex]
 archive=true
 column=42
@@ -44,10 +53,10 @@ order=13
 
 [item:conclusion.tex]
 archive=true
-column=72
+column=42
 encoding=UTF-8
 highlight=LaTeX
-line=14
+line=17
 open=true
 order=1
 
@@ -107,10 +116,10 @@ order=12
 
 [item:main.tex]
 archive=true
-column=0
+column=21
 encoding=UTF-8
 highlight=LaTeX
-line=46
+line=114
 open=true
 order=0
 
@@ -224,10 +233,10 @@ order=6
 
 [item:template.sty]
 archive=true
-column=0
+column=66
 encoding=UTF-8
 highlight=LaTeX
-line=113
+line=102
 open=true
 order=3
 
