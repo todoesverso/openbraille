@@ -26,10 +26,10 @@ order=2
 
 [item:anexo.tex]
 archive=true
-column=8
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=0
+line=1
 open=true
 order=6
 
@@ -44,28 +44,28 @@ order=11
 
 [item:braille.tex]
 archive=true
-column=8
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=0
+line=1
 open=true
 order=5
 
 [item:conclusion.tex]
 archive=true
-column=29
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=31
+line=34
 open=true
 order=13
 
 [item:diagnostico.tex]
 archive=true
-column=8
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=1
+line=0
 open=true
 order=3
 
@@ -80,10 +80,10 @@ order=2
 
 [item:economia.tex]
 archive=true
-column=8
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=0
+line=1
 open=true
 order=4
 
@@ -98,19 +98,19 @@ order=-1
 
 [item:impacto_ambiental.tex]
 archive=true
-column=8
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=0
+line=1
 open=true
 order=7
 
 [item:impacto_social.tex]
 archive=true
-column=8
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=0
+line=1
 open=true
 order=8
 
@@ -152,16 +152,16 @@ order=7
 
 [item:modulos.tex]
 archive=true
-column=12
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=22
+line=1
 open=true
 order=9
 
 [item:panorama_general.tex]
 archive=true
-column=8
+column=26
 encoding=UTF-8
 highlight=LaTeX
 line=0
@@ -182,7 +182,7 @@ archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
-line=5
+line=1
 open=true
 order=11
 
@@ -224,10 +224,10 @@ order=2
 
 [item:tecnologias_a_usar.tex]
 archive=true
-column=8
+column=73
 encoding=UTF-8
 highlight=LaTeX
-line=0
+line=127
 open=true
 order=12
 
@@ -242,9 +242,9 @@ order=1
 
 [item:usb.tex]
 archive=true
-column=9
+column=28
 encoding=UTF-8
 highlight=LaTeX
 line=0
-open=false
-order=9
+open=true
+order=14
