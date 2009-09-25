@@ -53,10 +53,10 @@ order=5
 
 [item:conclusion.tex]
 archive=true
-column=0
+column=77
 encoding=UTF-8
 highlight=LaTeX
-line=34
+line=37
 open=true
 order=13
 
