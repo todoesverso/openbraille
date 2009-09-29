@@ -152,13 +152,14 @@ mercado local.} en el pa\'is son el \emph{18F2550} y el \emph{18F4550}. La
 tabla \ref{tab:table_12_14} muestra las principales caracter\'isticas de ambos
 microcontroladores.
 
-\begin{table}[htp]
-\begin{scriptsize}
+\begin{table}[ht]
+%\begin{scriptsize}
 \centering
 % use packages: array,booktabs
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}|l|c|c|} \hline
- \rowcolor[gray]{.9}
- & 18F2550 & 18F4550 												\\ \hline 
+\scalebox{0.7}{
+\begin{tabular}{|r|c|c|} %{\textwidth}{@{\extracolsep{\fill}}|l|l|l|} \hline
+\hline
+ &\cellcolor[gray]{.9}18F2550&\cellcolor[gray]{.9}18F4550			\\ \hline 
  Program Memory Type & Flash & Flash								\\ \hline
  Program Memory (KB) & 32 & 32										\\ \hline
  CPU Speed (MIPS) & 12 & 12											\\ \hline
@@ -175,10 +176,10 @@ microcontroladores.
  Temperature Range (C) & -40 to 85 & -40 to 85  					\\ \hline
  Operating Voltage Range (V) & 2 to 5.5 & 2 to 5.5					\\ \hline
  Pin Count & 28 & 40												\\ \hline
-\end{tabular*}
+\end{tabular}}
 \caption{Comparaci\'on PIC18F2550 y PIC18F4550} 
 \label{tab:table_12_14}
-\end{scriptsize}
+%\end{scriptsize}
 \end{table}
 
 
