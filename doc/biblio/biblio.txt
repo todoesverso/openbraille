@@ -14,7 +14,7 @@ file = doc/biblio/doxygen_manual-1.5.6.pdf
 ####################
 titulo = PIC18F2455/2550/4455/4550 Data sheet (1/30/2007) 
 url = http://ww1.microchip.com/downloads/en/DeviceDoc/39632D.pdf
-lic = © 2007 Microchip Technology Inc.
+lic = (R) 2007 Microchip Technology Inc.
 file = doc/biblio/39632D.pdf
 ####################
 titulo = USB in a Nutshell. Making Sense of the USB Standard.
@@ -22,7 +22,7 @@ url = http://www.beyondlogic.org/usbnutshell/usb-in-a-nutshell.pdf
 lic = Copyright 2002, Craig Peacock (Craig.Peacock@beyondlogic.org)
 file = doc/bilbio/usb-in-a-nutshell.pdf
 ####################
-titulo =  La introducción no-tan-corta a LATEX
+titulo =  La introduccion no-tan-corta a LATEX
 url = http://ctan.binkerton.com/info/lshort/spanish/lshort.pdf
 lic = GPLv2
 file = doc/biblio/lshort.pdf
@@ -32,4 +32,28 @@ url = http://www.unc.edu.ar/institucional/periodicohoylauniversidad/2008/numero-
 # http://www.unc.edu.ar/institucional/periodicohoylauniversidad/ultimaedicion
 lic = #Averiguar
 file = HoylaUniversidad-46.pdf
+####################
+titulo = DOTSYS III: A Portable Program for Braille Translation. Rev. 1.
+url = http://www.eric.ed.gov/ERICWebPortal/contentdelivery/servlet/ERICServlet?accno=ED119734
+lic = #Averiguar
+file = bd.pdf 
+date= 1975-10-02
+####################
+titulo = Transcription of "In Darkness" via DOTSYS III and the BRAILLEMBOSS.
+url = http://www.eric.ed.gov/ERICWebPortal/contentdelivery/servlet/ERICServlet?accno=ED074661
+lic = #Averiguar
+file = 36.pdf
+date = 1972-11-07
+####################
+titulo = EVALUATION AND DEVELOPMENT OF SENSORY AIDS AND DEVICES. FINAL REPORT. (TITLE SUPPLIED)
+url = http://www.eric.ed.gov/ERICWebPortal/contentdelivery/servlet/ERICServlet?accno=ED015609
+lic = #Averiguar
+file = c6.pdf
+date = 1967-04-03
+####################
+titulo = Accomplishments, Administrative Structure, and Activities of the Sensory Aids Evaluation and Development Center. Annual Report
+url = http://www.eric.ed.gov/ERICWebPortal/contentdelivery/servlet/ERICServlet?accno=ED028578
+lic = #Avergiguar
+file = d3-1.pdf
+date = 1967-00-00
 ####################
