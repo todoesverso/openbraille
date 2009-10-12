@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=mercado_de_impresoras_braille.tex
+lastDocument=economia.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -62,10 +62,10 @@ order=4
 
 [item:diagnostico.tex]
 archive=true
-column=0
+column=73
 encoding=UTF-8
 highlight=LaTeX
-line=1
+line=2
 open=true
 order=5
 
@@ -80,10 +80,10 @@ order=2
 
 [item:economia.tex]
 archive=true
-column=71
+column=15
 encoding=UTF-8
 highlight=LaTeX
-line=202
+line=29
 open=true
 order=3
 
@@ -125,10 +125,10 @@ order=0
 
 [item:mercado_de_impresoras_braille.tex]
 archive=true
-column=0
+column=45
 encoding=UTF-8
 highlight=LaTeX
-line=75
+line=0
 open=true
 order=6
 
@@ -224,12 +224,12 @@ order=5
 
 [item:software_libre.tex]
 archive=true
-column=29
+column=64
 encoding=UTF-8
 highlight=LaTeX
-line=46
-open=false
-order=4
+line=99
+open=true
+order=7
 
 [item:tecnologias_a_usar.tex]
 archive=true
