@@ -269,13 +269,13 @@ Sync & PID & EOP\\ \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\section{Enpoints}\label{cap:usb_endpoints}
+\section{Endpoints}\label{cap:usb_endpoints}
 Un aspecto muy importante del est\'andar USB es la forma en la que se logra la
 comunicaci\'on entre el host y el dispositivo.
 Un \emph{endpoint} es un buffer \'unico que define la punta extrema de un
 canal de comunicaci\'on. La identificaci\'on de un endpoint en particular se
 lleva a cabo mediante un campo de 4 bits permitiendo un m\'aximo de 16
-endpoints. Cada enpoint funciona como emisor o receptor de datos como se ve en
+endpoints. Cada endpoint funciona como emisor o receptor de datos como se ve en
 la figura \ref{fig:usb_endpoints}.
 
 \begin{figure}[htp]
@@ -291,7 +291,7 @@ el campo \emph{ADDR} si el pedido esta dirigido hacia \'el, y luego copiar\'a
 el dato en el endpoint correspondiente al que indica el campo \emph{ENDP}, que
 luego podr\'a ser le\'ido por la aplicaci\'on embebida en el dispositivo.\\
 
-El enpoint 0 debe existir en todos los dispositivos, ya cumple la funci\'on
+El endpoint 0 debe existir en todos los dispositivos, ya cumple la funci\'on
 espec\'ifica de realizar el handshaking y todo el control en una
 comunicaci\'on USB. 
 
@@ -378,7 +378,7 @@ alimentaci\'on y el n\'umero de interfaces configuradas del dispositivo.
  \item Interface: Este descriptor puede ser visto como una cabecera con
 informaci\'on sobre un grupo de endpoints.
 
- \item Enpoint: Este descriptor posee toda la informaci\'on necesaria para
+ \item Endpoint: Este descriptor posee toda la informaci\'on necesaria para
 caracterizar cada endpoint. Entre otras cosas aqu\'i se define el tipo de
 transferencia que usa el endpoint (bulk, interrupt, isochronous, control), el
 tama\~no de los paquetes, etc. El endpoint 0 siempre es considerado de control
@@ -589,13 +589,13 @@ registro se puede leer:
 \begin{itemize}
  \item Informaci\'on de transacciones en el buffer de ping-pong
 
- \item N\'umero de enpoint en el que se realiz\'o la \'ultima transacci\'on
+ \item N\'umero de endpoint en el que se realiz\'o la \'ultima transacci\'on
 
  \item Direcci\'on de la ultima transacci\'on (\emph{IN o OUT 'token'})
 \end{itemize}
 
 \'Este registro posee un stack del tipo \emph{FIFO} de cuatro niveles que
-permite al \emph{SIE} procesar otras transacciones en otros enpoints mientras
+permite al \emph{SIE} procesar otras transacciones en otros endpoints mientras
 el microcontrolador procesa la informaci\'on que se encuentra actualmente en
 el registro \emph{USTAT}, como se puede apreciar en la figura
 \ref{fig:ustat_fifo}.
@@ -611,8 +611,8 @@ el registro \emph{USTAT}, como se puede apreciar en la figura
 \subsubsection{UEPn}
 Los registros \emph{UEPn} \footnote{Para m\'as detalles referirse a la hoja de
 datos del dispositivo p\'agina 169} contiene la
-configuraci\'on de cada uno de los 16 enpoints. La letra 'n' representa el
-n\'umero del enpoint.
+configuraci\'on de cada uno de los 16 endpoints. La letra 'n' representa el
+n\'umero del endpoint.
 Mediante estos registros se puede configurar, para cada endpoint
 individualmente, los siguientes par\'ametros:
 
@@ -623,7 +623,7 @@ individualmente, los siguientes par\'ametros:
 
  \item Activar o desactivar la direcci\'on (\emph{IN o OUT})
 
- \item Poner el enpoint en modo \emph{STALL}
+ \item Poner el endpoint en modo \emph{STALL}
 \end{itemize}
 
 

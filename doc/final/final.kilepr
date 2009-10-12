@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=software_libre.tex
+lastDocument=mercado_de_impresoras_braille.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -21,15 +21,15 @@ column=16
 encoding=UTF-8
 highlight=LaTeX
 line=6
-open=true
+open=false
 order=3
 
 [item:anexo.tex]
 archive=true
-column=1
+column=10
 encoding=UTF-8
 highlight=LaTeX
-line=60
+line=8
 open=true
 order=2
 
@@ -44,10 +44,10 @@ order=11
 
 [item:braille.tex]
 archive=true
-column=0
+column=48
 encoding=UTF-8
 highlight=LaTeX
-line=419
+line=217
 open=true
 order=1
 
@@ -58,16 +58,16 @@ encoding=UTF-8
 highlight=LaTeX
 line=39
 open=true
-order=6
+order=4
 
 [item:diagnostico.tex]
 archive=true
-column=29
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=33
-open=false
-order=3
+line=1
+open=true
+order=5
 
 [item:driver.tex]
 archive=true
@@ -85,7 +85,7 @@ encoding=UTF-8
 highlight=LaTeX
 line=202
 open=true
-order=8
+order=3
 
 [item:final.kilepr]
 archive=true
@@ -116,12 +116,21 @@ order=8
 
 [item:main.tex]
 archive=true
-column=13
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=67
+line=25
 open=true
 order=0
+
+[item:mercado_de_impresoras_braille.tex]
+archive=true
+column=0
+encoding=UTF-8
+highlight=LaTeX
+line=75
+open=true
+order=6
 
 [item:mercado_software.tex]
 archive=true
@@ -179,12 +188,12 @@ order=2
 
 [item:prologo.tex]
 archive=true
-column=0
+column=8
 encoding=UTF-8
 highlight=LaTeX
-line=1
+line=12
 open=false
-order=11
+order=6
 
 [item:propuesta_tecnica.tex]
 archive=true
@@ -219,17 +228,17 @@ column=29
 encoding=UTF-8
 highlight=LaTeX
 line=46
-open=true
-order=7
+open=false
+order=4
 
 [item:tecnologias_a_usar.tex]
 archive=true
-column=2
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=209
-open=true
-order=4
+line=154
+open=false
+order=7
 
 [item:template.sty]
 archive=true
@@ -242,9 +251,9 @@ order=1
 
 [item:usb.tex]
 archive=true
-column=17
+column=10
 encoding=UTF-8
 highlight=LaTeX
-line=424
-open=true
+line=380
+open=false
 order=5
