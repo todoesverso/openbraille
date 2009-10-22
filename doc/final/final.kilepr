@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=panorama_general.tex
+lastDocument=tecnologias_a_usar.tex
 masterDocument=main.tex
 name=final
 pkg_extIsRegExp=false
@@ -233,12 +233,12 @@ order=7
 
 [item:tecnologias_a_usar.tex]
 archive=true
-column=0
+column=37
 encoding=UTF-8
 highlight=LaTeX
-line=154
-open=false
-order=7
+line=127
+open=true
+order=13
 
 [item:template.sty]
 archive=true

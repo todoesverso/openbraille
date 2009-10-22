@@ -8,7 +8,7 @@ Implementadores de USB} (USB Implementers Forum, USB-IF\footnote{V\'ease -
 http://www.usb.org/about}). 
 Actualmente el est\'andar se encuentra en su versi\'on 3.0\footnote{V\'ease -
 http://www.usb.org/developers/docs/}, aunque la mayor\'ia de las
-implementaciones comerciales solo soportan el ent\'andar \emph{2.0}.
+implementaciones comerciales solo soportan el est\'andar \emph{2.0}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -19,7 +19,7 @@ implementaciones comerciales solo soportan el ent\'andar \emph{2.0}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\section{Decripci\'on}
+\section{Descripci\'on}
 % Aca iria el funcionamiento del USB, diferenciado por \subsection{}
 % Por ahora me estoy basando en la spec 2.0 oficial.
 La especificaci\'on USB provee una serie de atributos con los cuales se pueden
@@ -43,11 +43,11 @@ agruparlas en ocho categor\'ias:
 \end{itemize}
 
 La combinaci\'on de estas caracter\'isticas hacen a la versatilidad del
-ent\'andar, ya que permiten implementar todo tipo de dispositivos seg\'un la
+est\'andar, ya que permiten implementar todo tipo de dispositivos seg\'un la
 carga, versatilidad, eficiencia, precio, velocidad y dem\'as atributos que
-puedan inferir en un diese\~no.\\
+puedan inferir en un dise\~no.\\
 
-Para la veri\'on 2.0 de la epecificaci\'on, el protocolo soporta tres
+Para la versi\'on 2.0 de la especificaci\'on, el protocolo soporta tres
 velocidades de transmisi\'on como se muestra en la
 tabla \ref{tab:velocidad_usb}.
 
@@ -100,11 +100,11 @@ Al ser un par diferencial, el host interpreta un \emph{1} diferencial cuando D+
 es 200 mV mayor que D- y un \emph{0} diferencial cuando D- es 200 mV mayor que
 D+. 
 Los dispositivos USB indican su velocidad mediante una resistencia de
-\emph{pull-up} a 3.3 V. En el caso de un \emph{full speed device} se col\'oca
+\emph{pull-up} a 3.3 V. En el caso de un \emph{full speed device} se coloca
 una resistencia de 1.5K en D+ a 3.3 V, y para \emph{low speed device} se coloca
 una resistencia de 1.5K a 3.3 V, como se muestra en la figura
 \ref{fig:electric_speed_usb}.
-Algunos fabricantes sulen integrar estas resistencias de \emph{pull-up} dentro
+Algunos fabricantes suelen integrar estas resistencias de \emph{pull-up} dentro
 de sus \emph{chips} para ser activadas mediante software.
 
 \begin{figure}[htp]
@@ -147,8 +147,8 @@ de la topolog\'ia.
 \subsection{\emph{Host} USB}
 
 La especificaci\'on admite un solo \emph{Host} para un todo sistema USB. La
-interf\'az USB del \emph{host}, se la denomina \emph{Host
-Controller}\footnote{Al igual que con \emph{host}, esta palabra se mantedr\'a
+interfaz USB del \emph{host}, se la denomina \emph{Host
+Controller}\footnote{Al igual que con \emph{host}, esta palabra se mantendr\'a
 en ingles.}. La implementaci\'on de un \emph{Host Controller} puede ser una
 combinaci\'on de hardware, firmware o software. El \emph{hub} ra\'iz esta
 integrado en el sistema \emph{host}, proveyendo puntos de acceso.
@@ -358,7 +358,7 @@ la figura \ref{fig:usb_bulk_transaction}.
 \section{Descriptores USB}
 % Revisar pagina 240 de la spec usb 2.0 gr\'afico de estados para agregar
 % Agregar proceso de enumeraci\'on de la spec pag 243	
-Los descriptores USB son estructuras de datos con formatos especif\'icos, en
+Los descriptores USB son estructuras de datos con formatos espec\'ificos, en
 los cuales se almacena todos los atributos del dispositivo.
 Cada descriptor comienza con un campo donde se almacena el tama\~no de dicho
 descriptor, seguido inmediatamente por un campo que identifica el tipo de
@@ -583,7 +583,7 @@ controla:
 \subsubsection{USTAT}
 El registro \emph{USTAT} \footnote{Para m\'as detalles referirse a la hoja de
 datos del dispositivo p\'agina 168} contiene la
-informaci\'ion espec\'ifica de la \'ultima transferencia recibida. De \'este
+informaci\'on espec\'ifica de la \'ultima transferencia recibida. De \'este
 registro se puede leer:
 
 \begin{itemize}
@@ -719,7 +719,7 @@ transmitir\'a al host.\\
 
 En cuanto a los registros \emph{BDnADRL} y \emph{BDnADRH} poseen la
 direcci\'on de USB RAM de los endpoints. El microcontrolador no posee ning\'un
-mecanismo intr\'inseco que valide dicha direcc\'ion, lo cual deber\'ia hacerse
+mecanismo intr\'inseco que valide dicha direcci\'on, lo cual deber\'ia hacerse
 mediante software.\\
 
 \subsubsection{Modo SIE}
@@ -746,6 +746,6 @@ definido en este registro autom\'aticamente se emite una se\~nal del tipo
 \emph{NAK}. Cuando se hace un \emph{IN}, el \emph{SIE} actualiza este registro
 con la cantidad de datos enviados.\
 Con este m\'etodo es posible luego hacer chequeos del resultado verdadero de
-las transacci\'ones USB. 
+las transacciones USB. 
 
 
