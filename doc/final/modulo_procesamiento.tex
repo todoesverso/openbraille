@@ -144,7 +144,7 @@ endpoints\footnote{V\'ease \fullref{cap:usb_endpoints}} bidireccionales, uno
 dedicado exclusivamente al env\'io de datos (endpoint 1 o EP1) y otro para
 enviar
 instrucciones y recibir resultados (endpoint 2 o EP2). La figura
-\ref{fig:driver_eps_firmware} muestra la comunicaci\'on mediante endpoints.
+\ref{fig:driver_eps_firmware} muestra la comunicaci\'on mediante endpoints.\\
 
 
 \begin{figure}[htp]
@@ -364,7 +364,7 @@ fases.}
 
 Es posible combinar ambas secuencias para obtener incrementos de medio paso
 como se ve en la tabla \ref{tab:seq_motors_2}, de esta manera se obtiene una
-mejor precisi\'on en la rotaci\'on del motor.
+mejor precisi\'on en la rotaci\'on del motor.\\
 
 \begin{table}[htp]
 \centering
@@ -381,7 +381,8 @@ fases.}
 \label{tab:seq_motors_2}
 \end{table}
 
-
+Luego con el sencillo c\'odigo que se muestra a continuaci\'on se logra
+manejar ambos motores independientemente.
 
 \clearpage
 \begin{lstlisting}

@@ -291,9 +291,9 @@ el campo \emph{ADDR} si el pedido esta dirigido hacia \'el, y luego copiar\'a
 el dato en el endpoint correspondiente al que indica el campo \emph{ENDP}, que
 luego podr\'a ser le\'ido por la aplicaci\'on embebida en el dispositivo.\\
 
-El endpoint 0 debe existir en todos los dispositivos, ya cumple la funci\'on
-espec\'ifica de realizar el handshaking y todo el control en una
-comunicaci\'on USB. 
+El endpoint 0 debe existir en todos los dispositivos, ya que cumple la
+funci\'on espec\'ifica de realizar el \emph{handshaking} y todo el control en
+una comunicaci\'on USB. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -334,7 +334,7 @@ determina el \'exito o no de la operaci\'on.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bulk}
 Las transferencias tipo \emph{bulk}, son usadas para transmisi\'on de grandes
-pedazos de datos. \'Este tipo transferencias provee correcci\'on de datos
+pedazos de datos. \'Este tipo de transferencias provee correcci\'on de datos
 con un campo \emph{CRC} de 16 bits y un mecanismo de detecci\'on y
 re-trasmisi\'on de errores para asegurar la integridad de los mismos.\\
 
@@ -678,7 +678,7 @@ componen de 4 registros:
  \item BDnADRL: Direcci\'on baja del BD
 \end{itemize}
 
-\'Esta disposici\'on se puede apreciar mejor en la figura \ref{fig:pic_bdt}.
+Esta disposici\'on se puede apreciar mejor en la figura \ref{fig:pic_bdt}.
 
 % Datasheet pag 171
 \begin{figure}[htp]
@@ -690,10 +690,10 @@ componen de 4 registros:
 
 \subsection{BDn}
 Los \emph{BDs} se componen de 4 registros (o bytes) por lo que cada
-\emph{BDnSTAT} se encuentra siempre siempre a 4n-1 bytes de distancia de la
+\emph{BDnSTAT} se encuentra siempre a 4n-1 bytes de distancia de la
 direcci\'on 400h.\\
 
-\'Este registro tiene la particularidad de poseer un comportamiento que
+Este registro tiene la particularidad de poseer un comportamiento que
 depende de su contexto.
 
 \subsubsection{Modo CPU}
